@@ -10,16 +10,16 @@ import fr.jrx.lightningtalk.domaine.Shop;
 
 @Controller
 @RequestMapping("/test")
-public class JSONController {
-
+public class TestController {
+    
     @RequestMapping(value = "{name}", method = RequestMethod.GET)
     public @ResponseBody
-    Shop getShopInJSON(@PathVariable String name) {
+    Shop getShop(@PathVariable String name) {
         Shop shop = new Shop();
         shop.setName(name);
-        shop.setStaffName(new String[] { "mkyong1", "mkyong2" });
+        shop.setStaffName(new String[] {"mkyong1", "mkyong2"});
         return shop;
-
+        
     }
-
+    
 }
