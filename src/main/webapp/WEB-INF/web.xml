@@ -16,7 +16,7 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>fr.jrx.lightningtalk.domaine</param-value>
+		<param-value>fr.atbdx.lightningtalk.domaine</param-value>
 	</context-param>
 
 	<listener>
@@ -34,7 +34,7 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 		</init-param>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>fr.jrx.lightningtalk.web</param-value>
+			<param-value>fr.atbdx.lightningtalk.web</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>

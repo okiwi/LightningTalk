@@ -1,4 +1,4 @@
-package fr.jrx.lightningtalk.domaine;
+package fr.atbdx.lightningtalk.domaine;
 
 public class Shop {
 

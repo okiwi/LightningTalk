@@ -1,4 +1,4 @@
-package fr.jrx.lightningtalk.web;
+package fr.atbdx.lightningtalk.web;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +21,7 @@ public class ConfigurationWeb extends WebMvcConfigurerAdapter {
     
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/").setCachePeriod(UNE_JOURNEE_EN_SECONDE);
+        registry.addResourceHandler("/ressources/**").addResourceLocations("/ressources/").setCachePeriod(UNE_JOURNEE_EN_SECONDE);
     }
     
     @Bean

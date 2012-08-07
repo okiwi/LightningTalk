@@ -1,4 +1,4 @@
-package fr.jrx.lightningtalk.domaine;
+package fr.atbdx.lightningtalk.domaine;
 
 import org.springframework.context.annotation.Configuration;
 

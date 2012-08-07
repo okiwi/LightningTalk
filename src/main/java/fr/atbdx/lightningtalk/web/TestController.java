@@ -1,4 +1,4 @@
-package fr.jrx.lightningtalk.web;
+package fr.atbdx.lightningtalk.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import fr.jrx.lightningtalk.domaine.Shop;
+import fr.atbdx.lightningtalk.domaine.Shop;
 
 @Controller
 @RequestMapping("/test")
