@@ -40,9 +40,8 @@ body {
 					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> <i class="icon-user"></i> Username <span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a href="#">Profile</a></li>
 						<li class="divider"></li>
-						<li><a href="#">Sign Out</a></li>
+						<li><a href="authentification/google"> Connexion</a></li>
 					</ul>
 				</div>
 				<div class="nav-collapse">
@@ -65,7 +64,7 @@ body {
 						<li class="nav-header">Sidebar</li>
 						<li class="active"><a href="#">Link</a></li>
 						<li><a href="#">Link</a></li>
-						
+
 					</ul>
 				</div>
 				<!--/.well -->
