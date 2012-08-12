@@ -25,7 +25,7 @@ import com.google.api.services.plus.model.Person;
 public class Authentification {
 
     private static final String CLIENT_SECRET = "hVorhxkqTrUt8Qj4Gkctl4yi";
-    private static final String URL_DE_REDIRECTION = "http://localhost:8080/LightningTalk/authentification/google/retour";
+    private static final String URL_DE_REDIRECTION = "http://lightningtalk.herokuapp.com/authentification/google/retour";
     private static final String CLIENT_ID = "1073813811256.apps.googleusercontent.com";
 
     @RequestMapping(value = "/google", method = RequestMethod.GET)
