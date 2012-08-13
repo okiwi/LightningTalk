@@ -41,7 +41,7 @@ body {
 					</a>
 					<ul class="dropdown-menu">
 						<li class="divider"></li>
-						<li><a href="authentification/externe"> Connexion</a></li>
+						<li><a href="authentification/externe"> Connexion</a> ${accessToken}</li>
 					</ul>
 				</div>
 				<div class="nav-collapse">
