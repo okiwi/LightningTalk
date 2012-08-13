@@ -16,7 +16,7 @@ public class ControlleurAuthentificationTest {
     @Test
     public void demanderAuthentificationExterne() {
         EntrepotUtilisateur entrepotUtilisateur = mock(EntrepotUtilisateur.class);
-        when(entrepotUtilisateur.recupererLaPageDAutenthification()).thenReturn("urlExterne");
+        when(entrepotUtilisateur.recupererLURLDuServiceDAuthentificationExterne()).thenReturn("urlExterne");
         ControlleurAuthentification controlleurAuthentification = new ControlleurAuthentification(entrepotUtilisateur);
 
         String urlDAuthentificationExterne = controlleurAuthentification.demanderAuthentificationExterne();
