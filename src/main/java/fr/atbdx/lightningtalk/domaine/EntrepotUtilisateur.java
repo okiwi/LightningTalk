@@ -8,4 +8,6 @@ public interface EntrepotUtilisateur {
 
     void authentifier(String code, String codeErreur) throws IOException;
 
+    Utilisateur recupererUtilisateurCourant() throws IOException;
+
 }

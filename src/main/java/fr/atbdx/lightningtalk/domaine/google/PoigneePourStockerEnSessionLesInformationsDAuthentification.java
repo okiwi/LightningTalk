@@ -8,17 +8,17 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
 
 @Component
 @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
-public class PoigneePourStockerEnSessionLeCredentialGoogle {
+public class PoigneePourStockerEnSessionLesInformationsDAuthentification {
 
-    private CredentialGoogle credentialGoogle;
+    private InformationsDAuthentification informationsDAuthentification;
 
     public void creer(GoogleTokenResponse googleTokenResponse) {
-        this.credentialGoogle = new CredentialGoogle(googleTokenResponse);
+        this.informationsDAuthentification = new InformationsDAuthentification(googleTokenResponse);
 
     }
 
-    public CredentialGoogle recuperer() {
-        return credentialGoogle;
+    public InformationsDAuthentification recuperer() {
+        return informationsDAuthentification;
     }
 
 }

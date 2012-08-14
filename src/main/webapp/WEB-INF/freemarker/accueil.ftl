@@ -37,12 +37,22 @@ body {
 				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
 				</a> <a class="brand" href="#">Project name</a>
 				<div class="btn-group pull-right">
-					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> <i class="icon-user"></i> Username <span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li class="divider"></li>
-						<li><a href="authentification/externe"> Connexion</a> ${accessToken}</li>
-					</ul>
+					<#if utilisateur??>
+					  	<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> <i class="icon-user"></i>
+					  	 ${utilisateur.nomAffiche} <span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li class="divider"></li>
+							<li><a href=""> Deconnexion</a></li>
+						</ul>
+					<#else>
+						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> <i class="icon-user"></i> <span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li class="divider"></li>
+							<li><a href="authentification/externe"> Connexion</a></li>
+						</ul>
+					</#if>
 				</div>
 				<div class="nav-collapse">
 					<ul class="nav">

@@ -1,41 +1,45 @@
 package fr.atbdx.lightningtalk.tests.web;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
 
+import org.junit.Before;
 import org.junit.Test;
 
-import fr.atbdx.lightningtalk.domaine.EntrepotUtilisateur;
-import fr.atbdx.lightningtalk.domaine.google.EntrepotUtilisateurGoogle;
+import fr.atbdx.lightningtalk.doublures.domaine.FakeEntrepotUtilisateur;
+import fr.atbdx.lightningtalk.doublures.domaine.google.FakeConnecteurGoogle;
 import fr.atbdx.lightningtalk.web.ControlleurAuthentification;
 
 public class ControlleurAuthentificationTest {
 
+    private static final String CODE_ERREUR = "codeErreur";
+    private static final String CODE = "code";
+    private FakeEntrepotUtilisateur entrepotUtilisateur;
+    private ControlleurAuthentification controlleurAuthentification;
+
+    @Before
+    public void avantLesTests() {
+        entrepotUtilisateur = new FakeEntrepotUtilisateur();
+        controlleurAuthentification = new ControlleurAuthentification(entrepotUtilisateur);
+    }
+
     @Test
     public void demanderAuthentificationExterne() {
-        EntrepotUtilisateur entrepotUtilisateur = mock(EntrepotUtilisateur.class);
-        when(entrepotUtilisateur.recupererLURLDuServiceDAuthentificationExterne()).thenReturn("urlExterne");
-        ControlleurAuthentification controlleurAuthentification = new ControlleurAuthentification(entrepotUtilisateur);
 
         String urlDAuthentificationExterne = controlleurAuthentification.demanderAuthentificationExterne();
 
-        verify(entrepotUtilisateur).recupererLURLDuServiceDAuthentificationExterne();
-        assertThat(urlDAuthentificationExterne, is("redirect:urlExterne"));
+        assertThat(urlDAuthentificationExterne, is("redirect:" + FakeConnecteurGoogle.URL_DU_SERVICE_D_AUTHENTIFICATION_EXTERNE));
     }
 
     @Test
     public void authentification() throws IOException {
-        EntrepotUtilisateur entrepotUtilisateur = mock(EntrepotUtilisateur.class);
-        ControlleurAuthentification controlleurAuthentification = new ControlleurAuthentification(entrepotUtilisateur);
 
-        String urlDAuthentificationExterne = controlleurAuthentification.authentification("code", "codeErreur");
+        String urlDAuthentificationExterne = controlleurAuthentification.authentification(CODE, CODE_ERREUR);
 
-        verify(entrepotUtilisateur).authentifier("code", "codeErreur");
+        assertThat(entrepotUtilisateur.codePasserPourAuthentifier, is(CODE));
+        assertThat(entrepotUtilisateur.codeErreurPasserPourAuthentifier, is(CODE_ERREUR));
         assertThat(urlDAuthentificationExterne, is("redirect:accueil"));
     }
 
