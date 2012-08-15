@@ -40,7 +40,7 @@ public class ControlleurAuthentificationTest {
 
         assertThat(entrepotUtilisateur.codePasserPourAuthentifier, is(CODE));
         assertThat(entrepotUtilisateur.codeErreurPasserPourAuthentifier, is(CODE_ERREUR));
-        assertThat(urlDAuthentificationExterne, is("redirect:accueil"));
+        assertThat(urlDAuthentificationExterne, is("redirect:/"));
     }
 
 }

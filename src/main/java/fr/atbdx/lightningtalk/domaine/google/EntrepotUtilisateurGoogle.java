@@ -41,7 +41,7 @@ public class EntrepotUtilisateurGoogle implements EntrepotUtilisateur {
             utilisateur = null;
         } else {
             Person person = connecteurGoogle.recupererPersonDepuisGoogle(informationsDAuthentification);
-            utilisateur = new Utilisateur(person);
+            utilisateur = new UtilisateurGoogle(person);
         }
         return utilisateur;
     }

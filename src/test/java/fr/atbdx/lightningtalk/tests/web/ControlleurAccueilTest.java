@@ -10,8 +10,8 @@ import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 
 import fr.atbdx.lightningtalk.domaine.Utilisateur;
+import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesUtilisateurs;
 import fr.atbdx.lightningtalk.doublures.domaine.FakeEntrepotUtilisateur;
-import fr.atbdx.lightningtalk.doublures.domaine.google.AidePourLAuthentification;
 import fr.atbdx.lightningtalk.web.ControlleurAccueil;
 
 public class ControlleurAccueilTest {
@@ -36,11 +36,11 @@ public class ControlleurAccueilTest {
 
     @Test
     public void valoriserAccueilAuthentifie() throws IOException {
-        entrepotUtilisateur.utilisateurCourantARetourner = AidePourLAuthentification.UTILISATEUR;
+        entrepotUtilisateur.utilisateurCourantARetourner = AidePourLesUtilisateurs.UTILISATEUR;
 
         ModelAndView valorisation = controlleurAccueil.valoriserAccueil();
 
         assertThat(valorisation.getViewName(), is("accueil"));
-        assertThat((Utilisateur) valorisation.getModel().get("utilisateur"), is(AidePourLAuthentification.UTILISATEUR));
+        assertThat((Utilisateur) valorisation.getModel().get("utilisateur"), is(AidePourLesUtilisateurs.UTILISATEUR));
     }
 }
