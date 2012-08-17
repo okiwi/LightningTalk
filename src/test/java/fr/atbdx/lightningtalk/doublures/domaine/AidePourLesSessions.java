@@ -1,6 +1,7 @@
 package fr.atbdx.lightningtalk.doublures.domaine;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 import org.apache.commons.lang3.StringUtils;
@@ -21,6 +22,7 @@ public class AidePourLesSessions {
     }
 
     public static void verifierAvecSuffixe(Session session, String suffixe) {
+        assertThat(session, notNullValue());
         assertThat(session.getTitre(), is(TITRE_DE_LA_SESSION + suffixe));
         assertThat(session.getDescription(), is(DESCRIPTION_DE_LA_SESSION + suffixe));
         AidePourLesUtilisateurs.verifierAvecSuffixe(session.getOrateur(), suffixe);

@@ -27,7 +27,7 @@ public class ControlleurAccueil {
         valorisation.setViewName("accueil");
         Utilisateur utilisateurCourant = entrepotUtilisateur.recupererUtilisateurCourant();
         if (utilisateurCourant != null) {
-            valorisation.addObject(utilisateurCourant);
+            valorisation.addObject("utilisateur", utilisateurCourant);
         }
         return valorisation;
     }

@@ -37,22 +37,25 @@ body {
 		<div class="navbar-inner">
 			<div class="container">
 				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
-				</a> <a class="brand" href="http://agiletourbordeaux.okiwi.org/index.html">Agile Tour Bordeaux</a>
-				<div class="btn-group pull-right">
-					<#if utilisateur??> <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> <i class="icon-user"></i> ${utilisateur.nomAffiche} <span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li class="divider"></li>
-						<li><a href=""> Deconnexion</a></li>
-					</ul>
-					<#else> <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> <i class="icon-user"></i> <span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li class="divider"></li>
-						<li><a href="authentification/externe"> Connexion</a></li>
-					</ul>
-					</#if>
-				</div>
+				</a> <a class="brand" href="http://agiletourbordeaux.okiwi.org/index.html">Agile Tour Bordeaux</a> 
+				<#if utilisateur??>
+					<div class="btn-group pull-right">
+						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> <i class="icon-user"></i> ${utilisateur.nomAffiche} <span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href=""> Déconnexion</a></li>
+						</ul>
+					</div>
+					<div class="btn-group pull-right">
+						<a class="btn" rel="tooltip" title="Créer une session" data-toggle="modal" href="#modalDeCreationDUneSession"> <i class="icon-pencil"></i>
+						</a>
+					</div>
+				<#else>
+					<div class="pull-right">
+						<a class="btn" rel="tooltip" title="Connexion avec votre compte google" href="authentification/externe"> <i class="icon-user"></i>
+						</a>
+					</div>
+				</#if>
 				<div class="nav-collapse">
 					<ul class="nav">
 						<li class="active"><a href="index.html">Accueil</a></li>
@@ -71,7 +74,6 @@ body {
 			</div>
 		</div>
 	</div>
-
 	<div class="container-fluid">
 		<div class="row-fluid">
 			<div class="span3 hidden-phone">
@@ -116,12 +118,47 @@ body {
 		</footer>
 
 	</div>
-	<!--/.fluid-container-->
+	<#if utilisateur??>
+	<div class="modal fade hide" id="modalDeCreationDUneSession">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h3>Creation d'une session</h3>
+		</div>
+		<div class="modal-body">
+			<form id="formulaireDeCreationDUneSession" class="well">
+				<label class="control-label" for="titre">Titre</label>
+				<input type="text" class="span5" placeholder="Entrer le titre de votre session ..." name="titre" />
+				<label class="control-label" for="description">description</label>
+				<textarea class="span5" placeholder="Entrer la description de votre session ..." name="description" rows="10"></textarea>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="btn" data-dismiss="modal">Close</a> <a href="#" class="btn btn-primary" id="creerUneSession">Save changes</a>
+		</div>
+	</div>
+	</#if>
 
 	<!-- Le javascript
     ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="<@spring.url '/ressources/js/jquery.js'/>"></script>
 	<script src="<@spring.url '/ressources/js/bootstrap.js'/>"></script>
+	<script  type="text/javascript">
+     $(document).ready(function(){
+		<#if utilisateur??>
+       	$('#creerUneSession').bind('click',function(){
+       		$.ajax({  
+       		  type: 'POST',
+       		  url: '<@spring.url 'sessions'/>',
+       		  data: $('#formulaireDeCreationDUneSession').serializeArray(),
+       		  success: function() {
+       			$('#modalDeCreationDUneSession').modal('hide');
+       			$('titre').val('');
+       			$('description').val('');
+       		  }});
+       	});
+        </#if>
+      });
+   </script>
 </body>
 </html>

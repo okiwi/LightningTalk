@@ -23,6 +23,7 @@
 <stringAttribute key="run_jetty_run.PWD_ATTR" value="changeit"/>
 <stringAttribute key="run_jetty_run.SCANINTERVALSECONDS_ATTR" value="5"/>
 <mapAttribute key="run_jetty_run.SCAN_FOLDER_NON_CHECKED">
+<mapEntry key="/home/jerome/workspace/LightningTalk/src/main/webapp" value="1"/>
 <mapEntry key="Custom Scan Folder and Files" value="0"/>
 </mapAttribute>
 <stringAttribute key="run_jetty_run.SELECTED_JETTY_VERSION_ATTR" value="Jetty 8.1.2.v20120308"/>
