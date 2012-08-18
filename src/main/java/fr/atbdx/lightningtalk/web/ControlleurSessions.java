@@ -1,6 +1,7 @@
 package fr.atbdx.lightningtalk.web;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,6 +33,12 @@ public class ControlleurSessions {
         Session session = new Session(titre, description, entrepotUtilisateur.recupererUtilisateurCourant());
         entrepotSession.creerUneSession(session);
 
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public @ResponseBody
+    List<Session> recupererLesSessions() {
+        return entrepotSession.recupererLesSessions();
     }
 
 }

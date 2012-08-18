@@ -67,8 +67,8 @@ public class EntrepotSessionMongoTest {
         List<Session> sessions = entrepotDeSessionMongo.recupererLesSessions();
 
         assertThat(sessions.size(), is(2));
-        AidePourLesSessions.verifier(sessions.get(0));
-        AidePourLesSessions.verifierAvecSuffixe(sessions.get(1), "2");
+        AidePourLesSessions.verifierAvecSuffixe(sessions.get(0), "2");
+        AidePourLesSessions.verifier(sessions.get(1));
     }
 
     @After

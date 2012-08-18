@@ -8,10 +8,11 @@ import fr.atbdx.lightningtalk.domaine.Session;
 public class FakeEntrepotSession implements EntrepotSession {
 
     public Session sessionCreer;
+    public List<Session> sessions;
 
     @Override
     public List<Session> recupererLesSessions() {
-        return null;
+        return sessions;
     }
 
     @Override

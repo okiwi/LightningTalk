@@ -39,7 +39,7 @@ public class EntrepotSessionMongo implements EntrepotSession {
         for (DBObject sessionMongo : curseursDeSessionsMongo) {
             DBObject orateurMongo = (DBObject) sessionMongo.get("orateur");
             Utilisateur orateur = new Utilisateur((String) orateurMongo.get("id"), (String) orateurMongo.get("nomAffiche"));
-            sessions.add(new Session((String) sessionMongo.get("titre"), (String) sessionMongo.get("description"), orateur));
+            sessions.add(0, new Session((String) sessionMongo.get("titre"), (String) sessionMongo.get("description"), orateur));
         }
         return sessions;
     }

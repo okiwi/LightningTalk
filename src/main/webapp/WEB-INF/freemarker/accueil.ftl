@@ -39,19 +39,19 @@ body {
 				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
 				</a> <a class="brand" href="http://agiletourbordeaux.okiwi.org/index.html">Agile Tour Bordeaux</a> 
 				<#if utilisateur??>
-					<div class="btn-group pull-right">
-						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> <i class="icon-user"></i> ${utilisateur.nomAffiche} <span class="caret"></span>
+					<div class="btn-group pull-right visible-phone">
+						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> <i class="icon-user"></i> ${utilisateur.nomAffiche}<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu">
 							<li><a href=""> Déconnexion</a></li>
 						</ul>
 					</div>
-					<div class="btn-group pull-right">
+					<div class="btn-group pull-right visible-phone">
 						<a class="btn" rel="tooltip" title="Créer une session" data-toggle="modal" href="#modalDeCreationDUneSession"> <i class="icon-pencil"></i>
 						</a>
 					</div>
 				<#else>
-					<div class="pull-right">
+					<div class="pull-right visible-phone">
 						<a class="btn" rel="tooltip" title="Connexion avec votre compte google" href="authentification/externe"> <i class="icon-user"></i>
 						</a>
 					</div>
@@ -78,34 +78,28 @@ body {
 		<div class="row-fluid">
 			<div class="span3 hidden-phone">
 				<div class="well">
-					<h3>Utilisateur courant</h3>
-					<ul class="thumbnails">
-						<li class="span10"><a class="thumbnail" href="#profil"> <img alt="" src="http://agiletourbordeaux.okiwi.org/img/profils/jr.jpg">
-						</a></li>
-					</ul>
-					<p>Des informations sur les éléments lu et non lu</p>
+					<#if utilisateur??>
+						<h3>${utilisateur.nomAffiche} <small><a href=""> Déconnexion</a></small></h3>
+						<ul class="thumbnails">
+							<li class="span10"><a class="thumbnail" href="#profil"> <img alt="" src="http://agiletourbordeaux.okiwi.org/img/profils/jr.jpg">
+							</a></li>
+						</ul>
+						<a class="btn" rel="tooltip" title="Créer une session" data-toggle="modal" href="#modalDeCreationDUneSession"> <i class="icon-pencil"></i> Créer une session
+						</a>
+					<#else>
+						<a rel="tooltip" title="Connexion avec votre compte google" href="authentification/externe"> <i class="icon-user"> </i>Connexion
+						</a>
+					</#if>
 				</div>
 			</div>
-			<div class="span9">
+			<div class="span9" id="divPourAfficherLesSessions">
 				<div class="row-fluid">
 					<div class="well">
 						<h2>
-							Titre de la session <small>proposé par <a>Utilisateur</a></small>
+							C'est un example de session <small>proposé par <a>Utilisateur</a></small>
 						</h2>
-						<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-							Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
+						<p>Ce n'est pas une vrai session</p>
 						<a href="#" class="btn btn-info btn-mini"><i class="icon-ok icon-white"></i> Voter</a><span class="badge badge-inverse">10</span>
-
-					</div>
-				</div>
-				<div class="row-fluid">
-					<div class="well">
-						<h2>
-							Titre de la session <small>proposé par <a>Utilisateur</a></small>
-						</h2>
-						<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-							Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
-						<a href="#" class="btn btn-mini disabled"><i class="icon-ok"></i> Voter</a><span class="badge badge-inverse">10</span>
 					</div>
 				</div>
 			</div>
@@ -127,9 +121,9 @@ body {
 		<div class="modal-body">
 			<form id="formulaireDeCreationDUneSession" class="well">
 				<label class="control-label" for="titre">Titre</label>
-				<input type="text" class="span5" placeholder="Entrer le titre de votre session ..." name="titre" />
+				<input type="text" class="span5" placeholder="Entrer le titre de votre session ..." name="titre" id="titre"/>
 				<label class="control-label" for="description">description</label>
-				<textarea class="span5" placeholder="Entrer la description de votre session ..." name="description" rows="10"></textarea>
+				<textarea class="span5" placeholder="Entrer la description de votre session ..." name="description" id="description" rows="10"></textarea>
 			</form>
 		</div>
 		<div class="modal-footer">
@@ -143,7 +137,31 @@ body {
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="<@spring.url '/ressources/js/jquery.js'/>"></script>
 	<script src="<@spring.url '/ressources/js/bootstrap.js'/>"></script>
+	<script src="<@spring.url '/ressources/js/ICanHaz.js'/>"></script>
+
+	<script id="templatePourAfficherUneSession" type="text/html">
+		<div class="row-fluid">
+			<div class="well">
+				<h2>
+					{{titre}} <small>proposé par <a>{{orateur.nomAffiche}}</a></small>
+				</h2>
+				<p>{{description}}</p>
+			</div>
+		</div>
+	</script>
+
 	<script  type="text/javascript">
+	function mettreAJourLesSessions(){
+		$('#divPourAfficherLesSessions').html('');
+		$.getJSON('<@spring.url 'sessions'/>', function (sessions) {
+			console.log(sessions);
+		    $.each(sessions, function (index,session) {
+		    	console.log(session);
+		    	$('#divPourAfficherLesSessions').append(ich.templatePourAfficherUneSession(session));
+		    });
+		});
+	}
+	
      $(document).ready(function(){
 		<#if utilisateur??>
        	$('#creerUneSession').bind('click',function(){
@@ -153,11 +171,13 @@ body {
        		  data: $('#formulaireDeCreationDUneSession').serializeArray(),
        		  success: function() {
        			$('#modalDeCreationDUneSession').modal('hide');
-       			$('titre').val('');
-       			$('description').val('');
+       			$('#titre').val('');
+       			$('#description').val('');
+       			mettreAJourLesSessions();
        		  }});
        	});
         </#if>
+        mettreAJourLesSessions();
       });
    </script>
 </body>
