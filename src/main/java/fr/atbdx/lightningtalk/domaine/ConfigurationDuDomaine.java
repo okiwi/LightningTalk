@@ -24,8 +24,11 @@ public class ConfigurationDuDomaine {
     }
 
     @Bean
-    public static DB intialiserMongoDB(@Value("${mongodb.adresseIp}") String adresseIp, @Value("${mongodb.port}") int port) throws UnknownHostException, MongoException {
-        return new Mongo(adresseIp, port).getDB("LightningTalk");
+    public static DB initialiserLaBaseLightningTalkMongoDB(@Value("${mongodb.adresseIp}") String adresseIp, @Value("${mongodb.port}") int port, @Value("${mongodb.utilisateur}") String utilisateur,
+            @Value("${mongodb.motDePasse}") String motDePasse) throws UnknownHostException, MongoException {
+        DB lightningTalk = new Mongo(adresseIp, port).getDB("LightningTalk");
+        lightningTalk.authenticate(utilisateur, motDePasse.toCharArray());
+        return lightningTalk;
     }
 
 }

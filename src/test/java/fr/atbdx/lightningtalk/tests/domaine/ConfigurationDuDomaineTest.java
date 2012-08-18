@@ -32,12 +32,11 @@ public class ConfigurationDuDomaineTest {
     }
 
     @Test
-    public void peutInitialiserMongoDB() throws UnknownHostException, MongoException {
-        DB intialiserMongoDB = ConfigurationDuDomaine.intialiserMongoDB("localhost", 1234);
+    public void peutInitialiserLaBaseLightningTalkMongoDB() throws UnknownHostException, MongoException {
+        DB intialiserMongoDB = ConfigurationDuDomaine.initialiserLaBaseLightningTalkMongoDB("localhost", 27017,"test","test");
 
         assertThat(intialiserMongoDB.getMongo().getAddress().getHost(), is("localhost"));
-        assertThat(intialiserMongoDB.getMongo().getAddress().getPort(), is(1234));
-
+        assertThat(intialiserMongoDB.getMongo().getAddress().getPort(), is(27017));
     }
 
 }
