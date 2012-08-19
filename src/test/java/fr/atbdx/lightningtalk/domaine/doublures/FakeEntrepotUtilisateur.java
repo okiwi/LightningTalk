@@ -1,10 +1,10 @@
-package fr.atbdx.lightningtalk.doublures.domaine;
-
-import java.io.IOException;
+package fr.atbdx.lightningtalk.domaine.doublures;
 
 import fr.atbdx.lightningtalk.domaine.EntrepotUtilisateur;
 import fr.atbdx.lightningtalk.domaine.Utilisateur;
-import fr.atbdx.lightningtalk.doublures.domaine.google.FakeConnecteurGoogle;
+import fr.atbdx.lightningtalk.domaine.doublures.google.FakeConnecteurGoogle;
+
+import java.io.IOException;
 
 public class FakeEntrepotUtilisateur implements EntrepotUtilisateur {
 

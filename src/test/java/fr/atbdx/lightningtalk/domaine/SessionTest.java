@@ -1,13 +1,11 @@
-package fr.atbdx.lightningtalk.tests.domaine;
+package fr.atbdx.lightningtalk.domaine;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-
+import fr.atbdx.lightningtalk.domaine.doublures.AidePourLesSessions;
+import fr.atbdx.lightningtalk.domaine.doublures.AidePourLesUtilisateurs;
 import org.junit.Test;
 
-import fr.atbdx.lightningtalk.domaine.Session;
-import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesSessions;
-import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesUtilisateurs;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
 
 public class SessionTest {
 

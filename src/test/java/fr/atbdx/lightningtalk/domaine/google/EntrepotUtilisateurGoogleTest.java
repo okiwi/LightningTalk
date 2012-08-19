@@ -1,21 +1,16 @@
-package fr.atbdx.lightningtalk.tests.domaine.google;
+package fr.atbdx.lightningtalk.domaine.google;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.assertThat;
-
-import java.io.IOException;
-
+import fr.atbdx.lightningtalk.domaine.Utilisateur;
+import fr.atbdx.lightningtalk.domaine.doublures.AidePourLesUtilisateurs;
+import fr.atbdx.lightningtalk.domaine.doublures.google.AidePourLAuthentification;
+import fr.atbdx.lightningtalk.domaine.doublures.google.FakeConnecteurGoogle;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.atbdx.lightningtalk.domaine.Utilisateur;
-import fr.atbdx.lightningtalk.domaine.google.EntrepotUtilisateurGoogle;
-import fr.atbdx.lightningtalk.domaine.google.PoigneePourStockerEnSessionLesInformationsDAuthentification;
-import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesUtilisateurs;
-import fr.atbdx.lightningtalk.doublures.domaine.google.AidePourLAuthentification;
-import fr.atbdx.lightningtalk.doublures.domaine.google.FakeConnecteurGoogle;
+import java.io.IOException;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
 
 public class EntrepotUtilisateurGoogleTest {
 

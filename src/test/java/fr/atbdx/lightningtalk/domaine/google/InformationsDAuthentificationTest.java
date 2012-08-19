@@ -1,10 +1,8 @@
-package fr.atbdx.lightningtalk.tests.domaine.google;
+package fr.atbdx.lightningtalk.domaine.google;
 
+import fr.atbdx.lightningtalk.domaine.doublures.google.AidePourLAuthentification;
+import fr.atbdx.lightningtalk.domaine.doublures.google.FakeConnecteurGoogle;
 import org.junit.Test;
-
-import fr.atbdx.lightningtalk.domaine.google.InformationsDAuthentification;
-import fr.atbdx.lightningtalk.doublures.domaine.google.AidePourLAuthentification;
-import fr.atbdx.lightningtalk.doublures.domaine.google.FakeConnecteurGoogle;
 
 public class InformationsDAuthentificationTest {
 

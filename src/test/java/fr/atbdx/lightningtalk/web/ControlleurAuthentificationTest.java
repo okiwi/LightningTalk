@@ -1,16 +1,14 @@
-package fr.atbdx.lightningtalk.tests.web;
+package fr.atbdx.lightningtalk.web;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-
-import java.io.IOException;
-
+import fr.atbdx.lightningtalk.domaine.doublures.FakeEntrepotUtilisateur;
+import fr.atbdx.lightningtalk.domaine.doublures.google.FakeConnecteurGoogle;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.atbdx.lightningtalk.doublures.domaine.FakeEntrepotUtilisateur;
-import fr.atbdx.lightningtalk.doublures.domaine.google.FakeConnecteurGoogle;
-import fr.atbdx.lightningtalk.web.ControlleurAuthentification;
+import java.io.IOException;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
 
 public class ControlleurAuthentificationTest {
 
