@@ -5,9 +5,11 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 import com.google.api.services.plus.model.Person;
+import com.google.api.services.plus.model.Person.Image;
 
 import fr.atbdx.lightningtalk.domaine.google.InformationsDAuthentification;
 import fr.atbdx.lightningtalk.domaine.google.UtilisateurGoogle;
+import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesParticipants;
 import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesUtilisateurs;
 
 public class AidePourLAuthentification {
@@ -25,9 +27,12 @@ public class AidePourLAuthentification {
 
     private static Person creerPerson() {
         Person person = new Person();
-        person.setId(AidePourLesUtilisateurs.ID);
-        person.setDisplayName(AidePourLesUtilisateurs.NOM_AFFICHE);
+        person.setId(AidePourLesParticipants.ID);
+        person.setDisplayName(AidePourLesParticipants.NOM_AFFICHE);
+        Image image = new Image();
+        image.setUrl(AidePourLesUtilisateurs.URL_IMAGE);
+        person.setImage(image);
+        person.setUrl(AidePourLesUtilisateurs.URL_PROFILE);
         return person;
     }
-
 }

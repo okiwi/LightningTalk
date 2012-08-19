@@ -79,16 +79,18 @@ body {
 			<div class="span3 hidden-phone">
 				<div class="well">
 					<#if utilisateur??>
-						<h3>${utilisateur.nomAffiche} <small><a href=""> Déconnexion</a></small></h3>
-						<ul class="thumbnails">
-							<li class="span10"><a class="thumbnail" href="#profil"> <img alt="" src="http://agiletourbordeaux.okiwi.org/img/profils/jr.jpg">
-							</a></li>
-						</ul>
+					<h3>
+						<img alt="" src="${utilisateur.urlImage}"> <a href="${utilisateur.urlProfil}">${utilisateur.nomAffiche}</a>
+					</h3>
+					<p>
+						<a class="btn" href=""> Déconnexion</a>
+					</p>
+					<p>
 						<a class="btn" rel="tooltip" title="Créer une session" data-toggle="modal" href="#modalDeCreationDUneSession"> <i class="icon-pencil"></i> Créer une session
 						</a>
-					<#else>
-						<a rel="tooltip" title="Connexion avec votre compte google" href="authentification/externe"> <i class="icon-user"> </i>Connexion
-						</a>
+					</p>
+					<#else> <a rel="tooltip" title="Connexion avec votre compte google" href="authentification/externe"> <i class="icon-user"> </i>Connexion
+					</a> 
 					</#if>
 				</div>
 			</div>
@@ -138,26 +140,44 @@ body {
 	<script src="<@spring.url '/ressources/js/jquery.js'/>"></script>
 	<script src="<@spring.url '/ressources/js/bootstrap.js'/>"></script>
 	<script src="<@spring.url '/ressources/js/ICanHaz.js'/>"></script>
-
-	<script id="templatePourAfficherUneSession" type="text/html">
+	
+	<script id="debutDuTemplatePourAfficherUneSession" class="partial" type="text/html">
 		<div class="row-fluid">
 			<div class="well">
 				<h2>
-					{{titre}} <small>proposé par <a>{{orateur.nomAffiche}}</a></small>
+					{{titre}} <small>proposé par <a>{{nomAffiche}}</a></small>
 				</h2>
 				<p>{{description}}</p>
+	</script>
+	<script id="finDuTemplatePourAfficherUneSession" class="partial" type="text/html">
+				<span class="badge badge-inverse">{{nombreDeVotes}}</span>
 			</div>
 		</div>
+	</script>
+
+	<script id="templatePourAfficherUneSession" type="text/html">
+		{{>debutDuTemplatePourAfficherUneSession}}
+		<a href="#" class="btn btn-info btn-mini"><i class="icon-ok icon-white"></i> Voter</a><span class="badge badge-inverse">
+		{{>finDuTemplatePourAfficherUneSession}}
+	</script>
+	<script id="templatePourAfficherUneSessionDejaVote" type="text/html">
+		{{>debutDuTemplatePourAfficherUneSession}}
+		<#if utilisateur??><a href="#" class="btn btn-mini disabled"><i class="icon-ok"></i> Voter</a></#if>
+		{{>finDuTemplatePourAfficherUneSession}}
 	</script>
 
 	<script  type="text/javascript">
 	function mettreAJourLesSessions(){
 		$('#divPourAfficherLesSessions').html('');
 		$.getJSON('<@spring.url 'sessions'/>', function (sessions) {
-			console.log(sessions);
 		    $.each(sessions, function (index,session) {
-		    	console.log(session);
-		    	$('#divPourAfficherLesSessions').append(ich.templatePourAfficherUneSession(session));
+		    	var resultatDeLaGeneration;
+				if(session.peutVoter){
+					resultatDeLaGeneration = ich.templatePourAfficherUneSession(session)
+				}else{
+					resultatDeLaGeneration = ich.templatePourAfficherUneSessionDejaVote(session)
+				}
+				$('#divPourAfficherLesSessions').append(resultatDeLaGeneration);
 		    });
 		});
 	}

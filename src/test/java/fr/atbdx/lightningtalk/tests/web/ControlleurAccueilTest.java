@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 
+import fr.atbdx.lightningtalk.domaine.Participant;
 import fr.atbdx.lightningtalk.domaine.Utilisateur;
 import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesUtilisateurs;
 import fr.atbdx.lightningtalk.doublures.domaine.FakeEntrepotUtilisateur;
@@ -31,7 +32,7 @@ public class ControlleurAccueilTest {
         ModelAndView valorisation = controlleurAccueil.valoriserAccueil();
 
         assertThat(valorisation.getViewName(), is("accueil"));
-        assertThat(valorisation.getModel().containsKey(Utilisateur.class), is(false));
+        assertThat(valorisation.getModel().containsKey(Participant.class), is(false));
     }
 
     @Test

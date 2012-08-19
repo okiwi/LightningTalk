@@ -1,12 +1,16 @@
 package fr.atbdx.lightningtalk.domaine;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Session {
 
     private String titre;
-    private Utilisateur orateur;
+    private Participant orateur;
     private String description;
+    protected List<Participant> votants = new ArrayList<Participant>();
 
-    public Session(String titre, String description, Utilisateur orateur) {
+    public Session(String titre, String description, Participant orateur) {
         this.titre = titre;
         this.orateur = orateur;
         this.description = description;
@@ -16,12 +20,34 @@ public class Session {
         return titre;
     }
 
-    public Utilisateur getOrateur() {
+    public Participant getOrateur() {
         return orateur;
     }
 
     public String getDescription() {
         return description;
+    }
+
+    public boolean peutVoter(Participant votant) {
+        return votant!=null && !votants.contains(votant);
+    }
+
+    public Iterable<Participant> getVotants() {
+        return votants;
+    }
+
+    public int getNombreDeVotes() {
+        return votants.size();
+    }
+
+    public void ajouterUnVote(Participant participant) {
+        votants.add(participant);
+
+    }
+
+    public void supprimerUnVote(Participant participant) {
+        votants.remove(participant);
+
     }
 
 }

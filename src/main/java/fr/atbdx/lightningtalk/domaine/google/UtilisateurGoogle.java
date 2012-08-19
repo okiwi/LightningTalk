@@ -7,7 +7,7 @@ import fr.atbdx.lightningtalk.domaine.Utilisateur;
 public class UtilisateurGoogle extends Utilisateur {
 
     public UtilisateurGoogle(Person person) {
-        super(person.getId(), person.getDisplayName());
+        super(person.getId(), person.getDisplayName(), person.getImage().getUrl(), person.getUrl());
     }
 
 }

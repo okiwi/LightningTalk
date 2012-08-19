@@ -1,6 +1,7 @@
 package fr.atbdx.lightningtalk.web;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import fr.atbdx.lightningtalk.domaine.EntrepotSession;
 import fr.atbdx.lightningtalk.domaine.EntrepotUtilisateur;
 import fr.atbdx.lightningtalk.domaine.Session;
+import fr.atbdx.lightningtalk.domaine.Utilisateur;
 
 @Controller
 @RequestMapping("/sessions")
@@ -37,8 +39,14 @@ public class ControlleurSessions {
 
     @RequestMapping(method = RequestMethod.GET)
     public @ResponseBody
-    List<Session> recupererLesSessions() {
-        return entrepotSession.recupererLesSessions();
+    List<SessionPourLaPresentation> recupererLesSessions() throws IOException {
+        List<Session> sessions = entrepotSession.recupererLesSessions();
+        Utilisateur utilisateurCourant = entrepotUtilisateur.recupererUtilisateurCourant();
+        List<SessionPourLaPresentation> sessionsPourLaPresentations = new ArrayList<SessionPourLaPresentation>();
+        for (Session session : sessions) {
+            sessionsPourLaPresentations.add(new SessionPourLaPresentation(session, utilisateurCourant));
+        }
+        return sessionsPourLaPresentations;
     }
 
 }

@@ -13,7 +13,7 @@ import org.junit.Test;
 import fr.atbdx.lightningtalk.domaine.Utilisateur;
 import fr.atbdx.lightningtalk.domaine.google.EntrepotUtilisateurGoogle;
 import fr.atbdx.lightningtalk.domaine.google.PoigneePourStockerEnSessionLesInformationsDAuthentification;
-import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesUtilisateurs;
+import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesParticipants;
 import fr.atbdx.lightningtalk.doublures.domaine.google.AidePourLAuthentification;
 import fr.atbdx.lightningtalk.doublures.domaine.google.FakeConnecteurGoogle;
 
@@ -70,6 +70,6 @@ public class EntrepotUtilisateurGoogleTest {
 
         Utilisateur utilisateur = entrepotUtilisateurGoogle.recupererUtilisateurCourant();
 
-        AidePourLesUtilisateurs.verifier(utilisateur);
+        AidePourLesParticipants.verifier(utilisateur);
     }
 }

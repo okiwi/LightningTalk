@@ -1,22 +1,22 @@
 package fr.atbdx.lightningtalk.domaine;
 
+public class Utilisateur extends Participant {
 
-public class Utilisateur {
+    private final String urlImage;
+    private final String urlProfil;
 
-    private final String id;
-    private final String nomAffiche;
-
-    public Utilisateur(String id, String nomAffiche) {
-        this.id = id;
-        this.nomAffiche = nomAffiche;
+    public Utilisateur(String id, String nomAffiche, String urlImage, String urlProfil) {
+        super(id, nomAffiche);
+        this.urlImage = urlImage;
+        this.urlProfil = urlProfil;
     }
 
-    public String getId() {
-        return id;
+    public String getUrlImage() {
+        return urlImage;
     }
 
-    public String getNomAffiche() {
-        return nomAffiche;
+    public String getUrlProfil() {
+        return urlProfil;
     }
 
 }

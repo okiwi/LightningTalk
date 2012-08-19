@@ -8,4 +8,8 @@ public interface EntrepotSession {
 
     void creerUneSession(Session session);
 
+    Session recupererDepuisSonTitre(String titreDeLaSession);
+
+    void sauvegargerUneSession(Session sessionAMettreAJour);
+
 }

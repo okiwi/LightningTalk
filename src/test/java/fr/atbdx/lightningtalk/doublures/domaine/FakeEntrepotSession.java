@@ -7,7 +7,7 @@ import fr.atbdx.lightningtalk.domaine.Session;
 
 public class FakeEntrepotSession implements EntrepotSession {
 
-    public Session sessionCreer;
+    public Session session;
     public List<Session> sessions;
 
     @Override
@@ -17,7 +17,17 @@ public class FakeEntrepotSession implements EntrepotSession {
 
     @Override
     public void creerUneSession(Session session) {
-        sessionCreer = session;
+        this.session = session;
+    }
+
+    @Override
+    public Session recupererDepuisSonTitre(String titreDeLaSession) {
+        return session;
+    }
+
+    @Override
+    public void sauvegargerUneSession(Session sessionAMettreAJour) {
+        this.session = sessionAMettreAJour;
     }
 
 }

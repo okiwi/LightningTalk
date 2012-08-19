@@ -1,21 +1,18 @@
 package fr.atbdx.lightningtalk.tests.web;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.atbdx.lightningtalk.domaine.Session;
 import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesSessions;
 import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesUtilisateurs;
 import fr.atbdx.lightningtalk.doublures.domaine.FakeEntrepotSession;
 import fr.atbdx.lightningtalk.doublures.domaine.FakeEntrepotUtilisateur;
 import fr.atbdx.lightningtalk.web.ControlleurSessions;
+import fr.atbdx.lightningtalk.web.SessionPourLaPresentation;
 
 public class ControlleurSessionsTest {
 
@@ -36,17 +33,16 @@ public class ControlleurSessionsTest {
 
         controlleurSessions.creerUneSession(AidePourLesSessions.TITRE_DE_LA_SESSION, AidePourLesSessions.DESCRIPTION_DE_LA_SESSION);
 
-        AidePourLesSessions.verifier(fakeEntrepotSession.sessionCreer);
+        AidePourLesSessions.verifier(fakeEntrepotSession.session);
     }
 
     @Test
-    public void peutRecupererLesSessions() {
-        List<Session> sessionsAttendues = new ArrayList<Session>();
-        fakeEntrepotSession.sessions = sessionsAttendues;
+    public void peutRecupererLesSessions() throws IOException {
+        fakeEntrepotSession.sessions = Arrays.asList(AidePourLesSessions.creer());
+        fakeEntrepotUtilisateur.utilisateurCourantARetourner = AidePourLesUtilisateurs.UTILISATEUR;
 
-        List<Session> sessions = controlleurSessions.recupererLesSessions();
+        List<SessionPourLaPresentation> sessionsPourLaPresentation = controlleurSessions.recupererLesSessions();
 
-        assertThat(sessions, is(sessionsAttendues));
-
+        AidePourLesSessions.verifierSessionPourLaPresentation(sessionsPourLaPresentation.get(0));
     }
 }
