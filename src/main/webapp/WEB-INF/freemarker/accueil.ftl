@@ -134,7 +134,7 @@ body {
 		<div class="row-fluid">
 			<div class="well">
 				<h2>
-					{{titre}} <small>proposé par <a>{{nomAffiche}}</a></small>
+					{{titre}} <small>proposé par <a>{{orateur}}</a></small>
 				</h2>
 				<p>{{description}}</p>
 	</script>
