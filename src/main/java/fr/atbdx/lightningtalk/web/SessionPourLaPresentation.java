@@ -1,5 +1,8 @@
 package fr.atbdx.lightningtalk.web;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import fr.atbdx.lightningtalk.domaine.Session;
 import fr.atbdx.lightningtalk.domaine.Utilisateur;
 
@@ -31,6 +34,10 @@ public class SessionPourLaPresentation {
 
     public boolean isPeutVoter() {
         return session.peutVoter(utilisateurCourant);
+    }
+
+    public String getTitreEncodePourLURL() throws UnsupportedEncodingException {
+        return URLEncoder.encode(session.getTitre(), "ISO-8859-1");
     }
 
 }

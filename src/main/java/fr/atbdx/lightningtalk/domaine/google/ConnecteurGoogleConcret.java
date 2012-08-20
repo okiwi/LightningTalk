@@ -57,10 +57,6 @@ public class ConnecteurGoogleConcret implements ConnecteurGoogle {
         googleCredential.setRefreshToken(informationsDAuthentification.refreshToken);
         Plus googlePlus = new Plus.Builder(netHttpTransport, jaksonFactory, googleCredential).build();
         return googlePlus.people().get("me").execute();
-//        Person person = new Person();
-//        person.setId("id");
-//        person.setDisplayName("displayName");
-//        return person;
     }
 
     private JacksonFactory getJaksonFactory() {

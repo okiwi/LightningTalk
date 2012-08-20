@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,6 +48,22 @@ public class ControlleurSessions {
             sessionsPourLaPresentations.add(new SessionPourLaPresentation(session, utilisateurCourant));
         }
         return sessionsPourLaPresentations;
+    }
+
+    @RequestMapping(value = "/{titreDeLaSession}/votants", method = RequestMethod.POST)
+    public @ResponseBody
+    void ajouterUnVote(@PathVariable String titreDeLaSession) throws IOException {
+        Session session = entrepotSession.recupererDepuisSonTitre(titreDeLaSession);
+        session.ajouterUnVote(entrepotUtilisateur.recupererUtilisateurCourant());
+        entrepotSession.sauvegargerUneSession(session);
+    }
+
+    @RequestMapping(value = "/{titreDeLaSession}/votants", method = RequestMethod.GET,headers="X-HTTP-Method-Override=DELETE")
+    public @ResponseBody
+    void supprimerUnVote(@PathVariable String titreDeLaSession) throws IOException {
+        Session session = entrepotSession.recupererDepuisSonTitre(titreDeLaSession);
+        session.supprimerUnVote(entrepotUtilisateur.recupererUtilisateurCourant());
+        entrepotSession.sauvegargerUneSession(session);
     }
 
 }

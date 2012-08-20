@@ -3,6 +3,8 @@ package fr.atbdx.lightningtalk.tests.web;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
+import java.io.UnsupportedEncodingException;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,7 +23,7 @@ public class SessionPourLaPresentationTest {
     }
 
     @Test
-    public void peutCreerUneSessionPourLaPresentation() {
+    public void peutCreerUneSessionPourLaPresentation() throws UnsupportedEncodingException {
 
         SessionPourLaPresentation sessionPourLaPresentation = new SessionPourLaPresentation(session, AidePourLesUtilisateurs.UTILISATEUR);
 

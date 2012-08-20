@@ -1,12 +1,16 @@
 package fr.atbdx.lightningtalk.tests.web;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import fr.atbdx.lightningtalk.domaine.Session;
+import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesParticipants;
 import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesSessions;
 import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesUtilisateurs;
 import fr.atbdx.lightningtalk.doublures.domaine.FakeEntrepotSession;
@@ -37,12 +41,38 @@ public class ControlleurSessionsTest {
     }
 
     @Test
-    public void peutRecupererLesSessions() throws IOException {
-        fakeEntrepotSession.sessions = Arrays.asList(AidePourLesSessions.creer());
+    public void peutRecupererLesSessionsDePresentation() throws IOException {
+        fakeEntrepotSession.creerUneSession(AidePourLesSessions.creer());
         fakeEntrepotUtilisateur.utilisateurCourantARetourner = AidePourLesUtilisateurs.UTILISATEUR;
 
         List<SessionPourLaPresentation> sessionsPourLaPresentation = controlleurSessions.recupererLesSessions();
 
         AidePourLesSessions.verifierSessionPourLaPresentation(sessionsPourLaPresentation.get(0));
+    }
+
+    @Test
+    public void peutAjouterUnVote() throws IOException {
+        fakeEntrepotSession.creerUneSession(AidePourLesSessions.creer());
+        fakeEntrepotUtilisateur.utilisateurCourantARetourner = AidePourLesUtilisateurs.UTILISATEUR;
+
+        controlleurSessions.ajouterUnVote(AidePourLesSessions.TITRE_DE_LA_SESSION);
+
+        assertThat(fakeEntrepotSession.titreDeLaSessionRecupere, is(AidePourLesSessions.TITRE_DE_LA_SESSION));
+        assertThat(fakeEntrepotSession.sessionSauvegardee, is(true));
+        assertThat(fakeEntrepotSession.recupererDepuisSonTitre(null).getNombreDeVotes(), is(1));
+    }
+    
+    @Test
+    public void peutSupprimerUnVote() throws IOException {
+        Session session = AidePourLesSessions.creer();
+        session.ajouterUnVote(AidePourLesParticipants.PARTICIPANT);
+        fakeEntrepotSession.creerUneSession(session);
+        fakeEntrepotUtilisateur.utilisateurCourantARetourner = AidePourLesUtilisateurs.UTILISATEUR;
+
+        controlleurSessions.supprimerUnVote(AidePourLesSessions.TITRE_DE_LA_SESSION);
+
+        assertThat(fakeEntrepotSession.titreDeLaSessionRecupere, is(AidePourLesSessions.TITRE_DE_LA_SESSION));
+        assertThat(fakeEntrepotSession.sessionSauvegardee, is(true));
+        assertThat(fakeEntrepotSession.recupererDepuisSonTitre(null).getNombreDeVotes(), is(0));
     }
 }

@@ -37,24 +37,23 @@ body {
 		<div class="navbar-inner">
 			<div class="container">
 				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
-				</a> <a class="brand" href="http://agiletourbordeaux.okiwi.org/index.html">Agile Tour Bordeaux</a> 
-				<#if utilisateur??>
-					<div class="btn-group pull-right visible-phone">
-						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> <i class="icon-user"></i> ${utilisateur.nomAffiche}<span class="caret"></span>
-						</a>
-						<ul class="dropdown-menu">
-							<li><a href=""> Déconnexion</a></li>
-						</ul>
-					</div>
-					<div class="btn-group pull-right visible-phone">
-						<a class="btn" rel="tooltip" title="Créer une session" data-toggle="modal" href="#modalDeCreationDUneSession"> <i class="icon-pencil"></i>
-						</a>
-					</div>
+				</a> <a class="brand" href="http://agiletourbordeaux.okiwi.org/index.html">Agile Tour Bordeaux</a> <#if utilisateur??>
+				<div class="btn-group pull-right visible-phone">
+					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> <i class="icon-user"></i> ${utilisateur.nomAffiche}<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href=""> Déconnexion</a></li>
+					</ul>
+				</div>
+				<div class="btn-group pull-right visible-phone">
+					<a class="btn" rel="tooltip" title="Créer une session" data-toggle="modal" href="#modalDeCreationDUneSession"> <i class="icon-pencil"></i>
+					</a>
+				</div>
 				<#else>
-					<div class="pull-right visible-phone">
-						<a class="btn" rel="tooltip" title="Connexion avec votre compte google" href="authentification/externe"> <i class="icon-user"></i>
-						</a>
-					</div>
+				<div class="pull-right visible-phone">
+					<a class="btn" rel="tooltip" title="Connexion avec votre compte google" href="authentification/externe"> <i class="icon-user"></i>
+					</a>
+				</div>
 				</#if>
 				<div class="nav-collapse">
 					<ul class="nav">
@@ -90,20 +89,11 @@ body {
 						</a>
 					</p>
 					<#else> <a rel="tooltip" title="Connexion avec votre compte google" href="authentification/externe"> <i class="icon-user"> </i>Connexion
-					</a> 
-					</#if>
+					</a> </#if>
 				</div>
 			</div>
 			<div class="span9" id="divPourAfficherLesSessions">
-				<div class="row-fluid">
-					<div class="well">
-						<h2>
-							C'est un example de session <small>proposé par <a>Utilisateur</a></small>
-						</h2>
-						<p>Ce n'est pas une vrai session</p>
-						<a href="#" class="btn btn-info btn-mini"><i class="icon-ok icon-white"></i> Voter</a><span class="badge badge-inverse">10</span>
-					</div>
-				</div>
+				<!-- Div pour afficher les sessions -->
 			</div>
 		</div>
 
@@ -122,9 +112,8 @@ body {
 		</div>
 		<div class="modal-body">
 			<form id="formulaireDeCreationDUneSession" class="well">
-				<label class="control-label" for="titre">Titre</label>
-				<input type="text" class="span5" placeholder="Entrer le titre de votre session ..." name="titre" id="titre"/>
-				<label class="control-label" for="description">description</label>
+				<label class="control-label" for="titre">Titre</label> <input type="text" class="span5" placeholder="Entrer le titre de votre session ..." name="titre" id="titre" /> <label
+					class="control-label" for="description">description</label>
 				<textarea class="span5" placeholder="Entrer la description de votre session ..." name="description" id="description" rows="10"></textarea>
 			</form>
 		</div>
@@ -140,7 +129,7 @@ body {
 	<script src="<@spring.url '/ressources/js/jquery.js'/>"></script>
 	<script src="<@spring.url '/ressources/js/bootstrap.js'/>"></script>
 	<script src="<@spring.url '/ressources/js/ICanHaz.js'/>"></script>
-	
+
 	<script id="debutDuTemplatePourAfficherUneSession" class="partial" type="text/html">
 		<div class="row-fluid">
 			<div class="well">
@@ -149,24 +138,28 @@ body {
 				</h2>
 				<p>{{description}}</p>
 	</script>
+	<script id="templatePourAfficherUneSession" type="text/html">
+		{{>debutDuTemplatePourAfficherUneSession}}
+			<a name="{{titreEncodePourLURL}}" id="{{titreEncodePourLURL}}" href="#" onClick="voter('{{titreEncodePourLURL}}');return false;" class="btn btn-info btn-mini">
+				<i class="icon-ok icon-white"></i>Voter
+			</a>
+		{{>finDuTemplatePourAfficherUneSession}}
+	</script>
+	<script id="templatePourAfficherUneSessionDejaVote" type="text/html">
+		{{>debutDuTemplatePourAfficherUneSession}}
+		<#if utilisateur??>
+			<a name="{{titreEncodePourLURL}}" id="{{titreEncodePourLURL}}" href="#" onClick="enleverMonVote('{{titreEncodePourLURL}}');return false;" class="btn btn-mini">
+				<i class="icon-remove"></i>Enlever mon vote
+			</a>
+		</#if>
+		{{>finDuTemplatePourAfficherUneSession}}
+	</script>
 	<script id="finDuTemplatePourAfficherUneSession" class="partial" type="text/html">
 				<span class="badge badge-inverse">{{nombreDeVotes}}</span>
 			</div>
 		</div>
 	</script>
-
-	<script id="templatePourAfficherUneSession" type="text/html">
-		{{>debutDuTemplatePourAfficherUneSession}}
-		<a href="#" class="btn btn-info btn-mini"><i class="icon-ok icon-white"></i> Voter</a><span class="badge badge-inverse">
-		{{>finDuTemplatePourAfficherUneSession}}
-	</script>
-	<script id="templatePourAfficherUneSessionDejaVote" type="text/html">
-		{{>debutDuTemplatePourAfficherUneSession}}
-		<#if utilisateur??><a href="#" class="btn btn-mini disabled"><i class="icon-ok"></i> Voter</a></#if>
-		{{>finDuTemplatePourAfficherUneSession}}
-	</script>
-
-	<script  type="text/javascript">
+	<script type="text/javascript">
 	function mettreAJourLesSessions(){
 		$('#divPourAfficherLesSessions').html('');
 		$.getJSON('<@spring.url 'sessions'/>', function (sessions) {
@@ -181,6 +174,28 @@ body {
 		    });
 		});
 	}
+	<#if utilisateur??>
+		function voter(titreEncodePourLURL){
+			$.ajax({  
+	       		  type: 'POST',
+	       		  url: '<@spring.url 'sessions'/>/' + titreEncodePourLURL + '/votants',
+	       		  success: function() {
+	       			mettreAJourLesSessions();
+	       		  }});
+		}
+		function enleverMonVote(titreEncodePourLURL){
+			$.ajax({
+				headers: {
+			    	'X-HTTP-Method-Override': 'DELETE',
+			  	},
+   		  		type: 'GET',
+    		  	url: '<@spring.url 'sessions'/>/' + titreEncodePourLURL + '/votants',
+    		  	success: function() {
+    				mettreAJourLesSessions();
+    		  	}
+   		  	});
+		}
+	</#if>
 	
      $(document).ready(function(){
 		<#if utilisateur??>
