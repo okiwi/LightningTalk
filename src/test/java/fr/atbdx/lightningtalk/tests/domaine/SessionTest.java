@@ -70,6 +70,23 @@ public class SessionTest {
 
         assertThat(peutVoter, is(false));
     }
+    
+    @Test
+    public void neFaitRienSiUnUtilisateurVotePourUneSessionDejaVote() {
+        session.ajouterUnVote(AidePourLesParticipants.PARTICIPANT);
+
+        session.ajouterUnVote(AidePourLesParticipants.PARTICIPANT);
+
+        assertThat(session.getNombreDeVotes(), is(1));
+    }
+    
+    @Test
+    public void neFaisRienSiUnUtilisateurSupprimeUnVoteOuIlNAPasVote() {
+        session.supprimerUnVote(AidePourLesParticipants.PARTICIPANT);
+        
+        assertThat(session.getNombreDeVotes(), is(0));
+    }
+
 
     @Test
     public void nePeutPasVoterSiUtilisateurNull() {

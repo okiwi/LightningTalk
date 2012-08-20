@@ -31,7 +31,7 @@ public class Session {
     }
 
     public boolean peutVoter(Participant votant) {
-        return votant!=null && !votants.contains(votant);
+        return votant != null && !votants.contains(votant);
     }
 
     public Iterable<Participant> getVotants() {
@@ -43,7 +43,9 @@ public class Session {
     }
 
     public void ajouterUnVote(Participant participant) {
-        votants.add(participant);
+        if (peutVoter(participant)) {
+            votants.add(participant);
+        }
 
     }
 
