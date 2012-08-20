@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import fr.atbdx.lightningtalk.domaine.Session;
+import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesParticipants;
 import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesSessions;
 import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesUtilisateurs;
 import fr.atbdx.lightningtalk.web.SessionPourLaPresentation;
@@ -28,6 +29,15 @@ public class SessionPourLaPresentationTest {
         SessionPourLaPresentation sessionPourLaPresentation = new SessionPourLaPresentation(session, AidePourLesUtilisateurs.UTILISATEUR);
 
         AidePourLesSessions.verifierSessionPourLaPresentation(sessionPourLaPresentation);
+    }
+
+    @Test
+    public void encodeLesCaracteresSpeciauxJavascript() throws UnsupportedEncodingException {
+        Session sessionAvecCharactereSpecial = new Session("un chtit' session","description",AidePourLesParticipants.PARTICIPANT);
+
+        SessionPourLaPresentation sessionPourLaPresentation = new SessionPourLaPresentation(sessionAvecCharactereSpecial, AidePourLesUtilisateurs.UTILISATEUR);
+        
+        assertThat(sessionPourLaPresentation.getTitreEncodePourJavascript(), is("un chtit\\' session" ));
     }
 
     @Test

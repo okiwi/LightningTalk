@@ -140,7 +140,7 @@ body {
 	</script>
 	<script id="templatePourAfficherUneSession" type="text/html">
 		{{>debutDuTemplatePourAfficherUneSession}}
-			<a name="{{titreEncodePourLURL}}" id="{{titreEncodePourLURL}}" href="#" onClick="voter('{{titreEncodePourLURL}}');return false;" class="btn btn-info btn-mini">
+			<a href="#" onClick="voter('{{titreEncodePourJavascript}}');return false;" class="btn btn-info btn-mini">
 				<i class="icon-ok icon-white"></i>Voter
 			</a>
 		{{>finDuTemplatePourAfficherUneSession}}
@@ -148,7 +148,7 @@ body {
 	<script id="templatePourAfficherUneSessionDejaVote" type="text/html">
 		{{>debutDuTemplatePourAfficherUneSession}}
 		<#if utilisateur??>
-			<a name="{{titreEncodePourLURL}}" id="{{titreEncodePourLURL}}" href="#" onClick="enleverMonVote('{{titreEncodePourLURL}}');return false;" class="btn btn-mini">
+			<a href="#" onClick="enleverMonVote('{{titreEncodePourJavascript}}');return false;" class="btn btn-mini">
 				<i class="icon-remove"></i>Enlever mon vote
 			</a>
 		</#if>

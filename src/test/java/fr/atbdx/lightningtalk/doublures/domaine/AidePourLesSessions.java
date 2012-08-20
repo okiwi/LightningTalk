@@ -13,7 +13,7 @@ import fr.atbdx.lightningtalk.web.SessionPourLaPresentation;
 
 public class AidePourLesSessions {
 
-    private static final String TITRE_DE_LA_SESSION_ENCODE_POUR_L_URL = "Titre+de+la+session";
+    private static final String TITRE_DE_LA_SESSION_ENCODE_POUR_L_URL = "Titre de la session";
     public static final String TITRE_DE_LA_SESSION = "Titre de la session";
     public static final String DESCRIPTION_DE_LA_SESSION = "Description de la session";
 
@@ -43,7 +43,7 @@ public class AidePourLesSessions {
 
     public static void verifierSessionPourLaPresentation(SessionPourLaPresentation sessionPourLaPresentation) throws UnsupportedEncodingException {
         assertThat(sessionPourLaPresentation.getTitre(), is(TITRE_DE_LA_SESSION));
-        assertThat(sessionPourLaPresentation.getTitreEncodePourLURL(), is(TITRE_DE_LA_SESSION_ENCODE_POUR_L_URL));
+        assertThat(sessionPourLaPresentation.getTitreEncodePourJavascript(), is(TITRE_DE_LA_SESSION_ENCODE_POUR_L_URL));
         assertThat(sessionPourLaPresentation.getDescription(), is(DESCRIPTION_DE_LA_SESSION));
         assertThat(sessionPourLaPresentation.getOrateur(), is(AidePourLesParticipants.NOM_AFFICHE));
         assertThat(sessionPourLaPresentation.getNombreDeVotes(), is(0));
