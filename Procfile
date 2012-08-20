@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -Denvironnement=production -jar target/dependency/jetty-runner.jar --port $PORT target/*.war
+web: java $JAVA_OPTS -Dfile.encoding=UTF-8 -Denvironnement=production -jar target/dependency/jetty-runner.jar --port $PORT target/*.war
