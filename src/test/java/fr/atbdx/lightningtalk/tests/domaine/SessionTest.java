@@ -30,6 +30,13 @@ public class SessionTest {
     }
 
     @Test
+    public void supprimeLesEspacesAvantEtApresLeTitre() {
+        session = new Session(" " + AidePourLesSessions.TITRE_DE_LA_SESSION + " ", AidePourLesSessions.DESCRIPTION_DE_LA_SESSION, AidePourLesParticipants.PARTICIPANT);
+        
+        AidePourLesSessions.verifier(session);
+    }
+
+    @Test
     public void peutAjouterUnVote() {
         session.ajouterUnVote(AidePourLesParticipants.PARTICIPANT);
 
@@ -63,7 +70,7 @@ public class SessionTest {
 
         assertThat(peutVoter, is(false));
     }
-    
+
     @Test
     public void nePeutPasVoterSiUtilisateurNull() {
         session.ajouterUnVote(AidePourLesParticipants.PARTICIPANT);

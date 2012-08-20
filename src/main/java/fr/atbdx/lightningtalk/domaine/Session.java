@@ -3,6 +3,8 @@ package fr.atbdx.lightningtalk.domaine;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class Session {
 
     private String titre;
@@ -11,7 +13,7 @@ public class Session {
     protected List<Participant> votants = new ArrayList<Participant>();
 
     public Session(String titre, String description, Participant orateur) {
-        this.titre = titre;
+        this.titre = StringUtils.trim(titre);
         this.orateur = orateur;
         this.description = description;
     }
