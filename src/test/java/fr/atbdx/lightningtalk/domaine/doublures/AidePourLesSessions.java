@@ -1,12 +1,10 @@
-package fr.atbdx.lightningtalk.doublures.domaine;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
-
-import org.apache.commons.lang3.StringUtils;
+package fr.atbdx.lightningtalk.domaine.doublures;
 
 import fr.atbdx.lightningtalk.domaine.Session;
+import org.apache.commons.lang3.StringUtils;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
 
 public class AidePourLesSessions {
 

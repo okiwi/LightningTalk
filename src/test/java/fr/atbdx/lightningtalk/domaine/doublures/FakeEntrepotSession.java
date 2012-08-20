@@ -1,9 +1,9 @@
-package fr.atbdx.lightningtalk.doublures.domaine;
-
-import java.util.List;
+package fr.atbdx.lightningtalk.domaine.doublures;
 
 import fr.atbdx.lightningtalk.domaine.EntrepotSession;
 import fr.atbdx.lightningtalk.domaine.Session;
+
+import java.util.List;
 
 public class FakeEntrepotSession implements EntrepotSession {
 

@@ -1,12 +1,11 @@
-package fr.atbdx.lightningtalk.doublures.domaine.google;
-
-import java.io.IOException;
+package fr.atbdx.lightningtalk.domaine.doublures.google;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
 import com.google.api.services.plus.model.Person;
-
 import fr.atbdx.lightningtalk.domaine.google.ConnecteurGoogle;
 import fr.atbdx.lightningtalk.domaine.google.InformationsDAuthentification;
+
+import java.io.IOException;
 
 public class FakeConnecteurGoogle implements ConnecteurGoogle {
 

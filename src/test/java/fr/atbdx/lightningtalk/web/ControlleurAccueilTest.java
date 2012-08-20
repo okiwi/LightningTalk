@@ -1,18 +1,16 @@
-package fr.atbdx.lightningtalk.tests.web;
+package fr.atbdx.lightningtalk.web;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-
-import java.io.IOException;
-
+import fr.atbdx.lightningtalk.domaine.Utilisateur;
+import fr.atbdx.lightningtalk.domaine.doublures.AidePourLesUtilisateurs;
+import fr.atbdx.lightningtalk.domaine.doublures.FakeEntrepotUtilisateur;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 
-import fr.atbdx.lightningtalk.domaine.Utilisateur;
-import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesUtilisateurs;
-import fr.atbdx.lightningtalk.doublures.domaine.FakeEntrepotUtilisateur;
-import fr.atbdx.lightningtalk.web.ControlleurAccueil;
+import java.io.IOException;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
 
 public class ControlleurAccueilTest {
 

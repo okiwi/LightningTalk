@@ -1,37 +1,38 @@
-package fr.atbdx.lightningtalk.tests.domaine.mongodb;
+package fr.atbdx.lightningtalk.domaine.mongodb;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import com.mongodb.DBCollection;
+import com.mongodb.DBObject;
+import com.mongodb.FakeDB;
+import com.mongodb.MongoException;
+import fr.atbdx.lightningtalk.domaine.Session;
+import fr.atbdx.lightningtalk.domaine.doublures.AidePourLesSessions;
+import fr.atbdx.lightningtalk.domaine.doublures.AidePourLesUtilisateurs;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.mongolink.MongoSession;
+import org.mongolink.test.FakePersistentContext;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.List;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.DBObject;
-import com.mongodb.Mongo;
-import com.mongodb.MongoException;
-
-import fr.atbdx.lightningtalk.domaine.Session;
-import fr.atbdx.lightningtalk.domaine.mongodb.EntrepotSessionMongo;
-import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesSessions;
-import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesUtilisateurs;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
 
 public class EntrepotSessionMongoTest {
 
-    private DB baseLightningTalk;
+    @Rule
+    public FakePersistentContext context = new FakePersistentContext("fr.atbdx.lightningtalk.domaine.mongodb.mapping");
+
+    private FakeDB baseLightningTalk;
     private EntrepotSessionMongo entrepotDeSessionMongo;
 
     @Before
     public void avantLesTests() throws UnknownHostException {
-        Mongo mongo = new Mongo("localhost", 27017);
-        baseLightningTalk = mongo.getDB("LightningTalkTest");
-        entrepotDeSessionMongo = new EntrepotSessionMongo(baseLightningTalk);
+        final MongoSession session = context.getSession();
+        entrepotDeSessionMongo = new EntrepotSessionMongo(session);
+        baseLightningTalk = (FakeDB) session.getDb();
     }
 
     @Test
@@ -40,7 +41,7 @@ public class EntrepotSessionMongoTest {
 
         entrepotDeSessionMongo.creerUneSession(session);
 
-        DBCollection sessions = baseLightningTalk.getCollection("sessions");
+        DBCollection sessions = baseLightningTalk.getCollection("session");
         assertThat(sessions.count(), is(1l));
         DBObject sessionMango = sessions.findOne();
         assertThat((String) sessionMango.get("titre"), is(AidePourLesSessions.TITRE_DE_LA_SESSION));
@@ -67,13 +68,8 @@ public class EntrepotSessionMongoTest {
         List<Session> sessions = entrepotDeSessionMongo.recupererLesSessions();
 
         assertThat(sessions.size(), is(2));
-        AidePourLesSessions.verifierAvecSuffixe(sessions.get(0), "2");
-        AidePourLesSessions.verifier(sessions.get(1));
-    }
-
-    @After
-    public void apresLesTests() {
-        baseLightningTalk.dropDatabase();
+        AidePourLesSessions.verifierAvecSuffixe(sessions.get(1), "2");
+        AidePourLesSessions.verifier(sessions.get(0));
     }
 
 }

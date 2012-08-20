@@ -1,46 +1,36 @@
 package fr.atbdx.lightningtalk.domaine.mongodb;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import fr.atbdx.lightningtalk.domaine.EntrepotSession;
+import fr.atbdx.lightningtalk.domaine.Session;
+import org.mongolink.MongoSession;
+import org.mongolink.MongoSessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.mongodb.BasicDBObjectBuilder;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
-
-import fr.atbdx.lightningtalk.domaine.EntrepotSession;
-import fr.atbdx.lightningtalk.domaine.Session;
-import fr.atbdx.lightningtalk.domaine.Utilisateur;
+import java.util.List;
 
 @Repository
 public class EntrepotSessionMongo implements EntrepotSession {
 
-    private DBCollection sessionsMongo;
+    private MongoSession session;
 
     @Autowired
-    public EntrepotSessionMongo(DB baseLightningTalk) {
-        sessionsMongo = baseLightningTalk.getCollection("sessions");
+    public EntrepotSessionMongo(MongoSessionManager sessionManager) {
+        this(sessionManager.createSession());
+    }
+
+    public EntrepotSessionMongo(final MongoSession session) {
+        this.session = session;
     }
 
     @Override
     public void creerUneSession(Session session) {
-        DBObject orateurMongo = BasicDBObjectBuilder.start().add("id", session.getOrateur().getId()).add("nomAffiche", session.getOrateur().getNomAffiche()).get();
-        sessionsMongo.insert(BasicDBObjectBuilder.start().add("titre", session.getTitre()).add("description", session.getDescription()).add("orateur", orateurMongo).get());
+        this.session.save(session);
     }
 
     @Override
     public List<Session> recupererLesSessions() {
-        DBCursor curseursDeSessionsMongo = sessionsMongo.find();
-        List<Session> sessions = new ArrayList<Session>();
-        for (DBObject sessionMongo : curseursDeSessionsMongo) {
-            DBObject orateurMongo = (DBObject) sessionMongo.get("orateur");
-            Utilisateur orateur = new Utilisateur((String) orateurMongo.get("id"), (String) orateurMongo.get("nomAffiche"));
-            sessions.add(0, new Session((String) sessionMongo.get("titre"), (String) sessionMongo.get("description"), orateur));
-        }
-        return sessions;
+        return session.getAll(Session.class);
     }
+
 }

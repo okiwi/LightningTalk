@@ -1,21 +1,19 @@
-package fr.atbdx.lightningtalk.tests.web;
+package fr.atbdx.lightningtalk.web;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import fr.atbdx.lightningtalk.domaine.Session;
+import fr.atbdx.lightningtalk.domaine.doublures.AidePourLesSessions;
+import fr.atbdx.lightningtalk.domaine.doublures.AidePourLesUtilisateurs;
+import fr.atbdx.lightningtalk.domaine.doublures.FakeEntrepotSession;
+import fr.atbdx.lightningtalk.domaine.doublures.FakeEntrepotUtilisateur;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import fr.atbdx.lightningtalk.domaine.Session;
-import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesSessions;
-import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesUtilisateurs;
-import fr.atbdx.lightningtalk.doublures.domaine.FakeEntrepotSession;
-import fr.atbdx.lightningtalk.doublures.domaine.FakeEntrepotUtilisateur;
-import fr.atbdx.lightningtalk.web.ControlleurSessions;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
 
 public class ControlleurSessionsTest {
 

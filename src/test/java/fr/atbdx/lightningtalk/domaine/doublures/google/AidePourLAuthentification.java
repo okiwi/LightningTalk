@@ -1,14 +1,12 @@
-package fr.atbdx.lightningtalk.doublures.domaine.google;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
+package fr.atbdx.lightningtalk.domaine.doublures.google;
 
 import com.google.api.services.plus.model.Person;
-
+import fr.atbdx.lightningtalk.domaine.doublures.AidePourLesUtilisateurs;
 import fr.atbdx.lightningtalk.domaine.google.InformationsDAuthentification;
 import fr.atbdx.lightningtalk.domaine.google.UtilisateurGoogle;
-import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesUtilisateurs;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
 
 public class AidePourLAuthentification {
 
