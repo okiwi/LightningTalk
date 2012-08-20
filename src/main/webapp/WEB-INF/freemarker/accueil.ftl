@@ -108,9 +108,10 @@ body {
 	<div class="modal fade hide" id="modalDeCreationDUneSession">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
-			<h3>Creation d'une session</h3>
+			<h3>Création d'une session</h3>
 		</div>
 		<div class="modal-body">
+			<div id="conteneurDErreurPourLaCreationDUneSession"></div>
 			<form id="formulaireDeCreationDUneSession" class="well">
 				<label class="control-label" for="titre">Titre</label> <input type="text" class="span5" placeholder="Entrer le titre de votre session ..." name="titre" id="titre" /> <label
 					class="control-label" for="description">description</label>
@@ -157,6 +158,13 @@ body {
 	<script id="finDuTemplatePourAfficherUneSession" class="partial" type="text/html">
 				<span class="badge badge-inverse">{{nombreDeVotes}}</span>
 			</div>
+		</div>
+	</script>
+	<script id="erreur" type="text/html">
+		<div class="alert alert-error">
+			<a class="close" data-dismiss="alert" href="#">×</a>
+			<h4 class="alert-heading">{{titre}}</h4>
+			{{message}}
 		</div>
 	</script>
 	<script type="text/javascript">
@@ -206,11 +214,21 @@ body {
        		  data: $('#formulaireDeCreationDUneSession').serializeArray(),
        		  success: function() {
        			$('#modalDeCreationDUneSession').modal('hide');
-       			$('#titre').val('');
-       			$('#description').val('');
        			mettreAJourLesSessions();
-       		  }});
+       		  },
+       		  error: function(data) {
+       			  var erreur = {titre:"Création impossible", message:data.responseText};
+       			  $('#conteneurDErreurPourLaCreationDUneSession').html(ich.erreur(erreur));
+       		  }
+    		});
        	});
+       	
+        $('#modalDeCreationDUneSession').on('hidden', function () {
+        	$('#titre').val('');
+   			$('#description').val('');
+   			$('#conteneurDErreurPourLaCreationDUneSession').html('');
+         });
+        
         </#if>
         mettreAJourLesSessions();
       });

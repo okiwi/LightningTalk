@@ -8,6 +8,7 @@ import com.mongodb.DBObject;
 
 import static fr.atbdx.lightningtalk.domaine.mongodb.AssistantMongo.dans;
 
+import fr.atbdx.lightningtalk.domaine.ImpossibleDeCreerUneSession;
 import fr.atbdx.lightningtalk.domaine.Participant;
 import fr.atbdx.lightningtalk.domaine.Session;
 
@@ -35,8 +36,13 @@ public class AssistantMongoPourLesSessions {
 
     public static Session fabriquer(DBObject sessionDBObject) {
         Participant orateur = contruireParticipant(dans(sessionDBObject).recupererSousDBObject(ORATEUR));
-        SessionMongo sessionMongo = new SessionMongo(dans(sessionDBObject).recupererObjectId(), dans(sessionDBObject).recupererChaine(TITRE), dans(sessionDBObject)
-                .recupererChaine(DESCRIPTION), orateur);
+        SessionMongo sessionMongo;
+        try {
+            sessionMongo = new SessionMongo(dans(sessionDBObject).recupererObjectId(), dans(sessionDBObject).recupererChaine(TITRE), dans(sessionDBObject).recupererChaine(
+                    DESCRIPTION), orateur);
+        } catch (ImpossibleDeCreerUneSession e) {
+            throw new RuntimeException(e);
+        }
         List<DBObject> votantsDBOject = dans(sessionDBObject).recupererListe(VOTANTS);
         if (votantsDBOject != null) {
             for (DBObject votantObject : votantsDBOject) {

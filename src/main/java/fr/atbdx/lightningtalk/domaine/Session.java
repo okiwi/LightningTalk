@@ -12,7 +12,10 @@ public class Session {
     private String description;
     protected List<Participant> votants = new ArrayList<Participant>();
 
-    public Session(String titre, String description, Participant orateur) {
+    public Session(String titre, String description, Participant orateur) throws ImpossibleDeCreerUneSession {
+        if (StringUtils.isBlank(titre)) {
+            throw new ImpossibleDeCreerUneSession("Veuillez entrer un titre pour créer une session.");
+        }
         this.titre = StringUtils.trim(titre);
         this.orateur = orateur;
         this.description = description;

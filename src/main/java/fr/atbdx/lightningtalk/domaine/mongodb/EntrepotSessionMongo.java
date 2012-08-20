@@ -12,6 +12,7 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 import fr.atbdx.lightningtalk.domaine.EntrepotSession;
+import fr.atbdx.lightningtalk.domaine.ImpossibleDeCreerUneSession;
 import fr.atbdx.lightningtalk.domaine.Session;
 
 @Repository
@@ -25,7 +26,10 @@ public class EntrepotSessionMongo implements EntrepotSession {
     }
 
     @Override
-    public void creerUneSession(Session session) {
+    public void creerUneSession(Session session) throws ImpossibleDeCreerUneSession {
+        if (sessionsMongo.count(AssistantMongoPourLesSessions.fabriquerPourLaRechercheParTitre(session.getTitre())) != 0) {
+            throw new ImpossibleDeCreerUneSession("Une session avec le même titre existe déjà.");
+        }
         sessionsMongo.save(AssistantMongoPourLesSessions.fabriquerPourUneCreation(session));
     }
 

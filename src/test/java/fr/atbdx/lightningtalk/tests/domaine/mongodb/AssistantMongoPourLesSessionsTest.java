@@ -12,6 +12,7 @@ import org.junit.Test;
 import com.mongodb.DBObject;
 
 import static fr.atbdx.lightningtalk.domaine.mongodb.AssistantMongo.dans;
+import fr.atbdx.lightningtalk.domaine.ImpossibleDeCreerUneSession;
 import fr.atbdx.lightningtalk.domaine.Session;
 import fr.atbdx.lightningtalk.domaine.mongodb.AssistantMongoPourLesSessions;
 import fr.atbdx.lightningtalk.domaine.mongodb.SessionMongo;
@@ -31,7 +32,7 @@ public class AssistantMongoPourLesSessionsTest {
     }
 
     @Test
-    public void peutFabriquerUnDBObjectPourUneMiseAJourDeSession() {
+    public void peutFabriquerUnDBObjectPourUneMiseAJourDeSession() throws ImpossibleDeCreerUneSession {
         SessionMongo sessionMongo = creerUneSessionMongo();
 
         DBObject sessionDBObject = AssistantMongoPourLesSessions.fabriquerPourUneMiseAJour(sessionMongo);
@@ -41,7 +42,7 @@ public class AssistantMongoPourLesSessionsTest {
     }
 
     @Test
-    public void peutFabriquerUnDBObjectAvecUnVotePourUneMiseAJourDeSession() {
+    public void peutFabriquerUnDBObjectAvecUnVotePourUneMiseAJourDeSession() throws ImpossibleDeCreerUneSession {
         SessionMongo sessionMongo = creerUneSessionMongoAvecUnVote();
 
         DBObject sessionDBObject = AssistantMongoPourLesSessions.fabriquerPourUneMiseAJour(sessionMongo);
@@ -62,7 +63,7 @@ public class AssistantMongoPourLesSessionsTest {
     }
 
     @Test
-    public void peutFabriquerUneSessionMongoAvecUnVote() {
+    public void peutFabriquerUneSessionMongoAvecUnVote() throws ImpossibleDeCreerUneSession {
         DBObject sessionDBObjectAvecUnVote = AssistantMongoPourLesSessions.fabriquerPourUneMiseAJour(creerUneSessionMongoAvecUnVote());
 
         Session session = AssistantMongoPourLesSessions.fabriquer(sessionDBObjectAvecUnVote);
@@ -73,11 +74,11 @@ public class AssistantMongoPourLesSessionsTest {
 
     }
 
-    private SessionMongo creerUneSessionMongoAvecUnVote() {
+    private SessionMongo creerUneSessionMongoAvecUnVote() throws ImpossibleDeCreerUneSession {
         return (SessionMongo) AidePourLesSessions.ajouterUnVote(creerUneSessionMongo());
     }
 
-    private SessionMongo creerUneSessionMongo() {
+    private SessionMongo creerUneSessionMongo() throws ImpossibleDeCreerUneSession {
         return new SessionMongo(OBJECT_ID, AidePourLesSessions.TITRE_DE_LA_SESSION, AidePourLesSessions.DESCRIPTION_DE_LA_SESSION, AidePourLesParticipants.PARTICIPANT);
     }
 

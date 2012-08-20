@@ -2,6 +2,7 @@ package fr.atbdx.lightningtalk.tests.domaine.mongodb;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
@@ -17,6 +18,7 @@ import com.mongodb.DBObject;
 import com.mongodb.Mongo;
 import com.mongodb.MongoException;
 
+import fr.atbdx.lightningtalk.domaine.ImpossibleDeCreerUneSession;
 import fr.atbdx.lightningtalk.domaine.Session;
 import fr.atbdx.lightningtalk.domaine.mongodb.EntrepotSessionMongo;
 import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesParticipants;
@@ -35,7 +37,7 @@ public class EntrepotSessionMongoTest {
     }
 
     @Test
-    public void creerUneSession() throws MongoException, IOException {
+    public void creerUneSession() throws MongoException, IOException, ImpossibleDeCreerUneSession {
         Session session = AidePourLesSessions.creer();
 
         entrepotDeSessionMongo.creerUneSession(session);
@@ -50,7 +52,20 @@ public class EntrepotSessionMongoTest {
     }
 
     @Test
-    public void listerUneSession() {
+    public void creerUneSessionDejaExistanteEnvoitUneErreur() throws ImpossibleDeCreerUneSession {
+        Session session = AidePourLesSessions.creer();
+        entrepotDeSessionMongo.creerUneSession(session);
+        try {
+            entrepotDeSessionMongo.creerUneSession(session);
+            fail("Créer une session existante devrai lancer une erreur");
+        } catch (ImpossibleDeCreerUneSession impossibleDeCreerUneSession) {
+            assertThat(impossibleDeCreerUneSession.getMessage(), is("Une session avec le même titre existe déjà."));
+        }
+
+    }
+
+    @Test
+    public void listerUneSession() throws ImpossibleDeCreerUneSession {
         entrepotDeSessionMongo.creerUneSession(AidePourLesSessions.creer());
 
         List<Session> sessions = entrepotDeSessionMongo.recupererLesSessions();
@@ -60,7 +75,7 @@ public class EntrepotSessionMongoTest {
     }
 
     @Test
-    public void listerDeuxSessions() {
+    public void listerDeuxSessions() throws ImpossibleDeCreerUneSession {
         entrepotDeSessionMongo.creerUneSession(AidePourLesSessions.creer());
         entrepotDeSessionMongo.creerUneSession(AidePourLesSessions.creerAvecSuffixe("2"));
 
@@ -72,7 +87,7 @@ public class EntrepotSessionMongoTest {
     }
 
     @Test
-    public void peutRecupererUneSessionParSonTitre() {
+    public void peutRecupererUneSessionParSonTitre() throws ImpossibleDeCreerUneSession {
         entrepotDeSessionMongo.creerUneSession(AidePourLesSessions.creer());
 
         Session session = entrepotDeSessionMongo.recupererDepuisSonTitre(AidePourLesSessions.TITRE_DE_LA_SESSION);
@@ -81,7 +96,7 @@ public class EntrepotSessionMongoTest {
     }
 
     @Test
-    public void peutSauvegarderUneSession() {
+    public void peutSauvegarderUneSession() throws ImpossibleDeCreerUneSession {
         entrepotDeSessionMongo.creerUneSession(AidePourLesSessions.creer());
         Session sessionAMettreAJour = entrepotDeSessionMongo.recupererDepuisSonTitre(AidePourLesSessions.TITRE_DE_LA_SESSION);
         sessionAMettreAJour.ajouterUnVote(AidePourLesParticipants.PARTICIPANT);

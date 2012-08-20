@@ -8,6 +8,7 @@ import java.io.UnsupportedEncodingException;
 
 import org.apache.commons.lang3.StringUtils;
 
+import fr.atbdx.lightningtalk.domaine.ImpossibleDeCreerUneSession;
 import fr.atbdx.lightningtalk.domaine.Session;
 import fr.atbdx.lightningtalk.web.SessionPourLaPresentation;
 
@@ -18,7 +19,11 @@ public class AidePourLesSessions {
     public static final String DESCRIPTION_DE_LA_SESSION = "Description de la session";
 
     public static Session creerAvecSuffixe(String suffixe) {
-        return new Session(TITRE_DE_LA_SESSION + suffixe, DESCRIPTION_DE_LA_SESSION + suffixe, AidePourLesParticipants.creerAvecSuffixe(suffixe));
+        try {
+            return new Session(TITRE_DE_LA_SESSION + suffixe, DESCRIPTION_DE_LA_SESSION + suffixe, AidePourLesParticipants.creerAvecSuffixe(suffixe));
+        } catch (ImpossibleDeCreerUneSession e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static Session creer() {

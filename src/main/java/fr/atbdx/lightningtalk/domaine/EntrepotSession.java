@@ -6,7 +6,7 @@ public interface EntrepotSession {
 
     List<Session> recupererLesSessions();
 
-    void creerUneSession(Session session);
+    void creerUneSession(Session session) throws ImpossibleDeCreerUneSession;
 
     Session recupererDepuisSonTitre(String titreDeLaSession);
 

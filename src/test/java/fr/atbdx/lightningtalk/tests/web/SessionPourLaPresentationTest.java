@@ -8,6 +8,7 @@ import java.io.UnsupportedEncodingException;
 import org.junit.Before;
 import org.junit.Test;
 
+import fr.atbdx.lightningtalk.domaine.ImpossibleDeCreerUneSession;
 import fr.atbdx.lightningtalk.domaine.Session;
 import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesParticipants;
 import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesSessions;
@@ -32,7 +33,7 @@ public class SessionPourLaPresentationTest {
     }
 
     @Test
-    public void encodeLesCaracteresSpeciauxJavascript() throws UnsupportedEncodingException {
+    public void encodeLesCaracteresSpeciauxJavascript() throws UnsupportedEncodingException, ImpossibleDeCreerUneSession {
         Session sessionAvecCharactereSpecial = new Session("un chtit' session","description",AidePourLesParticipants.PARTICIPANT);
 
         SessionPourLaPresentation sessionPourLaPresentation = new SessionPourLaPresentation(sessionAvecCharactereSpecial, AidePourLesUtilisateurs.UTILISATEUR);

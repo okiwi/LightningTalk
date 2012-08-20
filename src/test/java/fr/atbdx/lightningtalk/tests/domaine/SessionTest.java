@@ -2,10 +2,13 @@ package fr.atbdx.lightningtalk.tests.domaine;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
+import fr.atbdx.lightningtalk.domaine.ImpossibleDeCreerUneSession;
 import fr.atbdx.lightningtalk.domaine.Session;
 import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesParticipants;
 import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesSessions;
@@ -15,7 +18,7 @@ public class SessionTest {
     private Session session;
 
     @Before
-    public void avantLesTests() {
+    public void avantLesTests() throws ImpossibleDeCreerUneSession {
         session = new Session(AidePourLesSessions.TITRE_DE_LA_SESSION, AidePourLesSessions.DESCRIPTION_DE_LA_SESSION, AidePourLesParticipants.PARTICIPANT);
     }
 
@@ -30,9 +33,29 @@ public class SessionTest {
     }
 
     @Test
-    public void supprimeLesEspacesAvantEtApresLeTitre() {
+    public void creerUneSessionAvecUnTitreNulleRetourneUneException() {
+        try {
+            new Session(null, null, AidePourLesParticipants.PARTICIPANT);
+            fail("creer une session sans un titre retourne Une exception");
+        } catch (ImpossibleDeCreerUneSession exception) {
+            assertThat(exception.getMessage(), is("Veuillez entrer un titre pour créer une session."));
+        }
+    }
+
+    @Test
+    public void creerUneSessionAvecUnTitreVideRetourneUneException() {
+        try {
+            new Session(StringUtils.EMPTY, null, AidePourLesParticipants.PARTICIPANT);
+            fail("creer une session sans un titre retourne Une exception");
+        } catch (ImpossibleDeCreerUneSession exception) {
+            assertThat(exception.getMessage(), is("Veuillez entrer un titre pour créer une session."));
+        }
+    }
+
+    @Test
+    public void supprimeLesEspacesAvantEtApresLeTitre() throws ImpossibleDeCreerUneSession {
         session = new Session(" " + AidePourLesSessions.TITRE_DE_LA_SESSION + " ", AidePourLesSessions.DESCRIPTION_DE_LA_SESSION, AidePourLesParticipants.PARTICIPANT);
-        
+
         AidePourLesSessions.verifier(session);
     }
 
@@ -70,7 +93,7 @@ public class SessionTest {
 
         assertThat(peutVoter, is(false));
     }
-    
+
     @Test
     public void neFaitRienSiUnUtilisateurVotePourUneSessionDejaVote() {
         session.ajouterUnVote(AidePourLesParticipants.PARTICIPANT);
@@ -79,14 +102,13 @@ public class SessionTest {
 
         assertThat(session.getNombreDeVotes(), is(1));
     }
-    
+
     @Test
     public void neFaisRienSiUnUtilisateurSupprimeUnVoteOuIlNAPasVote() {
         session.supprimerUnVote(AidePourLesParticipants.PARTICIPANT);
-        
+
         assertThat(session.getNombreDeVotes(), is(0));
     }
-
 
     @Test
     public void nePeutPasVoterSiUtilisateurNull() {
