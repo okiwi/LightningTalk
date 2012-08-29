@@ -42,7 +42,7 @@ body {
 					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> <i class="icon-user"></i> ${utilisateur.nomAffiche}<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a href=""> Déconnexion</a></li>
+						<li><a href="authentification/deconnexion"> Déconnexion</a></li>
 					</ul>
 				</div>
 				<div class="btn-group pull-right visible-phone">
@@ -82,7 +82,7 @@ body {
 						<img alt="" src="${utilisateur.urlImage}"> <a href="${utilisateur.urlProfil}">${utilisateur.nomAffiche}</a>
 					</h3>
 					<p>
-						<a class="btn" href=""> Déconnexion</a>
+						<a class="btn" href="authentification/deconnexion"> Déconnexion</a>
 					</p>
 					<p>
 						<a class="btn" rel="tooltip" title="Créer une session" data-toggle="modal" href="#modalDeCreationDUneSession"> <i class="icon-pencil"></i> Créer une session

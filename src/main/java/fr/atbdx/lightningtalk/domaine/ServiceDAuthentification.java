@@ -38,4 +38,8 @@ public class ServiceDAuthentification {
         return utilisateurCourant;
     }
 
+    public void deconnexion() {
+        utilisateurCourant = null;
+    }
+
 }

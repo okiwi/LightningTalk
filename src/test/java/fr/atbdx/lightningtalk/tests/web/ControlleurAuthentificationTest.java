@@ -1,6 +1,7 @@
 package fr.atbdx.lightningtalk.tests.web;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
@@ -24,20 +25,30 @@ public class ControlleurAuthentificationTest {
     }
 
     @Test
-    public void demanderAuthentificationExterne() {
+    public void peutDemanderUrlPourAuthentificationExterne() {
 
         String urlDAuthentificationExterne = controlleurAuthentification.demanderAuthentificationExterne();
 
-        assertThat(urlDAuthentificationExterne, is("redirect:" + FakeSystemeDAuthentificationExterne.URL_DU_SYSTEME_D_AUTHENTIFICATION_EXTERNE));
+        assertThat(urlDAuthentificationExterne, is(ControlleurAuthentification.REDIRECTION + FakeSystemeDAuthentificationExterne.URL_DU_SYSTEME_D_AUTHENTIFICATION_EXTERNE));
     }
 
     @Test
     public void authentification() throws IOException {
 
-        String urlDAuthentificationExterne = controlleurAuthentification.authentification(AidePourLAuthentification.CODE_AUTHENTIFICATION);
+        String redirection = controlleurAuthentification.authentification(AidePourLAuthentification.CODE_AUTHENTIFICATION);
 
         aidePourLAuthentification.verifierLaConnexionAuSystemeDAuthentificationExterneEtLaCreationDeLUtilisateur();
-        assertThat(urlDAuthentificationExterne, is("redirect:/"));
+        assertThat(redirection, is(ControlleurAuthentification.REDIRECTION_VERS_PAGE_D_ACCUEIL));
+    }
+
+    @Test
+    public void deconnexion() throws IOException {
+        aidePourLAuthentification.simulerAuthentification();
+        
+        String redirection = controlleurAuthentification.deconnexion();
+
+        assertThat(aidePourLAuthentification.serviceDAuthentification.recupererUtilisateurCourant(), nullValue());
+        assertThat(redirection, is(ControlleurAuthentification.REDIRECTION_VERS_PAGE_D_ACCUEIL));
     }
 
 }

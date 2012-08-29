@@ -1,6 +1,7 @@
 package fr.atbdx.lightningtalk.tests.domaine;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
@@ -34,7 +35,7 @@ public class ServiceDAuthentificationTest {
 
     @Test
     public void peutMettreAJourUnUtilisateurConnecterPrecedement() throws IOException {
-        serviceDAuthentification.authentifier(AidePourLAuthentification.CODE_AUTHENTIFICATION);
+        aidePourLAuthentification.simulerAuthentification();
         Utilisateur unAutreUtilisateur = AidePourLesUtilisateurs.creerAvecSuffixe("unAutreUtilisateur");
         aidePourLAuthentification.systemeDAuthentificationExterne.utilisateurARetourner = unAutreUtilisateur;
 
@@ -42,6 +43,15 @@ public class ServiceDAuthentificationTest {
 
         assertThat(aidePourLAuthentification.entrepotUtilisateur.utilisateurMisAJour, is(unAutreUtilisateur));
         assertThat(aidePourLAuthentification.entrepotUtilisateur.idUtilisateurRecuperer, is(unAutreUtilisateur.getId()));
+    }
+
+    @Test
+    public void peuxSeDeconnecter() throws IOException {
+        aidePourLAuthentification.simulerAuthentification();
+
+        serviceDAuthentification.deconnexion();
+
+        assertThat(serviceDAuthentification.recupererUtilisateurCourant(), nullValue());
 
     }
 }
