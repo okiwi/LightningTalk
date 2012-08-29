@@ -1,31 +1,39 @@
 package fr.atbdx.lightningtalk.domaine;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.google.common.collect.Lists;
+
 public class Session {
 
     private String titre;
-    private Participant orateur;
+    private String orateur;
     private String description;
-    protected List<Participant> votants = new ArrayList<Participant>();
+    protected List<String> votants = Lists.newArrayList();
 
-    public Session(String titre, String description, Participant orateur) throws ImpossibleDeCreerUneSession {
+    public Session(String titre, String description, Utilisateur orateur) throws ImpossibleDeCreerUneSession {
         if (StringUtils.isBlank(titre)) {
             throw new ImpossibleDeCreerUneSession("Veuillez entrer un titre pour créer une session.");
         }
+        if (orateur == null) {
+            throw new ImpossibleDeCreerUneSession("Veuillez vous connecter pour créer une session.");
+        }
         this.titre = StringUtils.trim(titre);
-        this.orateur = orateur;
+        this.orateur = orateur.getId();
         this.description = description;
+    }
+
+    protected Session() {
+
     }
 
     public String getTitre() {
         return titre;
     }
 
-    public Participant getOrateur() {
+    public String getOrateur() {
         return orateur;
     }
 
@@ -33,11 +41,11 @@ public class Session {
         return description;
     }
 
-    public boolean peutVoter(Participant votant) {
-        return votant != null && !votants.contains(votant);
+    public boolean peutVoter(Utilisateur votant) {
+        return votant != null && !votants.contains(votant.getId());
     }
 
-    public Iterable<Participant> getVotants() {
+    public Iterable<String> getVotants() {
         return votants;
     }
 
@@ -45,15 +53,17 @@ public class Session {
         return votants.size();
     }
 
-    public void ajouterUnVote(Participant participant) {
-        if (peutVoter(participant)) {
-            votants.add(participant);
+    public void ajouterUnVote(Utilisateur votant) {
+        if (peutVoter(votant)) {
+            votants.add(votant.getId());
         }
 
     }
 
-    public void supprimerUnVote(Participant participant) {
-        votants.remove(participant);
+    public void supprimerUnVote(Utilisateur votant) {
+        if (votant!=null) {
+            votants.remove(votant.getId());
+        }
 
     }
 

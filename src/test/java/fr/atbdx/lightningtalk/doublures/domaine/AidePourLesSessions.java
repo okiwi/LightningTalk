@@ -20,7 +20,7 @@ public class AidePourLesSessions {
 
     public static Session creerAvecSuffixe(String suffixe) {
         try {
-            return new Session(TITRE_DE_LA_SESSION + suffixe, DESCRIPTION_DE_LA_SESSION + suffixe, AidePourLesParticipants.creerAvecSuffixe(suffixe));
+            return new Session(TITRE_DE_LA_SESSION + suffixe, DESCRIPTION_DE_LA_SESSION + suffixe, AidePourLesUtilisateurs.creerAvecSuffixe(suffixe));
         } catch (ImpossibleDeCreerUneSession e) {
             throw new RuntimeException(e);
         }
@@ -34,7 +34,7 @@ public class AidePourLesSessions {
         assertThat(session, notNullValue());
         assertThat(session.getTitre(), is(TITRE_DE_LA_SESSION + suffixe));
         assertThat(session.getDescription(), is(DESCRIPTION_DE_LA_SESSION + suffixe));
-        AidePourLesParticipants.verifierAvecSuffixe(session.getOrateur(), suffixe);
+        assertThat(session.getOrateur(), is(AidePourLesUtilisateurs.recupererUnIdAvecSuffix(suffixe)));
     }
 
     public static void verifier(Session session) {
@@ -42,15 +42,15 @@ public class AidePourLesSessions {
     }
 
     public static Session ajouterUnVote(Session session) {
-        session.ajouterUnVote(AidePourLesParticipants.PARTICIPANT);
+        session.ajouterUnVote(AidePourLesUtilisateurs.UTILISATEUR);
         return session;
     }
 
-    public static void verifierSessionPourLaPresentation(SessionPourLaPresentation sessionPourLaPresentation) throws UnsupportedEncodingException {
+    public static void verifierSessionPourLaPresentationAvecOrateurQuiEstUnAutreUtilisateur(SessionPourLaPresentation sessionPourLaPresentation) throws UnsupportedEncodingException {
         assertThat(sessionPourLaPresentation.getTitre(), is(TITRE_DE_LA_SESSION));
         assertThat(sessionPourLaPresentation.getTitreEncodePourJavascript(), is(TITRE_DE_LA_SESSION_ENCODE_POUR_L_URL));
         assertThat(sessionPourLaPresentation.getDescription(), is(DESCRIPTION_DE_LA_SESSION));
-        assertThat(sessionPourLaPresentation.getOrateur(), is(AidePourLesParticipants.NOM_AFFICHE));
+        assertThat(sessionPourLaPresentation.getOrateur(), is(AidePourLesUtilisateurs.UN_AUTRE_UTILISATEUR.getNomAffiche()));
         assertThat(sessionPourLaPresentation.getNombreDeVotes(), is(0));
         assertThat(sessionPourLaPresentation.isPeutVoter(), is(true));
     }

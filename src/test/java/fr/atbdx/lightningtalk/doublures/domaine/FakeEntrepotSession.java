@@ -18,18 +18,18 @@ public class FakeEntrepotSession implements EntrepotSession {
     }
 
     @Override
-    public void creerUneSession(Session session) {
+    public void creer(Session session) {
         this.session = session;
     }
 
     @Override
-    public Session recupererDepuisSonTitre(String titreDeLaSession) {
+    public Session recuperer(String titreDeLaSession) {
         this.titreDeLaSessionRecupere = titreDeLaSession;
         return session;
     }
 
     @Override
-    public void sauvegargerUneSession(Session sessionAMettreAJour) {
+    public void mettreAJour(Session sessionAMettreAJour) {
         this.session = sessionAMettreAJour;
         sessionSauvegardee = true;
 

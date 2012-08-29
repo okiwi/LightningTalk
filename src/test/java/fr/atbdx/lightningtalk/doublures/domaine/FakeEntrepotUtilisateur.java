@@ -1,32 +1,27 @@
 package fr.atbdx.lightningtalk.doublures.domaine;
 
-import java.io.IOException;
-
 import fr.atbdx.lightningtalk.domaine.EntrepotUtilisateur;
 import fr.atbdx.lightningtalk.domaine.Utilisateur;
-import fr.atbdx.lightningtalk.doublures.domaine.google.FakeConnecteurGoogle;
 
 public class FakeEntrepotUtilisateur implements EntrepotUtilisateur {
 
-    public String codePasserPourAuthentifier;
-    public String codeErreurPasserPourAuthentifier;
-    public Utilisateur utilisateurCourantARetourner;
+    public Utilisateur utilisateurCreer;
+    public Utilisateur utilisateurMisAJour;
+    public String idUtilisateurRecuperer;
 
     @Override
-    public String recupererLURLDuServiceDAuthentificationExterne() {
-        return FakeConnecteurGoogle.URL_DU_SERVICE_D_AUTHENTIFICATION_EXTERNE;
+    public Utilisateur recuperer(String id) {
+        idUtilisateurRecuperer = id;
+        return utilisateurCreer;
     }
 
     @Override
-    public void authentifier(String code, String codeErreur) throws IOException {
-        this.codePasserPourAuthentifier = code;
-        this.codeErreurPasserPourAuthentifier = codeErreur;
-
+    public void creer(Utilisateur utilisateur) {
+        this.utilisateurCreer = utilisateur;
     }
 
-    @Override
-    public Utilisateur recupererUtilisateurCourant() {
-        return utilisateurCourantARetourner;
+    public void mettreAJour(Utilisateur utilisateur) {
+        this.utilisateurMisAJour = utilisateur ; 
     }
 
 }

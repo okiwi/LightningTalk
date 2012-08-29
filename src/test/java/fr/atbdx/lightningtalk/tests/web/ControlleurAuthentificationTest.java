@@ -8,21 +8,19 @@ import java.io.IOException;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.atbdx.lightningtalk.doublures.domaine.FakeEntrepotUtilisateur;
-import fr.atbdx.lightningtalk.doublures.domaine.google.FakeConnecteurGoogle;
+import fr.atbdx.lightningtalk.doublures.domaine.AidePourLAuthentification;
+import fr.atbdx.lightningtalk.doublures.domaine.FakeSystemeDAuthentificationExterne;
 import fr.atbdx.lightningtalk.web.ControlleurAuthentification;
 
 public class ControlleurAuthentificationTest {
 
-    private static final String CODE_ERREUR = "codeErreur";
-    private static final String CODE = "code";
-    private FakeEntrepotUtilisateur entrepotUtilisateur;
+    private AidePourLAuthentification aidePourLAuthentification;
     private ControlleurAuthentification controlleurAuthentification;
 
     @Before
     public void avantLesTests() {
-        entrepotUtilisateur = new FakeEntrepotUtilisateur();
-        controlleurAuthentification = new ControlleurAuthentification(entrepotUtilisateur);
+        aidePourLAuthentification = AidePourLAuthentification.getInstance();
+        controlleurAuthentification = new ControlleurAuthentification(aidePourLAuthentification.serviceDAuthentification, aidePourLAuthentification.systemeDAuthentificationExterne);
     }
 
     @Test
@@ -30,16 +28,15 @@ public class ControlleurAuthentificationTest {
 
         String urlDAuthentificationExterne = controlleurAuthentification.demanderAuthentificationExterne();
 
-        assertThat(urlDAuthentificationExterne, is("redirect:" + FakeConnecteurGoogle.URL_DU_SERVICE_D_AUTHENTIFICATION_EXTERNE));
+        assertThat(urlDAuthentificationExterne, is("redirect:" + FakeSystemeDAuthentificationExterne.URL_DU_SYSTEME_D_AUTHENTIFICATION_EXTERNE));
     }
 
     @Test
     public void authentification() throws IOException {
 
-        String urlDAuthentificationExterne = controlleurAuthentification.authentification(CODE, CODE_ERREUR);
+        String urlDAuthentificationExterne = controlleurAuthentification.authentification(AidePourLAuthentification.CODE_AUTHENTIFICATION);
 
-        assertThat(entrepotUtilisateur.codePasserPourAuthentifier, is(CODE));
-        assertThat(entrepotUtilisateur.codeErreurPasserPourAuthentifier, is(CODE_ERREUR));
+        aidePourLAuthentification.verifierLaConnexionAuSystemeDAuthentificationExterneEtLaCreationDeLUtilisateur();
         assertThat(urlDAuthentificationExterne, is("redirect:/"));
     }
 

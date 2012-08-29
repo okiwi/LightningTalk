@@ -6,10 +6,10 @@ public interface EntrepotSession {
 
     List<Session> recupererLesSessions();
 
-    void creerUneSession(Session session) throws ImpossibleDeCreerUneSession;
+    void creer(Session session) throws ImpossibleDeCreerUneSession;
 
-    Session recupererDepuisSonTitre(String titreDeLaSession);
+    Session recuperer(String titreDeLaSession);
 
-    void sauvegargerUneSession(Session sessionAMettreAJour);
+    void mettreAJour(Session sessionAMettreAJour);
 
 }

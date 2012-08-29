@@ -9,21 +9,20 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 
-import fr.atbdx.lightningtalk.domaine.Participant;
 import fr.atbdx.lightningtalk.domaine.Utilisateur;
+import fr.atbdx.lightningtalk.doublures.domaine.AidePourLAuthentification;
 import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesUtilisateurs;
-import fr.atbdx.lightningtalk.doublures.domaine.FakeEntrepotUtilisateur;
 import fr.atbdx.lightningtalk.web.ControlleurAccueil;
 
 public class ControlleurAccueilTest {
 
-    private FakeEntrepotUtilisateur entrepotUtilisateur;
     private ControlleurAccueil controlleurAccueil;
+    private AidePourLAuthentification aidePourLAuthentification;
 
     @Before
     public void avantLesTest() {
-        entrepotUtilisateur = new FakeEntrepotUtilisateur();
-        controlleurAccueil = new ControlleurAccueil(entrepotUtilisateur);
+        aidePourLAuthentification = AidePourLAuthentification.getInstance();
+        controlleurAccueil = new ControlleurAccueil(aidePourLAuthentification.serviceDAuthentification);
     }
 
     @Test
@@ -32,12 +31,12 @@ public class ControlleurAccueilTest {
         ModelAndView valorisation = controlleurAccueil.valoriserAccueil();
 
         assertThat(valorisation.getViewName(), is("accueil"));
-        assertThat(valorisation.getModel().containsKey(Participant.class), is(false));
+        assertThat(valorisation.getModel().containsKey("utilisateur"), is(false));
     }
 
     @Test
     public void valoriserAccueilAuthentifie() throws IOException {
-        entrepotUtilisateur.utilisateurCourantARetourner = AidePourLesUtilisateurs.UTILISATEUR;
+        aidePourLAuthentification.simulerAuthentification();
 
         ModelAndView valorisation = controlleurAccueil.valoriserAccueil();
 

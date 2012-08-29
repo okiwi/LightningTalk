@@ -1,56 +1,45 @@
 package fr.atbdx.lightningtalk.domaine.mongodb;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.mongolink.MongoSession;
+import org.mongolink.MongoSessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
 
 import fr.atbdx.lightningtalk.domaine.EntrepotSession;
 import fr.atbdx.lightningtalk.domaine.ImpossibleDeCreerUneSession;
 import fr.atbdx.lightningtalk.domaine.Session;
 
 @Repository
-public class EntrepotSessionMongo implements EntrepotSession {
-
-    private DBCollection sessionsMongo;
+public class EntrepotSessionMongo extends EntrepotMongo implements EntrepotSession {
 
     @Autowired
-    public EntrepotSessionMongo(DB baseLightningTalk) {
-        sessionsMongo = baseLightningTalk.getCollection("sessions");
+    public EntrepotSessionMongo(MongoSessionManager sessionManager) {
+        super(sessionManager);
     }
 
-    @Override
-    public void creerUneSession(Session session) throws ImpossibleDeCreerUneSession {
-        if (sessionsMongo.count(AssistantMongoPourLesSessions.fabriquerPourLaRechercheParTitre(session.getTitre())) != 0) {
+    public EntrepotSessionMongo(final MongoSession sessionMongo) {
+        super(sessionMongo);
+    }
+
+    public void creer(Session session) throws ImpossibleDeCreerUneSession {
+        if (sessionMongo.get(session.getTitre(), Session.class) != null) {
             throw new ImpossibleDeCreerUneSession("Une session avec le même titre existe déjà.");
         }
-        sessionsMongo.save(AssistantMongoPourLesSessions.fabriquerPourUneCreation(session));
+        sessionMongo.save(session);
     }
 
-    @Override
     public List<Session> recupererLesSessions() {
-        DBCursor curseursDeSessionsMongo = sessionsMongo.find();
-        List<Session> sessions = new ArrayList<Session>();
-        for (DBObject sessionDBObject : curseursDeSessionsMongo) {
-            sessions.add(0, AssistantMongoPourLesSessions.fabriquer(sessionDBObject));
-        }
-        return sessions;
+        return sessionMongo.getAll(Session.class);
     }
 
-    @Override
-    public Session recupererDepuisSonTitre(String titreDeLaSession) {
-        DBObject sessionDBObject = sessionsMongo.findOne(AssistantMongoPourLesSessions.fabriquerPourLaRechercheParTitre(titreDeLaSession));
-        return AssistantMongoPourLesSessions.fabriquer(sessionDBObject);
+    public Session recuperer(String titreDeLaSession) {
+        return sessionMongo.get(titreDeLaSession, Session.class);
     }
 
-    @Override
-    public void sauvegargerUneSession(Session sessionAMettreAJour) {
-        sessionsMongo.save(AssistantMongoPourLesSessions.fabriquerPourUneMiseAJour((SessionMongo) sessionAMettreAJour));
+    public void mettreAJour(Session sessionAMettreAJour) {
+        sessionMongo.save(sessionAMettreAJour);
     }
+
 }

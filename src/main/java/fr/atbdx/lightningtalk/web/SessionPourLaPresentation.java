@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
+import fr.atbdx.lightningtalk.domaine.EntrepotUtilisateur;
 import fr.atbdx.lightningtalk.domaine.Session;
 import fr.atbdx.lightningtalk.domaine.Utilisateur;
 
@@ -11,10 +12,12 @@ public class SessionPourLaPresentation {
 
     private Utilisateur utilisateurCourant;
     private Session session;
+    private EntrepotUtilisateur entrepotUtilisateur;
 
-    public SessionPourLaPresentation(Session session, Utilisateur utilisateurCourant) {
+    public SessionPourLaPresentation(Session session, Utilisateur utilisateurCourant, EntrepotUtilisateur entrepotUtilisateur) {
         this.session = session;
         this.utilisateurCourant = utilisateurCourant;
+        this.entrepotUtilisateur = entrepotUtilisateur;
     }
 
     public String getTitre() {
@@ -26,7 +29,7 @@ public class SessionPourLaPresentation {
     }
 
     public String getOrateur() {
-        return session.getOrateur().getNomAffiche();
+        return entrepotUtilisateur.recuperer(session.getOrateur()).getNomAffiche();
     }
 
     public int getNombreDeVotes() {

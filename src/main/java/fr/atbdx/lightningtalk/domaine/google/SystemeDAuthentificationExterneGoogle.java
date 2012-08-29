@@ -15,17 +15,19 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson.JacksonFactory;
 import com.google.api.services.plus.Plus;
-import com.google.api.services.plus.model.Person;
+
+import fr.atbdx.lightningtalk.domaine.SystemeDAuthentificationExterne;
+import fr.atbdx.lightningtalk.domaine.Utilisateur;
 
 @Component
-public class ConnecteurGoogleConcret implements ConnecteurGoogle {
+public class SystemeDAuthentificationExterneGoogle implements SystemeDAuthentificationExterne {
 
     private final String googleClientId;
     private final String googleRedirectURI;
     private final String clientSecret;
 
     @Autowired
-    public ConnecteurGoogleConcret(@Value("${google.clientId}") String googleClientId, @Value("${google.redirectURI}") String googleRedirectURI,
+    public SystemeDAuthentificationExterneGoogle(@Value("${google.clientId}") String googleClientId, @Value("${google.redirectURI}") String googleRedirectURI,
             @Value("${google.clienSecret}") String googleClientSecret) {
         Validate.notBlank(googleClientId, "googleClientId");
         Validate.notBlank(googleRedirectURI, "googleRedirectURI");
@@ -41,30 +43,16 @@ public class ConnecteurGoogleConcret implements ConnecteurGoogle {
     }
 
     @Override
-    public GoogleTokenResponse recupererLeGoogleTokenResponse(String code) throws IOException {
-        GoogleAuthorizationCodeTokenRequest requeteDAuthorisationGoogle = new GoogleAuthorizationCodeTokenRequest(getNetHttpTransport(), getJaksonFactory(), googleClientId,
-                clientSecret, code, googleRedirectURI);
-        return requeteDAuthorisationGoogle.execute();
-    }
-
-    @Override
-    public Person recupererPersonDepuisGoogle(InformationsDAuthentification informationsDAuthentification) throws IOException {
-        JacksonFactory jaksonFactory = getJaksonFactory();
-        NetHttpTransport netHttpTransport = getNetHttpTransport();
-        GoogleCredential googleCredential = new GoogleCredential.Builder().setJsonFactory(jaksonFactory).setTransport(netHttpTransport)
-                .setClientSecrets(googleClientId, clientSecret).build();
-        googleCredential.setAccessToken(informationsDAuthentification.accessToken);
-        googleCredential.setRefreshToken(informationsDAuthentification.refreshToken);
+    public Utilisateur recupererUtilisateurDepuisUnCodeDAuthentification(String codeDAuthentification) throws IOException {
+        NetHttpTransport netHttpTransport = new NetHttpTransport();
+        JacksonFactory jaksonFactory = new JacksonFactory();
+        GoogleAuthorizationCodeTokenRequest requeteDAuthorisationGoogle = new GoogleAuthorizationCodeTokenRequest(netHttpTransport, jaksonFactory, googleClientId, clientSecret,
+                codeDAuthentification, googleRedirectURI);
+        GoogleTokenResponse googleTokenResponse = requeteDAuthorisationGoogle.execute();
+        GoogleCredential googleCredential = new GoogleCredential.Builder().setJsonFactory(jaksonFactory).setTransport(netHttpTransport).build();
+        googleCredential.setFromTokenResponse(googleTokenResponse);
         Plus googlePlus = new Plus.Builder(netHttpTransport, jaksonFactory, googleCredential).build();
-        return googlePlus.people().get("me").execute();
-    }
 
-    private JacksonFactory getJaksonFactory() {
-        return new JacksonFactory();
+        return MappingPersonGoogleEnUtilisateur.mapper(googlePlus.people().get("me").execute());
     }
-
-    private NetHttpTransport getNetHttpTransport() {
-        return new NetHttpTransport();
-    }
-
 }

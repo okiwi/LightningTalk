@@ -1,4 +1,4 @@
-package fr.atbdx.lightningtalk.domaine.mongodb;
+package fr.atbdx.lightningtalk.doublures.mongodb;
 
 import java.util.List;
 
@@ -6,11 +6,11 @@ import org.bson.types.ObjectId;
 
 import com.mongodb.DBObject;
 
-public class AssistantMongo {
+public class AidePourMongoDb {
     private final DBObject dbOject;
     public static final String ID = "_id";
 
-    private AssistantMongo(DBObject dbOject) {
+    private AidePourMongoDb(DBObject dbOject) {
         this.dbOject = dbOject;
     }
 
@@ -18,21 +18,17 @@ public class AssistantMongo {
         return (String) dbOject.get(nomDeLAttribut);
     }
 
-    public DBObject recupererSousDBObject(String nomDeLAttribut) {
-        return (DBObject) dbOject.get(nomDeLAttribut);
-    }
-
     public ObjectId recupererObjectId() {
         return (ObjectId) dbOject.get(ID);
     }
 
     @SuppressWarnings("unchecked")
-    public  List<DBObject> recupererListe(String nomDeLAttribut) {
+    public List<DBObject> recupererListe(String nomDeLAttribut) {
         return (List<DBObject>) dbOject.get(nomDeLAttribut);
     }
 
-    public static AssistantMongo dans(DBObject dbOject) {
-        return new AssistantMongo(dbOject);
+    public static AidePourMongoDb dans(DBObject dbOject) {
+        return new AidePourMongoDb(dbOject);
     }
 
 }

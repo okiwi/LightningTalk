@@ -1,20 +1,14 @@
 package fr.atbdx.lightningtalk.tests.domaine;
 
-import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.net.UnknownHostException;
-
 import org.junit.Test;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
-
-import com.mongodb.DB;
-import com.mongodb.MongoException;
 
 import fr.atbdx.lightningtalk.domaine.ConfigurationDuDomaine;
 
@@ -29,14 +23,6 @@ public class ConfigurationDuDomaineTest {
 
         assertThat(valorisation, notNullValue());
         verify(environment).getProperty("environnement");
-    }
-
-    @Test
-    public void peutInitialiserLaBaseLightningTalkMongoDB() throws UnknownHostException, MongoException {
-        DB intialiserMongoDB = ConfigurationDuDomaine.initialiserLaBaseLightningTalkMongoDB("localhost", 27017,"test","test");
-
-        assertThat(intialiserMongoDB.getMongo().getAddress().getHost(), is("localhost"));
-        assertThat(intialiserMongoDB.getMongo().getAddress().getPort(), is(27017));
     }
 
 }

@@ -1,13 +1,11 @@
 package fr.atbdx.lightningtalk.domaine;
 
-import java.io.IOException;
-
 public interface EntrepotUtilisateur {
 
-    String recupererLURLDuServiceDAuthentificationExterne();
+    Utilisateur recuperer(String id);
 
-    void authentifier(String code, String codeErreur) throws IOException;
+    void creer(Utilisateur utilisateur);
 
-    Utilisateur recupererUtilisateurCourant() throws IOException;
+    public abstract void mettreAJour(Utilisateur utilisateur);
 
 }

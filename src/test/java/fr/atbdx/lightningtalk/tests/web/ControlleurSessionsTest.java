@@ -13,9 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.junit.Before;
 import org.junit.Test;
 
+import fr.atbdx.lightningtalk.domaine.EntrepotUtilisateur;
 import fr.atbdx.lightningtalk.domaine.ImpossibleDeCreerUneSession;
 import fr.atbdx.lightningtalk.domaine.Session;
-import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesParticipants;
+import fr.atbdx.lightningtalk.doublures.domaine.AidePourLAuthentification;
 import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesSessions;
 import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesUtilisateurs;
 import fr.atbdx.lightningtalk.doublures.domaine.FakeEntrepotSession;
@@ -26,20 +27,21 @@ import fr.atbdx.lightningtalk.web.SessionPourLaPresentation;
 public class ControlleurSessionsTest {
 
     private static final String MESSAGE = "message";
-    private FakeEntrepotUtilisateur fakeEntrepotUtilisateur;
     private FakeEntrepotSession fakeEntrepotSession;
     private ControlleurSessions controlleurSessions;
+    private EntrepotUtilisateur fakeEntrepotUtilisateur;
 
     @Before
-    public void avantLesTests() {
+    public void avantLesTests() throws IOException {
         fakeEntrepotUtilisateur = new FakeEntrepotUtilisateur();
+        fakeEntrepotUtilisateur.creer(AidePourLesUtilisateurs.UN_AUTRE_UTILISATEUR);
         fakeEntrepotSession = new FakeEntrepotSession();
-        controlleurSessions = new ControlleurSessions(fakeEntrepotUtilisateur, fakeEntrepotSession);
+        controlleurSessions = new ControlleurSessions(AidePourLAuthentification.getInstance().simulerAuthentification().serviceDAuthentification, fakeEntrepotSession,
+                fakeEntrepotUtilisateur);
     }
 
     @Test
     public void peutCreerUneSession() throws IOException, ImpossibleDeCreerUneSession {
-        fakeEntrepotUtilisateur.utilisateurCourantARetourner = AidePourLesUtilisateurs.UTILISATEUR;
 
         controlleurSessions.creerUneSession(AidePourLesSessions.TITRE_DE_LA_SESSION, AidePourLesSessions.DESCRIPTION_DE_LA_SESSION);
 
@@ -48,38 +50,35 @@ public class ControlleurSessionsTest {
 
     @Test
     public void peutRecupererLesSessionsDePresentation() throws IOException {
-        fakeEntrepotSession.creerUneSession(AidePourLesSessions.creer());
-        fakeEntrepotUtilisateur.utilisateurCourantARetourner = AidePourLesUtilisateurs.UTILISATEUR;
+        fakeEntrepotSession.creer(AidePourLesSessions.creer());
 
         List<SessionPourLaPresentation> sessionsPourLaPresentation = controlleurSessions.recupererLesSessions();
 
-        AidePourLesSessions.verifierSessionPourLaPresentation(sessionsPourLaPresentation.get(0));
+        AidePourLesSessions.verifierSessionPourLaPresentationAvecOrateurQuiEstUnAutreUtilisateur(sessionsPourLaPresentation.get(0));
     }
 
     @Test
     public void peutAjouterUnVote() throws IOException {
-        fakeEntrepotSession.creerUneSession(AidePourLesSessions.creer());
-        fakeEntrepotUtilisateur.utilisateurCourantARetourner = AidePourLesUtilisateurs.UTILISATEUR;
+        fakeEntrepotSession.creer(AidePourLesSessions.creer());
 
         controlleurSessions.ajouterUnVote(AidePourLesSessions.TITRE_DE_LA_SESSION);
 
         assertThat(fakeEntrepotSession.titreDeLaSessionRecupere, is(AidePourLesSessions.TITRE_DE_LA_SESSION));
         assertThat(fakeEntrepotSession.sessionSauvegardee, is(true));
-        assertThat(fakeEntrepotSession.recupererDepuisSonTitre(null).getNombreDeVotes(), is(1));
+        assertThat(fakeEntrepotSession.recuperer(null).getNombreDeVotes(), is(1));
     }
 
     @Test
     public void peutSupprimerUnVote() throws IOException {
         Session session = AidePourLesSessions.creer();
-        session.ajouterUnVote(AidePourLesParticipants.PARTICIPANT);
-        fakeEntrepotSession.creerUneSession(session);
-        fakeEntrepotUtilisateur.utilisateurCourantARetourner = AidePourLesUtilisateurs.UTILISATEUR;
+        session.ajouterUnVote(AidePourLesUtilisateurs.UTILISATEUR);
+        fakeEntrepotSession.creer(session);
 
         controlleurSessions.supprimerUnVote(AidePourLesSessions.TITRE_DE_LA_SESSION);
 
         assertThat(fakeEntrepotSession.titreDeLaSessionRecupere, is(AidePourLesSessions.TITRE_DE_LA_SESSION));
         assertThat(fakeEntrepotSession.sessionSauvegardee, is(true));
-        assertThat(fakeEntrepotSession.recupererDepuisSonTitre(null).getNombreDeVotes(), is(0));
+        assertThat(fakeEntrepotSession.recuperer(null).getNombreDeVotes(), is(0));
     }
 
     @Test
