@@ -139,20 +139,22 @@ body {
 				</h2>
 				<p>{{description}}</p>
 	</script>
-	<script id="templatePourAfficherUneSession" type="text/html">
+	<script id="templateDeSessionSiPeutAjouterUnVote" type="text/html">
 		{{>debutDuTemplatePourAfficherUneSession}}
 			<a href="#" onClick="voter('{{titreEncodePourJavascript}}');return false;" class="btn btn-info btn-mini">
 				<i class="icon-ok icon-white"></i>Voter
 			</a>
 		{{>finDuTemplatePourAfficherUneSession}}
 	</script>
-	<script id="templatePourAfficherUneSessionDejaVote" type="text/html">
+	<script id="templateDeSessionSiPeutSupprimerUnVote" type="text/html">
 		{{>debutDuTemplatePourAfficherUneSession}}
-		<#if utilisateur??>
 			<a href="#" onClick="enleverMonVote('{{titreEncodePourJavascript}}');return false;" class="btn btn-mini">
 				<i class="icon-remove"></i>Enlever mon vote
 			</a>
-		</#if>
+		{{>finDuTemplatePourAfficherUneSession}}
+	</script>
+	<script id="templateDeSession" type="text/html">
+		{{>debutDuTemplatePourAfficherUneSession}}
 		{{>finDuTemplatePourAfficherUneSession}}
 	</script>
 	<script id="finDuTemplatePourAfficherUneSession" class="partial" type="text/html">
@@ -173,37 +175,38 @@ body {
 		$.getJSON('<@spring.url 'sessions'/>', function (sessions) {
 		    $.each(sessions, function (index,session) {
 		    	var resultatDeLaGeneration;
-				if(session.peutVoter){
-					resultatDeLaGeneration = ich.templatePourAfficherUneSession(session)
+				if(session.peutAjouterUnVote){
+					resultatDeLaGeneration = ich.templateDeSessionSiPeutAjouterUnVote(session)
+				}else if(session.peutSupprimerUnVote){
+					resultatDeLaGeneration = ich.templateDeSessionSiPeutSupprimerUnVote(session)
 				}else{
-					resultatDeLaGeneration = ich.templatePourAfficherUneSessionDejaVote(session)
+					resultatDeLaGeneration = ich.templateDeSession(session)
 				}
 				$('#divPourAfficherLesSessions').append(resultatDeLaGeneration);
 		    });
 		});
 	}
-	<#if utilisateur??>
-		function voter(titreEncodePourLURL){
-			$.ajax({  
-	       		  type: 'POST',
-	       		  url: '<@spring.url 'sessions'/>/' + titreEncodePourLURL + '/votants',
-	       		  success: function() {
-	       			mettreAJourLesSessions();
-	       		  }});
-		}
-		function enleverMonVote(titreEncodePourLURL){
-			$.ajax({
-				headers: {
-			    	'X-HTTP-Method-Override': 'DELETE',
-			  	},
-   		  		type: 'GET',
-    		  	url: '<@spring.url 'sessions'/>/' + titreEncodePourLURL + '/votants',
-    		  	success: function() {
-    				mettreAJourLesSessions();
-    		  	}
-   		  	});
-		}
-	</#if>
+	
+	function voter(titreEncodePourLURL){
+		$.ajax({  
+       		  type: 'POST',
+       		  url: '<@spring.url 'sessions'/>/' + titreEncodePourLURL + '/votants',
+       		  success: function() {
+       			mettreAJourLesSessions();
+       		  }});
+	}
+	function enleverMonVote(titreEncodePourLURL){
+		$.ajax({
+			headers: {
+		    	'X-HTTP-Method-Override': 'DELETE',
+		  	},
+  		  		type: 'GET',
+   		  	url: '<@spring.url 'sessions'/>/' + titreEncodePourLURL + '/votants',
+   		  	success: function() {
+   				mettreAJourLesSessions();
+   		  	}
+  		  	});
+	}
 	
      $(document).ready(function(){
 		<#if utilisateur??>

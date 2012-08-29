@@ -70,7 +70,7 @@ public class SessionTest {
     }
 
     @Test
-    public void peutAjouterUnVote() {
+    public void ajoutDUnVote() {
         session.ajouterUnVote(AidePourLesUtilisateurs.UTILISATEUR);
 
         assertThat(session.getNombreDeVotes(), is(1));
@@ -78,7 +78,7 @@ public class SessionTest {
     }
 
     @Test
-    public void peutSupprimerUnVote() {
+    public void supressionDUnVote() {
         session.ajouterUnVote(AidePourLesUtilisateurs.UTILISATEUR);
 
         session.supprimerUnVote(AidePourLesUtilisateurs.UTILISATEUR);
@@ -88,18 +88,52 @@ public class SessionTest {
     }
 
     @Test
-    public void peutVoterSiNaPasDejaVote() {
-        boolean peutVoter = session.peutVoter(AidePourLesUtilisateurs.UTILISATEUR);
+    public void peutAjouterUnVoteSiNAPasDejaVote() {
+        boolean peutVoter = session.peutAjouterUnVote(AidePourLesUtilisateurs.UTILISATEUR);
 
         assertThat(peutVoter, is(true));
 
     }
 
     @Test
-    public void nePeutPasVoterSiADejaVote() {
+    public void nePeutPasAjouterUnVoteSiADejaVote() {
         session.ajouterUnVote(AidePourLesUtilisateurs.UTILISATEUR);
 
-        boolean peutVoter = session.peutVoter(AidePourLesUtilisateurs.UTILISATEUR);
+        boolean peutVoter = session.peutAjouterUnVote(AidePourLesUtilisateurs.UTILISATEUR);
+
+        assertThat(peutVoter, is(false));
+    }
+
+    @Test
+    public void nePeutPasAjouterUnVoteSiVotantNull() {
+
+        boolean peutVoter = session.peutAjouterUnVote(null);
+
+        assertThat(peutVoter, is(false));
+    }
+
+    @Test
+    public void peutSupprimerUnVoteSiADejaVote() {
+        session.ajouterUnVote(AidePourLesUtilisateurs.UTILISATEUR);
+
+        boolean peutVoter = session.peutSupprimerUnVote(AidePourLesUtilisateurs.UTILISATEUR);
+
+        assertThat(peutVoter, is(true));
+
+    }
+
+    @Test
+    public void nePeutPasSupprimerUnVoteSiLeVotantNaPasDejaVote() {
+
+        boolean peutVoter = session.peutSupprimerUnVote(AidePourLesUtilisateurs.UTILISATEUR);
+
+        assertThat(peutVoter, is(false));
+    }
+
+    @Test
+    public void nePeutPasSupprimerUnVoteSiVotantNull() {
+
+        boolean peutVoter = session.peutSupprimerUnVote(null);
 
         assertThat(peutVoter, is(false));
     }
@@ -114,33 +148,48 @@ public class SessionTest {
     }
 
     @Test
-    public void neFaisRienSiUnUtilisateurSupprimeUnVoteOuIlNAPasVote() {
+    public void neRienFaireSiUnUtilisateurSupprimeUnVoteOuIlNAPasVote() {
         session.supprimerUnVote(AidePourLesUtilisateurs.UTILISATEUR);
 
         assertThat(session.getNombreDeVotes(), is(0));
     }
 
     @Test
-    public void nePeutPasVoterSiUtilisateurNull() {
-
-        boolean peutVoter = session.peutVoter(null);
-
-        assertThat(peutVoter, is(false));
-    }
-
-    @Test
-    public void nePeutPasAjouterUnVoteSiUtilisateurNull() {
+    public void neRienFaireSiOnAjouteUnVoteAvecUnVotantNull() {
         session.ajouterUnVote(null);
 
         assertThat(session.getNombreDeVotes(), is(0));
     }
 
     @Test
-    public void nePeutPasSupprimerUnVoteSiUtilisateurNull() {
+    public void neRienFaireSiOnSupprimeUnVoteAvecUnVotantNull() {
         session.ajouterUnVote(AidePourLesUtilisateurs.UTILISATEUR);
 
         session.supprimerUnVote(null);
 
         assertThat(session.getNombreDeVotes(), is(1));
+    }
+
+    @Test
+    public void peutSupprimerOuEditerLaSessionSiLUtilisateurNEstPasLOrateur() {
+        boolean peutSupprimerOuEditer = session.peutSupprimerOuEditer(AidePourLesUtilisateurs.UTILISATEUR);
+
+        assertThat(peutSupprimerOuEditer, is(true));
+
+    }
+
+    @Test
+    public void nePeutSupprimerOuEditerLaSessionSiLUtilisateurCourantNEstPasLOrateur() {
+        boolean peutSupprimerOuEditer = session.peutSupprimerOuEditer(AidePourLesUtilisateurs.UN_AUTRE_UTILISATEUR);
+
+        assertThat(peutSupprimerOuEditer, is(false));
+    }
+
+    @Test
+    public void nePeuxPasSupprimerOuEditerLaSessionSiLUtilisateurCourantEstNull() {
+        boolean peutSupprimerOuEditer = session.peutSupprimerOuEditer(null);
+
+        assertThat(peutSupprimerOuEditer, is(false));
+
     }
 }

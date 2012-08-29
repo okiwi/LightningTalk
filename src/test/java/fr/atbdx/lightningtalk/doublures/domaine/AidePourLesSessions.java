@@ -52,7 +52,7 @@ public class AidePourLesSessions {
         assertThat(sessionPourLaPresentation.getDescription(), is(DESCRIPTION_DE_LA_SESSION));
         assertThat(sessionPourLaPresentation.getOrateur(), is(AidePourLesUtilisateurs.UN_AUTRE_UTILISATEUR.getNomAffiche()));
         assertThat(sessionPourLaPresentation.getNombreDeVotes(), is(0));
-        assertThat(sessionPourLaPresentation.isPeutVoter(), is(true));
+        assertThat(sessionPourLaPresentation.isPeutAjouterUnVote(), is(true));
     }
 
 }

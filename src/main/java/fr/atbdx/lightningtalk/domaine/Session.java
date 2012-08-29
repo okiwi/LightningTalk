@@ -41,8 +41,16 @@ public class Session {
         return description;
     }
 
-    public boolean peutVoter(Utilisateur votant) {
-        return votant != null && !votants.contains(votant.getId());
+    public boolean peutAjouterUnVote(Utilisateur votant) {
+        return votantNonNull(votant) && !votants.contains(votant.getId());
+    }
+
+    public boolean peutSupprimerUnVote(Utilisateur votant) {
+        return votantNonNull(votant) && votants.contains(votant.getId());
+    }
+
+    private boolean votantNonNull(Utilisateur votant) {
+        return votant != null;
     }
 
     public Iterable<String> getVotants() {
@@ -54,17 +62,19 @@ public class Session {
     }
 
     public void ajouterUnVote(Utilisateur votant) {
-        if (peutVoter(votant)) {
+        if (peutAjouterUnVote(votant)) {
             votants.add(votant.getId());
         }
-
     }
 
     public void supprimerUnVote(Utilisateur votant) {
-        if (votant!=null) {
+        if (peutSupprimerUnVote(votant)) {
             votants.remove(votant.getId());
         }
+    }
 
+    public boolean peutSupprimerOuEditer(Utilisateur utilisateur) {
+        return utilisateur != null && utilisateur.getId().equals(orateur);
     }
 
 }

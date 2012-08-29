@@ -36,12 +36,16 @@ public class SessionPourLaPresentation {
         return session.getNombreDeVotes();
     }
 
-    public boolean isPeutVoter() {
-        return session.peutVoter(utilisateurCourant);
+    public boolean isPeutAjouterUnVote() {
+        return session.peutAjouterUnVote(utilisateurCourant);
     }
 
     public String getTitreEncodePourJavascript() throws UnsupportedEncodingException {
         return StringEscapeUtils.escapeEcmaScript(session.getTitre());
+    }
+
+    public boolean isPeutSupprimerUnVote() {
+        return session.peutSupprimerUnVote(utilisateurCourant);
     }
 
 }
