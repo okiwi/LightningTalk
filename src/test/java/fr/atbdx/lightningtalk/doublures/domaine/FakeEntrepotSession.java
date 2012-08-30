@@ -4,13 +4,16 @@ import java.util.Arrays;
 import java.util.List;
 
 import fr.atbdx.lightningtalk.domaine.EntrepotSession;
+import fr.atbdx.lightningtalk.domaine.OperationPermiseUniquementALOrateur;
 import fr.atbdx.lightningtalk.domaine.Session;
+import fr.atbdx.lightningtalk.domaine.Utilisateur;
 
 public class FakeEntrepotSession implements EntrepotSession {
 
     public Session session;
     public String titreDeLaSessionRecupere;
     public boolean sessionSauvegardee = false;
+    public Utilisateur utilisateurCourantRecupererDurantLaSupression;
 
     @Override
     public List<Session> recupererLesSessions() {
@@ -33,6 +36,13 @@ public class FakeEntrepotSession implements EntrepotSession {
         this.session = sessionAMettreAJour;
         sessionSauvegardee = true;
 
+    }
+
+    public void supprimer(Session session, Utilisateur utilisateurCourant) throws OperationPermiseUniquementALOrateur {
+        if (session == this.session) {
+            this.session = null;
+        }
+        this.utilisateurCourantRecupererDurantLaSupression = utilisateurCourant;
     }
 
 }

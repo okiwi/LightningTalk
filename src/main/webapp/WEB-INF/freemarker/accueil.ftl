@@ -131,34 +131,29 @@ body {
 	<script src="<@spring.url '/ressources/js/bootstrap.js'/>"></script>
 	<script src="<@spring.url '/ressources/js/ICanHaz.js'/>"></script>
 
-	<script id="debutDuTemplatePourAfficherUneSession" class="partial" type="text/html">
+	<script id="templateDeSession" type="text/html">
 		<div class="row-fluid">
 			<div class="well">
 				<h2>
 					{{titre}} <small>proposé par <a>{{orateur}}</a></small>
 				</h2>
 				<p>{{description}}</p>
-	</script>
-	<script id="templateDeSessionSiPeutAjouterUnVote" type="text/html">
-		{{>debutDuTemplatePourAfficherUneSession}}
-			<a href="#" onClick="voter('{{titreEncodePourJavascript}}');return false;" class="btn btn-info btn-mini">
-				<i class="icon-ok icon-white"></i>Voter
-			</a>
-		{{>finDuTemplatePourAfficherUneSession}}
-	</script>
-	<script id="templateDeSessionSiPeutSupprimerUnVote" type="text/html">
-		{{>debutDuTemplatePourAfficherUneSession}}
-			<a href="#" onClick="enleverMonVote('{{titreEncodePourJavascript}}');return false;" class="btn btn-mini">
-				<i class="icon-remove"></i>Enlever mon vote
-			</a>
-		{{>finDuTemplatePourAfficherUneSession}}
-	</script>
-	<script id="templateDeSession" type="text/html">
-		{{>debutDuTemplatePourAfficherUneSession}}
-		{{>finDuTemplatePourAfficherUneSession}}
-	</script>
-	<script id="finDuTemplatePourAfficherUneSession" class="partial" type="text/html">
 				<span class="badge badge-inverse">{{nombreDeVotes}}</span>
+				{{#peutAjouterUnVote}}
+					<a href="#" onClick="voter('{{titreEncodePourJavascript}}');return false;" class="btn btn-info btn-mini">
+						<i class="icon-ok icon-white"></i>Voter
+					</a>
+				{{/peutAjouterUnVote}}
+				{{#peutSupprimerUnVote}}
+					<a href="#" onClick="enleverMonVote('{{titreEncodePourJavascript}}');return false;" class="btn btn-mini">
+						<i class="icon-remove"></i>Enlever mon vote
+					</a>
+				{{/peutSupprimerUnVote}}
+				{{#estOrateur}}
+					<a href="#" onClick="supprimerSession('{{titre}}','{{titreEncodePourJavascript}}');return false;">
+						<i class="icon-remove"></i><small>Supprimer</small>
+					</a>
+				{{/estOrateur}}
 			</div>
 		</div>
 	</script>
@@ -174,15 +169,7 @@ body {
 		$('#divPourAfficherLesSessions').html('');
 		$.getJSON('<@spring.url 'sessions'/>', function (sessions) {
 		    $.each(sessions, function (index,session) {
-		    	var resultatDeLaGeneration;
-				if(session.peutAjouterUnVote){
-					resultatDeLaGeneration = ich.templateDeSessionSiPeutAjouterUnVote(session)
-				}else if(session.peutSupprimerUnVote){
-					resultatDeLaGeneration = ich.templateDeSessionSiPeutSupprimerUnVote(session)
-				}else{
-					resultatDeLaGeneration = ich.templateDeSession(session)
-				}
-				$('#divPourAfficherLesSessions').append(resultatDeLaGeneration);
+				$('#divPourAfficherLesSessions').append(ich.templateDeSession(session));
 		    });
 		});
 	}
@@ -202,6 +189,20 @@ body {
 		  	},
   		  		type: 'GET',
    		  	url: '<@spring.url 'sessions'/>/' + titreEncodePourLURL + '/votants',
+   		  	success: function() {
+   				mettreAJourLesSessions();
+   		  	}
+  		  	});
+	}
+	
+	function supprimerSession(titre,titreEncodePourLURL){
+		if(confirm("Voulez vraiment supprimer la session " + titre))
+		$.ajax({
+			headers: {
+		    	'X-HTTP-Method-Override': 'DELETE',
+		  	},
+  		  		type: 'GET',
+   		  	url: '<@spring.url 'sessions'/>/' + titreEncodePourLURL ,
    		  	success: function() {
    				mettreAJourLesSessions();
    		  	}

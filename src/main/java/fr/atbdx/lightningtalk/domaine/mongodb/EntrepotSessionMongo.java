@@ -9,7 +9,9 @@ import org.springframework.stereotype.Repository;
 
 import fr.atbdx.lightningtalk.domaine.EntrepotSession;
 import fr.atbdx.lightningtalk.domaine.ImpossibleDeCreerUneSession;
+import fr.atbdx.lightningtalk.domaine.OperationPermiseUniquementALOrateur;
 import fr.atbdx.lightningtalk.domaine.Session;
+import fr.atbdx.lightningtalk.domaine.Utilisateur;
 
 @Repository
 public class EntrepotSessionMongo extends EntrepotMongo implements EntrepotSession {
@@ -42,8 +44,12 @@ public class EntrepotSessionMongo extends EntrepotMongo implements EntrepotSessi
         sessionMongo.update(sessionAMettreAJour);
     }
 
-    public void supprimer(Session session) {
-        sessionMongo.delete(session);
+    @Override
+    public void supprimer(Session session, Utilisateur utilisateurCourant) throws OperationPermiseUniquementALOrateur {
+        if (session != null) {
+            session.verifierSiEstOrateur(utilisateurCourant);
+            sessionMongo.delete(session);
+        }
     }
 
 }

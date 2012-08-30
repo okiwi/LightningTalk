@@ -48,4 +48,8 @@ public class SessionPourLaPresentation {
         return session.peutSupprimerUnVote(utilisateurCourant);
     }
 
+    public boolean isEstOrateur() {
+        return session.estOrateur(utilisateurCourant);
+    }
+
 }

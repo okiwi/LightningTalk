@@ -12,4 +12,6 @@ public interface EntrepotSession {
 
     void mettreAJour(Session sessionAMettreAJour);
 
+    void supprimer(Session session, Utilisateur utilisateurCourant) throws OperationPermiseUniquementALOrateur;
+
 }

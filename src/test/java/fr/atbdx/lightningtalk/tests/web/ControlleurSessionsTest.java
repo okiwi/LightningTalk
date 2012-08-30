@@ -1,6 +1,7 @@
 package fr.atbdx.lightningtalk.tests.web;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -15,6 +16,7 @@ import org.junit.Test;
 
 import fr.atbdx.lightningtalk.domaine.EntrepotUtilisateur;
 import fr.atbdx.lightningtalk.domaine.ImpossibleDeCreerUneSession;
+import fr.atbdx.lightningtalk.domaine.OperationPermiseUniquementALOrateur;
 import fr.atbdx.lightningtalk.domaine.Session;
 import fr.atbdx.lightningtalk.doublures.domaine.AidePourLAuthentification;
 import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesSessions;
@@ -82,11 +84,24 @@ public class ControlleurSessionsTest {
     }
 
     @Test
-    public void peutGererLExceptionImpossibleDeCreerUneSession() {
+    public void peutGererLesExceptions() {
         HttpServletResponse response = mock(HttpServletResponse.class);
-        String messageRetourne = controlleurSessions.gererLExceptionImpossibleDeCreerUneSession(new ImpossibleDeCreerUneSession(MESSAGE), response);
+        String messageRetourne = controlleurSessions.gererLesExceptions(new Exception(MESSAGE), response);
 
         assertThat(messageRetourne, is(MESSAGE));
         verify(response).setStatus(HttpServletResponse.SC_BAD_REQUEST);
+    }
+
+    @Test
+    public void peutSupprimerUneSession() throws OperationPermiseUniquementALOrateur {
+        Session session = AidePourLesSessions.creer();
+        fakeEntrepotSession.creer(session);
+
+        controlleurSessions.supprimerUneSession(AidePourLesSessions.TITRE);
+
+        assertThat(fakeEntrepotSession.titreDeLaSessionRecupere, is(AidePourLesSessions.TITRE));
+        assertThat(fakeEntrepotSession.utilisateurCourantRecupererDurantLaSupression, is(AidePourLesUtilisateurs.UTILISATEUR));
+        assertThat(fakeEntrepotSession.session, nullValue());
+
     }
 }

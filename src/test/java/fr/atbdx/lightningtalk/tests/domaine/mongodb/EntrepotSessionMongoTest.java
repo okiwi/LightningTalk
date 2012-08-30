@@ -14,7 +14,9 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 import com.mongodb.MongoException;
 
+import fr.atbdx.lightningtalk.domaine.EntrepotSession;
 import fr.atbdx.lightningtalk.domaine.ImpossibleDeCreerUneSession;
+import fr.atbdx.lightningtalk.domaine.OperationPermiseUniquementALOrateur;
 import fr.atbdx.lightningtalk.domaine.Session;
 import fr.atbdx.lightningtalk.domaine.mongodb.EntrepotSessionMongo;
 import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesSessions;
@@ -23,7 +25,7 @@ import fr.atbdx.lightningtalk.doublures.mongodb.AidePourMongoDb;
 
 public class EntrepotSessionMongoTest extends BasePourLesTestsDesEntrepotsMongo {
 
-    private EntrepotSessionMongo entrepotSessionMongo;
+    private EntrepotSession entrepotSessionMongo;
 
     @Before
     public void avantLesTests() {
@@ -103,13 +105,25 @@ public class EntrepotSessionMongoTest extends BasePourLesTestsDesEntrepotsMongo 
     }
 
     @Test
-    public void peutSupprimerUneSession() throws ImpossibleDeCreerUneSession {
+    public void peutSupprimerUneSession() throws ImpossibleDeCreerUneSession, OperationPermiseUniquementALOrateur {
         Session session = AidePourLesSessions.creer();
         entrepotSessionMongo.creer(session);
 
-        entrepotSessionMongo.supprimer(session);
+        entrepotSessionMongo.supprimer(session, AidePourLesUtilisateurs.UTILISATEUR);
 
         assertThat(entrepotSessionMongo.recupererLesSessions().size(), is(0));
+    }
 
+    @Test(expected = OperationPermiseUniquementALOrateur.class)
+    public void nePeutPasSupprimerUneSessionSiNEstPasOrateur() throws ImpossibleDeCreerUneSession, OperationPermiseUniquementALOrateur {
+        Session session = AidePourLesSessions.creer();
+        entrepotSessionMongo.creer(session);
+
+        entrepotSessionMongo.supprimer(session, AidePourLesUtilisateurs.UN_AUTRE_UTILISATEUR);
+    }
+
+    @Test
+    public void supprimerUneSessionNullNeFaitRien() throws ImpossibleDeCreerUneSession, OperationPermiseUniquementALOrateur {
+        entrepotSessionMongo.supprimer(null, AidePourLesUtilisateurs.UTILISATEUR);
     }
 }

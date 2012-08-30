@@ -1,6 +1,5 @@
 package fr.atbdx.lightningtalk.web;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import fr.atbdx.lightningtalk.domaine.EntrepotSession;
 import fr.atbdx.lightningtalk.domaine.EntrepotUtilisateur;
 import fr.atbdx.lightningtalk.domaine.ImpossibleDeCreerUneSession;
+import fr.atbdx.lightningtalk.domaine.OperationPermiseUniquementALOrateur;
 import fr.atbdx.lightningtalk.domaine.ServiceDAuthentification;
 import fr.atbdx.lightningtalk.domaine.Session;
 import fr.atbdx.lightningtalk.domaine.Utilisateur;
@@ -39,21 +39,21 @@ public class ControlleurSessions {
 
     @RequestMapping(method = RequestMethod.POST)
     public @ResponseBody
-    void creerUneSession(@RequestParam("titre") String titre, @RequestParam("description") String description) throws IOException, ImpossibleDeCreerUneSession {
+    void creerUneSession(@RequestParam("titre") String titre, @RequestParam("description") String description) throws ImpossibleDeCreerUneSession {
         Session session = new Session(titre, description, serviceDAuthentification.recupererUtilisateurCourant());
         entrepotSession.creer(session);
     }
 
     @ExceptionHandler(ImpossibleDeCreerUneSession.class)
     public @ResponseBody
-    String gererLExceptionImpossibleDeCreerUneSession(ImpossibleDeCreerUneSession exception, HttpServletResponse response) {
+    String gererLesExceptions(Exception exception, HttpServletResponse response) {
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         return exception.getMessage();
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public @ResponseBody
-    List<SessionPourLaPresentation> recupererLesSessions() throws IOException {
+    List<SessionPourLaPresentation> recupererLesSessions() {
         List<Session> sessions = entrepotSession.recupererLesSessions();
         Utilisateur utilisateurCourant = serviceDAuthentification.recupererUtilisateurCourant();
         List<SessionPourLaPresentation> sessionsPourLaPresentations = new ArrayList<SessionPourLaPresentation>();
@@ -65,7 +65,7 @@ public class ControlleurSessions {
 
     @RequestMapping(value = "/{titreDeLaSession}/votants", method = RequestMethod.POST)
     public @ResponseBody
-    void ajouterUnVote(@PathVariable String titreDeLaSession) throws IOException {
+    void ajouterUnVote(@PathVariable String titreDeLaSession) {
         Session session = entrepotSession.recuperer(titreDeLaSession);
         session.ajouterUnVote(serviceDAuthentification.recupererUtilisateurCourant());
         entrepotSession.mettreAJour(session);
@@ -73,10 +73,18 @@ public class ControlleurSessions {
 
     @RequestMapping(value = "/{titreDeLaSession}/votants", method = RequestMethod.GET, headers = "X-HTTP-Method-Override=DELETE")
     public @ResponseBody
-    void supprimerUnVote(@PathVariable String titreDeLaSession) throws IOException {
+    void supprimerUnVote(@PathVariable String titreDeLaSession) {
         Session session = entrepotSession.recuperer(titreDeLaSession);
         session.supprimerUnVote(serviceDAuthentification.recupererUtilisateurCourant());
         entrepotSession.mettreAJour(session);
+    }
+
+    @RequestMapping(value = "/{titreDeLaSession}", method = RequestMethod.GET, headers = "X-HTTP-Method-Override=DELETE")
+    public @ResponseBody
+    void supprimerUneSession(@PathVariable String titreDeLaSession) throws OperationPermiseUniquementALOrateur {
+        Session session = entrepotSession.recuperer(titreDeLaSession);
+        entrepotSession.supprimer(session, serviceDAuthentification.recupererUtilisateurCourant());
+
     }
 
 }

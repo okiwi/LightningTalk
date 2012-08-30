@@ -84,18 +84,18 @@ public class Session {
         return utilisateur != null && utilisateur.getId().equals(orateur);
     }
 
-    private void verifierSiEstOrateur(Utilisateur utilisateurCourant) throws ImpossibleDeMettreAJourLaSession {
+    public void verifierSiEstOrateur(Utilisateur utilisateurCourant) throws OperationPermiseUniquementALOrateur {
         if (!estOrateur(utilisateurCourant)) {
-            throw new ImpossibleDeMettreAJourLaSession("Veuillez vous connecter avec le compte qui vous a permis de créer la session pour la mettre à jour.");
+            throw new OperationPermiseUniquementALOrateur();
         }
     }
 
-    public void mettreAJourDescription(String nouvelleDescription, Utilisateur utilisateurCourant) throws ImpossibleDeMettreAJourLaSession {
+    public void mettreAJourDescription(String nouvelleDescription, Utilisateur utilisateurCourant) throws OperationPermiseUniquementALOrateur {
         verifierSiEstOrateur(utilisateurCourant);
         description = nouvelleDescription;
     }
 
-    public Session clonerAvecUnNouveauTitre(String nouveauTitre, Utilisateur utilisateurCourant) throws ImpossibleDeCreerUneSession, ImpossibleDeMettreAJourLaSession {
+    public Session clonerAvecUnNouveauTitre(String nouveauTitre, Utilisateur utilisateurCourant) throws ImpossibleDeCreerUneSession, OperationPermiseUniquementALOrateur {
         verifierSiEstOrateur(utilisateurCourant);
         Session session = new Session(nouveauTitre, description, utilisateurCourant);
         session.votants.addAll(this.votants);

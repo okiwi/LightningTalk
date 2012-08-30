@@ -114,5 +114,15 @@ public class SessionPourLaPresentationTest {
         assertThat(peutAjouterunVote, is(true));
         verify(session).peutSupprimerUnVote(AidePourLesUtilisateurs.UTILISATEUR);
     }
+    
+    @Test
+    public void peutRecupererIsEstOrateur() {
+        when(session.estOrateur(AidePourLesUtilisateurs.UTILISATEUR)).thenReturn(true);
+
+        boolean estOrateur = sessionPourLaPresentation.isEstOrateur();
+
+        assertThat(estOrateur, is(true));
+        verify(session).estOrateur(AidePourLesUtilisateurs.UTILISATEUR);
+    }
 
 }

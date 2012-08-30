@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import fr.atbdx.lightningtalk.domaine.ImpossibleDeCreerUneSession;
-import fr.atbdx.lightningtalk.domaine.ImpossibleDeMettreAJourLaSession;
+import fr.atbdx.lightningtalk.domaine.OperationPermiseUniquementALOrateur;
 import fr.atbdx.lightningtalk.domaine.Session;
 import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesSessions;
 import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesUtilisateurs;
@@ -194,36 +194,24 @@ public class SessionTest {
     }
 
     @Test
-    public void peutMettreAJourLaDescriptionSiLUtilisateurCourantEstLOrateur() throws ImpossibleDeMettreAJourLaSession {
+    public void peutMettreAJourLaDescriptionSiLUtilisateurCourantEstLOrateur() throws OperationPermiseUniquementALOrateur {
         session.mettreAJourDescription(AidePourLesSessions.NOUVELLE_DESCRIPTION, AidePourLesUtilisateurs.UTILISATEUR);
 
         assertThat(session.getDescription(), is(AidePourLesSessions.NOUVELLE_DESCRIPTION));
     }
 
-    @Test
-    public void mettreAJourLaDescriptionAvecUnUtilisateurCourantQuiNestPasUnOrateurRenvoitUneException() {
-        try {
+    @Test(expected = OperationPermiseUniquementALOrateur.class)
+    public void mettreAJourLaDescriptionAvecUnUtilisateurCourantQuiNestPasUnOrateurRenvoitUneException() throws OperationPermiseUniquementALOrateur {
+        session.mettreAJourDescription(AidePourLesSessions.NOUVELLE_DESCRIPTION, AidePourLesUtilisateurs.UN_AUTRE_UTILISATEUR);
+    }
 
-            session.mettreAJourDescription(AidePourLesSessions.NOUVELLE_DESCRIPTION, AidePourLesUtilisateurs.UN_AUTRE_UTILISATEUR);
-            fail("mettre a jour la description avec un utilisateur courant qui n'est pas un orateur retourne Une exception");
-        } catch (ImpossibleDeMettreAJourLaSession exception) {
-            assertThat(exception.getMessage(), is("Veuillez vous connecter avec le compte qui vous a permis de créer la session pour la mettre à jour."));
-        }
+    @Test(expected = OperationPermiseUniquementALOrateur.class)
+    public void mettreAJourLaDescriptionAvecUnUtilisateurCourantNullRenvoitUneException() throws OperationPermiseUniquementALOrateur {
+        session.mettreAJourDescription(AidePourLesSessions.NOUVELLE_DESCRIPTION, null);
     }
 
     @Test
-    public void mettreAJourLaDescriptionAvecUnUtilisateurCourantNullRenvoitUneException() {
-        try {
-
-            session.mettreAJourDescription(AidePourLesSessions.NOUVELLE_DESCRIPTION, null);
-            fail("mettre a jour la description avec un utilisateur courant qui n'est pas un orateur retourne Une exception");
-        } catch (ImpossibleDeMettreAJourLaSession exception) {
-            assertThat(exception.getMessage(), is("Veuillez vous connecter avec le compte qui vous a permis de créer la session pour la mettre à jour."));
-        }
-    }
-
-    @Test
-    public void peutClonerAvecUnNouveauTitreRecopieLaDescription() throws ImpossibleDeCreerUneSession, ImpossibleDeMettreAJourLaSession {
+    public void peutClonerAvecUnNouveauTitreRecopieLaDescription() throws ImpossibleDeCreerUneSession, OperationPermiseUniquementALOrateur {
         Session sessionClonee = session.clonerAvecUnNouveauTitre(AidePourLesSessions.NOUVEAU_TITRE, AidePourLesUtilisateurs.UTILISATEUR);
 
         assertThat(sessionClonee.getTitre(), is(AidePourLesSessions.NOUVEAU_TITRE));
@@ -232,7 +220,7 @@ public class SessionTest {
     }
 
     @Test
-    public void peutClonerAvecUnNouveauTitreRecopieLesVotes() throws ImpossibleDeCreerUneSession, ImpossibleDeMettreAJourLaSession {
+    public void peutClonerAvecUnNouveauTitreRecopieLesVotes() throws ImpossibleDeCreerUneSession, OperationPermiseUniquementALOrateur {
         session.ajouterUnVote(AidePourLesUtilisateurs.UN_AUTRE_UTILISATEUR);
 
         Session sessionClonee = session.clonerAvecUnNouveauTitre(AidePourLesSessions.NOUVEAU_TITRE, AidePourLesUtilisateurs.UTILISATEUR);
@@ -240,24 +228,23 @@ public class SessionTest {
         assertThat(sessionClonee.getVotants().iterator().next(), is(AidePourLesUtilisateurs.UN_AUTRE_UTILISATEUR.getId()));
     }
 
-    @Test
-    public void renvoitUneExceptionSiOnCloneAvecUnNouveauTitreMaisQueLUtilisateurCourantNestPasLOrateur() throws ImpossibleDeCreerUneSession {
-        try {
-
-            session.clonerAvecUnNouveauTitre(AidePourLesSessions.NOUVEAU_TITRE, AidePourLesUtilisateurs.UN_AUTRE_UTILISATEUR);
-            fail("mettre a jour la description avec un utilisateur courant qui n'est pas un orateur retourne Une exception");
-        } catch (ImpossibleDeMettreAJourLaSession exception) {
-            assertThat(exception.getMessage(), is("Veuillez vous connecter avec le compte qui vous a permis de créer la session pour la mettre à jour."));
-        }
+    @Test(expected = OperationPermiseUniquementALOrateur.class)
+    public void renvoitUneExceptionSiOnCloneAvecUnNouveauTitreMaisQueLUtilisateurCourantNestPasLOrateur() throws ImpossibleDeCreerUneSession, OperationPermiseUniquementALOrateur {
+        session.clonerAvecUnNouveauTitre(AidePourLesSessions.NOUVEAU_TITRE, AidePourLesUtilisateurs.UN_AUTRE_UTILISATEUR);
     }
 
-    @Test
-    public void renvoitUneExceptionSiOnCloneAvecUnNouveauTitreMaisQueLUtilisateurCourantEstNull() throws ImpossibleDeCreerUneSession {
-        try {
-            session.clonerAvecUnNouveauTitre(AidePourLesSessions.NOUVEAU_TITRE, null);
-            fail("mettre a jour la description avec un utilisateur courant qui n'est pas un orateur retourne Une exception");
-        } catch (ImpossibleDeMettreAJourLaSession exception) {
-            assertThat(exception.getMessage(), is("Veuillez vous connecter avec le compte qui vous a permis de créer la session pour la mettre à jour."));
-        }
+    @Test(expected = OperationPermiseUniquementALOrateur.class)
+    public void renvoitUneExceptionSiOnCloneAvecUnNouveauTitreMaisQueLUtilisateurCourantEstNull() throws ImpossibleDeCreerUneSession, OperationPermiseUniquementALOrateur {
+        session.clonerAvecUnNouveauTitre(AidePourLesSessions.NOUVEAU_TITRE, null);
+    }
+
+    @Test(expected = OperationPermiseUniquementALOrateur.class)
+    public void renvoitUneExceptionSiLUtlisateurVerifierNEstPasLOrateur() throws ImpossibleDeCreerUneSession, OperationPermiseUniquementALOrateur {
+        session.verifierSiEstOrateur(AidePourLesUtilisateurs.UN_AUTRE_UTILISATEUR);
+    }
+
+    @Test(expected = OperationPermiseUniquementALOrateur.class)
+    public void renvoitUneExceptionSiLUtlisateurVerifierEstNull() throws ImpossibleDeCreerUneSession, OperationPermiseUniquementALOrateur {
+        session.verifierSiEstOrateur(null);
     }
 }
