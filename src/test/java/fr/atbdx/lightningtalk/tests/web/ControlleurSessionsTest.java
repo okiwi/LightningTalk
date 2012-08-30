@@ -43,7 +43,7 @@ public class ControlleurSessionsTest {
     @Test
     public void peutCreerUneSession() throws IOException, ImpossibleDeCreerUneSession {
 
-        controlleurSessions.creerUneSession(AidePourLesSessions.TITRE_DE_LA_SESSION, AidePourLesSessions.DESCRIPTION_DE_LA_SESSION);
+        controlleurSessions.creerUneSession(AidePourLesSessions.TITRE, AidePourLesSessions.DESCRIPTION);
 
         AidePourLesSessions.verifier(fakeEntrepotSession.session);
     }
@@ -61,9 +61,9 @@ public class ControlleurSessionsTest {
     public void peutAjouterUnVote() throws IOException {
         fakeEntrepotSession.creer(AidePourLesSessions.creer());
 
-        controlleurSessions.ajouterUnVote(AidePourLesSessions.TITRE_DE_LA_SESSION);
+        controlleurSessions.ajouterUnVote(AidePourLesSessions.TITRE);
 
-        assertThat(fakeEntrepotSession.titreDeLaSessionRecupere, is(AidePourLesSessions.TITRE_DE_LA_SESSION));
+        assertThat(fakeEntrepotSession.titreDeLaSessionRecupere, is(AidePourLesSessions.TITRE));
         assertThat(fakeEntrepotSession.sessionSauvegardee, is(true));
         assertThat(fakeEntrepotSession.recuperer(null).getNombreDeVotes(), is(1));
     }
@@ -74,9 +74,9 @@ public class ControlleurSessionsTest {
         session.ajouterUnVote(AidePourLesUtilisateurs.UTILISATEUR);
         fakeEntrepotSession.creer(session);
 
-        controlleurSessions.supprimerUnVote(AidePourLesSessions.TITRE_DE_LA_SESSION);
+        controlleurSessions.supprimerUnVote(AidePourLesSessions.TITRE);
 
-        assertThat(fakeEntrepotSession.titreDeLaSessionRecupere, is(AidePourLesSessions.TITRE_DE_LA_SESSION));
+        assertThat(fakeEntrepotSession.titreDeLaSessionRecupere, is(AidePourLesSessions.TITRE));
         assertThat(fakeEntrepotSession.sessionSauvegardee, is(true));
         assertThat(fakeEntrepotSession.recuperer(null).getNombreDeVotes(), is(0));
     }

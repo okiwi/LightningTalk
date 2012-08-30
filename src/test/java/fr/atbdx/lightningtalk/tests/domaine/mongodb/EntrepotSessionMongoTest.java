@@ -27,6 +27,7 @@ public class EntrepotSessionMongoTest extends BasePourLesTestsDesEntrepotsMongo 
 
     @Before
     public void avantLesTests() {
+
         entrepotSessionMongo = new EntrepotSessionMongo(session);
     }
 
@@ -39,8 +40,8 @@ public class EntrepotSessionMongoTest extends BasePourLesTestsDesEntrepotsMongo 
         DBCollection sessions = baseLightningTalk.getCollection("session");
         assertThat(sessions.count(), is(1l));
         DBObject sessionMango = sessions.findOne();
-        assertThat((String) sessionMango.get(AidePourMongoDb.ID), is(AidePourLesSessions.TITRE_DE_LA_SESSION));
-        assertThat((String) sessionMango.get("description"), is(AidePourLesSessions.DESCRIPTION_DE_LA_SESSION));
+        assertThat((String) sessionMango.get(AidePourMongoDb.ID), is(AidePourLesSessions.TITRE));
+        assertThat((String) sessionMango.get("description"), is(AidePourLesSessions.DESCRIPTION));
         assertThat((String) sessionMango.get("orateur"), is(AidePourLesUtilisateurs.ID));
     }
 
@@ -83,7 +84,7 @@ public class EntrepotSessionMongoTest extends BasePourLesTestsDesEntrepotsMongo 
     public void peutRecupererUneSessionParSonTitre() throws ImpossibleDeCreerUneSession {
         entrepotSessionMongo.creer(AidePourLesSessions.creer());
 
-        Session session = entrepotSessionMongo.recuperer(AidePourLesSessions.TITRE_DE_LA_SESSION);
+        Session session = entrepotSessionMongo.recuperer(AidePourLesSessions.TITRE);
 
         AidePourLesSessions.verifier(session);
     }
@@ -91,12 +92,12 @@ public class EntrepotSessionMongoTest extends BasePourLesTestsDesEntrepotsMongo 
     @Test
     public void peutSauvegarderUneSession() throws ImpossibleDeCreerUneSession {
         entrepotSessionMongo.creer(AidePourLesSessions.creer());
-        Session sessionAMettreAJour = entrepotSessionMongo.recuperer(AidePourLesSessions.TITRE_DE_LA_SESSION);
+        Session sessionAMettreAJour = entrepotSessionMongo.recuperer(AidePourLesSessions.TITRE);
         sessionAMettreAJour.ajouterUnVote(AidePourLesUtilisateurs.UTILISATEUR);
 
         entrepotSessionMongo.mettreAJour(sessionAMettreAJour);
 
-        Session sessionMiseAJour = entrepotSessionMongo.recuperer(AidePourLesSessions.TITRE_DE_LA_SESSION);
+        Session sessionMiseAJour = entrepotSessionMongo.recuperer(AidePourLesSessions.TITRE);
         AidePourLesSessions.verifier(sessionMiseAJour);
         assertThat(sessionMiseAJour.getVotants().iterator().next(), is(AidePourLesUtilisateurs.ID));
     }

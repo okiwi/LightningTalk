@@ -14,13 +14,12 @@ import fr.atbdx.lightningtalk.web.SessionPourLaPresentation;
 
 public class AidePourLesSessions {
 
-    private static final String TITRE_DE_LA_SESSION_ENCODE_POUR_L_URL = "Titre de la session";
-    public static final String TITRE_DE_LA_SESSION = "Titre de la session";
-    public static final String DESCRIPTION_DE_LA_SESSION = "Description de la session";
+    public static final String TITRE = "Titre de la session";
+    public static final String DESCRIPTION = "Description de la session";
 
     public static Session creerAvecSuffixe(String suffixe) {
         try {
-            return new Session(TITRE_DE_LA_SESSION + suffixe, DESCRIPTION_DE_LA_SESSION + suffixe, AidePourLesUtilisateurs.creerAvecSuffixe(suffixe));
+            return new Session(TITRE + suffixe, DESCRIPTION + suffixe, AidePourLesUtilisateurs.creerAvecSuffixe(suffixe));
         } catch (ImpossibleDeCreerUneSession e) {
             throw new RuntimeException(e);
         }
@@ -32,8 +31,8 @@ public class AidePourLesSessions {
 
     public static void verifierAvecSuffixe(Session session, String suffixe) {
         assertThat(session, notNullValue());
-        assertThat(session.getTitre(), is(TITRE_DE_LA_SESSION + suffixe));
-        assertThat(session.getDescription(), is(DESCRIPTION_DE_LA_SESSION + suffixe));
+        assertThat(session.getTitre(), is(TITRE + suffixe));
+        assertThat(session.getDescription(), is(DESCRIPTION + suffixe));
         assertThat(session.getOrateur(), is(AidePourLesUtilisateurs.recupererUnIdAvecSuffix(suffixe)));
     }
 
@@ -47,12 +46,15 @@ public class AidePourLesSessions {
     }
 
     public static void verifierSessionPourLaPresentationAvecOrateurQuiEstUnAutreUtilisateur(SessionPourLaPresentation sessionPourLaPresentation) throws UnsupportedEncodingException {
-        assertThat(sessionPourLaPresentation.getTitre(), is(TITRE_DE_LA_SESSION));
-        assertThat(sessionPourLaPresentation.getTitreEncodePourJavascript(), is(TITRE_DE_LA_SESSION_ENCODE_POUR_L_URL));
-        assertThat(sessionPourLaPresentation.getDescription(), is(DESCRIPTION_DE_LA_SESSION));
+        assertThat(sessionPourLaPresentation.getTitre(), is(TITRE));
+        assertThat(sessionPourLaPresentation.getTitreEncodePourJavascript(), is(TITRE));
+        assertThat(sessionPourLaPresentation.getDescription(), is(DESCRIPTION));
         assertThat(sessionPourLaPresentation.getOrateur(), is(AidePourLesUtilisateurs.UN_AUTRE_UTILISATEUR.getNomAffiche()));
         assertThat(sessionPourLaPresentation.getNombreDeVotes(), is(0));
         assertThat(sessionPourLaPresentation.isPeutAjouterUnVote(), is(true));
     }
+
+    public static final String NOUVEAU_TITRE = "nouveau titre";
+    public static final String NOUVELLE_DESCRIPTION = "nouvelle description";
 
 }

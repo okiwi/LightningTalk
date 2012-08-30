@@ -6,6 +6,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.collect.Lists;
 
+import fr.atbdx.lightningtalk.doublures.domaine.ImpossibleDeMettreAJourLaSession;
+
 public class Session {
 
     private String titre;
@@ -13,9 +15,15 @@ public class Session {
     private String description;
     protected List<String> votants = Lists.newArrayList();
 
+    private String id;
+
+    public String getId() {
+        return id;
+    }
+
     public Session(String titre, String description, Utilisateur orateur) throws ImpossibleDeCreerUneSession {
         if (StringUtils.isBlank(titre)) {
-            throw new ImpossibleDeCreerUneSession("Veuillez entrer un titre pour créer une session.");
+            throw new ImpossibleDeCreerUneSession("Veuillez entrer le titre de la session.");
         }
         if (orateur == null) {
             throw new ImpossibleDeCreerUneSession("Veuillez vous connecter pour créer une session.");
@@ -73,8 +81,26 @@ public class Session {
         }
     }
 
-    public boolean peutSupprimerOuEditer(Utilisateur utilisateur) {
+    public boolean estOrateur(Utilisateur utilisateur) {
         return utilisateur != null && utilisateur.getId().equals(orateur);
     }
 
+    private void verifierSiEstOrateur(Utilisateur utilisateurCourant) throws ImpossibleDeMettreAJourLaSession {
+        if (!estOrateur(utilisateurCourant)) {
+            throw new ImpossibleDeMettreAJourLaSession("Veuillez vous connecter avec le compte qui vous a permis de créer la session pour la mettre à jour.");
+        }
+    }
+
+    public void mettreAJourDescription(String nouvelleDescription, Utilisateur utilisateurCourant) throws ImpossibleDeMettreAJourLaSession {
+        verifierSiEstOrateur(utilisateurCourant);
+        description = nouvelleDescription;
+    }
+
+    public Session clonerAvecUnNouveauTitre(String nouveauTitre, Utilisateur utilisateurCourant) throws ImpossibleDeCreerUneSession, ImpossibleDeMettreAJourLaSession {
+        verifierSiEstOrateur(utilisateurCourant);
+        Session session = new Session(nouveauTitre, description, utilisateurCourant);
+        session.votants.addAll(this.votants);
+        return session;
+
+    }
 }

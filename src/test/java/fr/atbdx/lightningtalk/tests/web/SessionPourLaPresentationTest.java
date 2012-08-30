@@ -34,22 +34,22 @@ public class SessionPourLaPresentationTest {
 
     @Test
     public void peutRecupererLeTitre() {
-        when(session.getTitre()).thenReturn(AidePourLesSessions.TITRE_DE_LA_SESSION);
+        when(session.getTitre()).thenReturn(AidePourLesSessions.TITRE);
 
         String titre = sessionPourLaPresentation.getTitre();
 
         verify(session).getTitre();
-        assertThat(titre, is(AidePourLesSessions.TITRE_DE_LA_SESSION));
+        assertThat(titre, is(AidePourLesSessions.TITRE));
     }
 
     @Test
     public void peutRecupererLaDescription() {
-        when(session.getDescription()).thenReturn(AidePourLesSessions.DESCRIPTION_DE_LA_SESSION);
+        when(session.getDescription()).thenReturn(AidePourLesSessions.DESCRIPTION);
 
         String description = sessionPourLaPresentation.getDescription();
 
         verify(session).getDescription();
-        assertThat(description, is(AidePourLesSessions.DESCRIPTION_DE_LA_SESSION));
+        assertThat(description, is(AidePourLesSessions.DESCRIPTION));
     }
 
     @Test
@@ -67,11 +67,11 @@ public class SessionPourLaPresentationTest {
 
     @Test
     public void peutRecupererLeTitreEncodePourJavascript() throws UnsupportedEncodingException, ImpossibleDeCreerUneSession {
-        when(session.getTitre()).thenReturn(AidePourLesSessions.TITRE_DE_LA_SESSION);
+        when(session.getTitre()).thenReturn(AidePourLesSessions.TITRE);
 
         String titreEncodePourJavascript = sessionPourLaPresentation.getTitreEncodePourJavascript();
 
-        assertThat(titreEncodePourJavascript, is(AidePourLesSessions.TITRE_DE_LA_SESSION));
+        assertThat(titreEncodePourJavascript, is(AidePourLesSessions.TITRE));
         verify(session).getTitre();
     }
 

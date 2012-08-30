@@ -39,7 +39,7 @@ public class EntrepotSessionMongo extends EntrepotMongo implements EntrepotSessi
     }
 
     public void mettreAJour(Session sessionAMettreAJour) {
-        sessionMongo.save(sessionAMettreAJour);
+        sessionMongo.update(sessionAMettreAJour);
     }
 
 }
