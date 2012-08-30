@@ -1,4 +1,4 @@
-package fr.atbdx.lightningtalk.doublures.domaine;
+package fr.atbdx.lightningtalk.domaine;
 
 public class ImpossibleDeMettreAJourLaSession extends Exception {
 

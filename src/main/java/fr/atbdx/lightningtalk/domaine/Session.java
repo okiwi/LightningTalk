@@ -6,7 +6,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.collect.Lists;
 
-import fr.atbdx.lightningtalk.doublures.domaine.ImpossibleDeMettreAJourLaSession;
 
 public class Session {
 

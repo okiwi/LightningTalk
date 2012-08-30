@@ -9,10 +9,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import fr.atbdx.lightningtalk.domaine.ImpossibleDeCreerUneSession;
+import fr.atbdx.lightningtalk.domaine.ImpossibleDeMettreAJourLaSession;
 import fr.atbdx.lightningtalk.domaine.Session;
 import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesSessions;
 import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesUtilisateurs;
-import fr.atbdx.lightningtalk.doublures.domaine.ImpossibleDeMettreAJourLaSession;
 
 public class SessionTest {
 
