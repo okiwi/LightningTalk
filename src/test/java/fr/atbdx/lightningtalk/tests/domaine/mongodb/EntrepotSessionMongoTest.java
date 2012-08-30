@@ -102,4 +102,14 @@ public class EntrepotSessionMongoTest extends BasePourLesTestsDesEntrepotsMongo 
         assertThat(sessionMiseAJour.getVotants().iterator().next(), is(AidePourLesUtilisateurs.ID));
     }
 
+    @Test
+    public void peutSupprimerUneSession() throws ImpossibleDeCreerUneSession {
+        Session session = AidePourLesSessions.creer();
+        entrepotSessionMongo.creer(session);
+
+        entrepotSessionMongo.supprimer(session);
+
+        assertThat(entrepotSessionMongo.recupererLesSessions().size(), is(0));
+
+    }
 }

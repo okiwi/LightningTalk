@@ -42,4 +42,8 @@ public class EntrepotSessionMongo extends EntrepotMongo implements EntrepotSessi
         sessionMongo.update(sessionAMettreAJour);
     }
 
+    public void supprimer(Session session) {
+        sessionMongo.delete(session);
+    }
+
 }
