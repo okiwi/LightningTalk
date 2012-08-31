@@ -87,4 +87,22 @@ public class ControlleurSessions {
 
     }
 
+    @RequestMapping(value = "/{titreDeLaSession}", method = RequestMethod.POST)
+    public @ResponseBody
+    void mettreAJour(@PathVariable String titreDeLaSession, @RequestParam("titre") String nouveauTitre, @RequestParam("description") String nouvelleDescription)
+            throws OperationPermiseUniquementALOrateur, ImpossibleDeCreerUneSession {
+        Session sessionAMettreAJour = entrepotSession.recuperer(titreDeLaSession);
+        Utilisateur utilisateurCourant = serviceDAuthentification.recupererUtilisateurCourant();
+        if (titreDeLaSession.equals(nouveauTitre)) {
+            sessionAMettreAJour.mettreAJourDescription(nouvelleDescription, utilisateurCourant);
+            entrepotSession.mettreAJour(sessionAMettreAJour);
+        } else {
+            Session nouvelleSession = sessionAMettreAJour.clonerAvecUnNouveauTitre(nouveauTitre, utilisateurCourant);
+            nouvelleSession.mettreAJourDescription(nouvelleDescription, utilisateurCourant);
+            entrepotSession.creer(nouvelleSession);
+            entrepotSession.supprimer(sessionAMettreAJour, utilisateurCourant);
+        }
+
+    }
+
 }

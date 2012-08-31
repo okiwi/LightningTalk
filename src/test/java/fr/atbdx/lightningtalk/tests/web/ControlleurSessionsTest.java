@@ -28,6 +28,7 @@ import fr.atbdx.lightningtalk.web.SessionPourLaPresentation;
 
 public class ControlleurSessionsTest {
 
+    private static final String NOUVELLE_DESCRIPTION = "nouvelle description";
     private static final String MESSAGE = "message";
     private FakeEntrepotSession fakeEntrepotSession;
     private ControlleurSessions controlleurSessions;
@@ -102,6 +103,32 @@ public class ControlleurSessionsTest {
         assertThat(fakeEntrepotSession.titreDeLaSessionRecupere, is(AidePourLesSessions.TITRE));
         assertThat(fakeEntrepotSession.utilisateurCourantRecupererDurantLaSupression, is(AidePourLesUtilisateurs.UTILISATEUR));
         assertThat(fakeEntrepotSession.session, nullValue());
+    }
+
+    @Test
+    public void peutMettreAJourLaDescriptionDUneSession() throws OperationPermiseUniquementALOrateur, ImpossibleDeCreerUneSession {
+        fakeEntrepotSession.session = AidePourLesSessions.creer();
+
+        controlleurSessions.mettreAJour(AidePourLesSessions.TITRE, AidePourLesSessions.TITRE, NOUVELLE_DESCRIPTION);
+
+        assertThat(fakeEntrepotSession.titreDeLaSessionRecupere, is(AidePourLesSessions.TITRE));
+        assertThat(fakeEntrepotSession.sessionSauvegardee, is(true));
+        assertThat(fakeEntrepotSession.session.getDescription(), is(NOUVELLE_DESCRIPTION));
+    }
+
+    @Test
+    public void peutMettreAJourLeTitreDUneSession() throws OperationPermiseUniquementALOrateur, ImpossibleDeCreerUneSession {
+        Session session = AidePourLesSessions.creer();
+        session.ajouterUnVote(AidePourLesUtilisateurs.UN_AUTRE_UTILISATEUR);
+        fakeEntrepotSession.session = session;
+
+        controlleurSessions.mettreAJour(AidePourLesSessions.TITRE, "nouveau titre", NOUVELLE_DESCRIPTION);
+        assertThat(fakeEntrepotSession.titreDeLaSessionRecupere, is(AidePourLesSessions.TITRE));
+        assertThat(fakeEntrepotSession.utilisateurCourantRecupererDurantLaSupression, is(AidePourLesUtilisateurs.UTILISATEUR));
+        assertThat(fakeEntrepotSession.sessionCree, is(true));
+        assertThat(fakeEntrepotSession.session.getTitre(), is("nouveau titre"));
+        assertThat(fakeEntrepotSession.session.getDescription(), is(NOUVELLE_DESCRIPTION));
+        assertThat(fakeEntrepotSession.session.getVotants().iterator().next(), is(AidePourLesUtilisateurs.UN_AUTRE_UTILISATEUR.getId()));
 
     }
 }

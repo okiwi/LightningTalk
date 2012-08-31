@@ -113,16 +113,17 @@ body {
 		<div class="modal-body">
 			<div id="conteneurDErreurPourLaCreationDUneSession"></div>
 			<form id="formulaireDeCreationDUneSession" class="well">
-				<label class="control-label" for="titre">Titre</label> <input type="text" class="span5" placeholder="Entrer le titre de votre session ..." name="titre" id="titre" /> <label
+				<label class="control-label" for="titre">Titre</label> <input type="text" class="span5" placeholder="Entrer le titre de votre session ..." name="titre" id="titreCreation" /> <label
 					class="control-label" for="description">description</label>
-				<textarea class="span5" placeholder="Entrer la description de votre session ..." name="description" id="description" rows="10"></textarea>
+				<textarea class="span5" placeholder="Entrer la description de votre session ..." name="description" id="descriptionCreation" rows="10"></textarea>
 			</form>
 		</div>
 		<div class="modal-footer">
-			<a href="#" class="btn" data-dismiss="modal">Close</a> <a href="#" class="btn btn-primary" id="creerUneSession">Save changes</a>
+			<a href="#" class="btn" data-dismiss="modal">Fermer</a> <a href="#" class="btn btn-primary" id="creerUneSession">Créer</a>
 		</div>
 	</div>
 	</#if>
+	<div id="conteneurModalDeMiseAJourDUneSession"></div>
 
 	<!-- Le javascript
     ================================================== -->
@@ -130,7 +131,7 @@ body {
 	<script src="<@spring.url '/ressources/js/jquery.js'/>"></script>
 	<script src="<@spring.url '/ressources/js/bootstrap.js'/>"></script>
 	<script src="<@spring.url '/ressources/js/ICanHaz.js'/>"></script>
-
+	
 	<script id="templateDeSession" type="text/html">
 		<div class="row-fluid">
 			<div class="well">
@@ -138,34 +139,56 @@ body {
 					{{titre}} <small>proposé par <a>{{orateur}}</a></small>
 				</h2>
 				<p>{{description}}</p>
-				<span class="badge badge-inverse">{{nombreDeVotes}}</span>
-				{{#peutAjouterUnVote}}
-					<a href="#" onClick="voter('{{titreEncodePourJavascript}}');return false;" class="btn btn-info btn-mini">
-						<i class="icon-ok icon-white"></i>Voter
-					</a>
-				{{/peutAjouterUnVote}}
-				{{#peutSupprimerUnVote}}
-					<a href="#" onClick="enleverMonVote('{{titreEncodePourJavascript}}');return false;" class="btn btn-mini">
-						<i class="icon-remove"></i>Enlever mon vote
-					</a>
-				{{/peutSupprimerUnVote}}
-				{{#estOrateur}}
-					<a href="#" onClick="supprimerSession('{{titre}}','{{titreEncodePourJavascript}}');return false;">
-						<i class="icon-remove"></i><small>Supprimer</small>
-					</a>
-				{{/estOrateur}}
+					<span class="badge badge-inverse">{{nombreDeVotes}}</span>
+					{{#peutAjouterUnVote}}
+						<a href="#" onClick="voter('{{titreEncodePourJavascript}}');return false;" class="btn btn-info btn-mini">
+							<i class="icon-ok icon-white"></i>Voter
+						</a>
+					{{/peutAjouterUnVote}}
+					{{#peutSupprimerUnVote}}
+						<a href="#" onClick="enleverMonVote('{{titreEncodePourJavascript}}');return false;" class="btn btn-mini">
+							<i class="icon-remove"></i>Enlever mon vote
+						</a>
+					{{/peutSupprimerUnVote}}
+					{{#estOrateur}}
+						<a href="#" onClick="supprimerSession('{{titre}}','{{titreEncodePourJavascript}}');return false;">
+							<i class="icon-remove"></i><small>Supprimer</small>
+						</a>
+						<a href="#" onClick="afficherModalDeMiseAJourDUneSession('{{titreEncodePourJavascript}}','{{titre}}','{{description}}');return false;">
+							<i class="icon-edit"></i><small>Mettre à jour</small>
+						</a>
+					{{/estOrateur}}
 			</div>
 		</div>
 	</script>
-	<script id="erreur" type="text/html">
+	<script id="templateErreur" type="text/html">
 		<div class="alert alert-error">
 			<a class="close" data-dismiss="alert" href="#">×</a>
 			<h4 class="alert-heading">{{titre}}</h4>
 			{{message}}
 		</div>
 	</script>
+	<script id="templateModalDeMiseAJourDUneSession" type="text/html">
+		<div class="modal fade hide" id="modalDeMiseAJourDUneSession">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<h3>Mise à jour d'une session</h3>
+			</div>
+			<div class="modal-body">
+				<div id="conteneurDErreurPourLaMiseAJourDUneSession"></div>
+				<form id="formulaireDeMiseAJourDUneSession" class="well">
+					<label class="control-label" for="titre">Titre</label> <input type="text" class="span5" placeholder="Entrer le titre de votre session ..." name="titre" id="titreMiseAJour" /> <label
+						class="control-label" for="description">description</label>
+					<textarea class="span5" placeholder="Entrer la description de votre session ..." name="description" id="descriptionMiseAJour" rows="10"></textarea>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn" data-dismiss="modal">Close</a> <a href="#" class="btn btn-primary" id="mettreAJourSession">Mettre à jour</a>
+			</div>
+		</div>
+	</script>
 	<script type="text/javascript">
-	function mettreAJourLesSessions(){
+	function recupererLesSessions(){
 		$('#divPourAfficherLesSessions').html('');
 		$.getJSON('<@spring.url 'sessions'/>', function (sessions) {
 		    $.each(sessions, function (index,session) {
@@ -179,7 +202,7 @@ body {
        		  type: 'POST',
        		  url: '<@spring.url 'sessions'/>/' + titreEncodePourLURL + '/votants',
        		  success: function() {
-       			mettreAJourLesSessions();
+       			recupererLesSessions();
        		  }});
 	}
 	function enleverMonVote(titreEncodePourLURL){
@@ -190,7 +213,7 @@ body {
   		  		type: 'GET',
    		  	url: '<@spring.url 'sessions'/>/' + titreEncodePourLURL + '/votants',
    		  	success: function() {
-   				mettreAJourLesSessions();
+   		  	recupererLesSessions();
    		  	}
   		  	});
 	}
@@ -204,10 +227,33 @@ body {
   		  		type: 'GET',
    		  	url: '<@spring.url 'sessions'/>/' + titreEncodePourLURL ,
    		  	success: function() {
-   				mettreAJourLesSessions();
+   		  	recupererLesSessions();
    		  	}
-  		  	});
+		 });
 	}
+	
+	function afficherModalDeMiseAJourDUneSession(titreEncodePourLURL,titre,description){
+		$('#conteneurModalDeMiseAJourDUneSession').html(ich.templateModalDeMiseAJourDUneSession());
+		$('#modalDeMiseAJourDUneSession').modal();
+		$('#titreMiseAJour').val(titre);
+		$('#descriptionMiseAJour').val(description);
+		$('#mettreAJourSession').bind('click',function(){
+			$.ajax({  
+	       		  type: 'POST',
+	       		  url: '<@spring.url 'sessions'/>/' + titreEncodePourLURL,
+	       		  data: $('#formulaireDeMiseAJourDUneSession').serializeArray(),
+	       		  success: function() {
+	       			$('#modalDeMiseAJourDUneSession').modal('hide');
+	       			recupererLesSessions();
+	       		  },
+	       		  error: function(data) {
+	       			  var erreur = {titre:"Création impossible", message:data.responseText};
+	       			  $('#conteneurDErreurPourLaMiseAJourDUneSession').html(ich.templateErreur(erreur));
+	       		  }
+	    		});
+	      });
+	}
+		
 	
      $(document).ready(function(){
 		<#if utilisateur??>
@@ -218,23 +264,23 @@ body {
        		  data: $('#formulaireDeCreationDUneSession').serializeArray(),
        		  success: function() {
        			$('#modalDeCreationDUneSession').modal('hide');
-       			mettreAJourLesSessions();
+       			recupererLesSessions();
        		  },
        		  error: function(data) {
        			  var erreur = {titre:"Création impossible", message:data.responseText};
-       			  $('#conteneurDErreurPourLaCreationDUneSession').html(ich.erreur(erreur));
+       			  $('#conteneurDErreurPourLaCreationDUneSession').html(ich.templateErreur(erreur));
        		  }
     		});
        	});
        	
         $('#modalDeCreationDUneSession').on('hidden', function () {
-        	$('#titre').val('');
-   			$('#description').val('');
+        	$('#titreCreation').val('');
+   			$('#descriptionCreation').val('');
    			$('#conteneurDErreurPourLaCreationDUneSession').html('');
          });
         
         </#if>
-        mettreAJourLesSessions();
+        recupererLesSessions();
       });
    </script>
 </body>

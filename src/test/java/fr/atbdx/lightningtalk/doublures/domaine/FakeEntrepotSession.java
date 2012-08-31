@@ -14,6 +14,7 @@ public class FakeEntrepotSession implements EntrepotSession {
     public String titreDeLaSessionRecupere;
     public boolean sessionSauvegardee = false;
     public Utilisateur utilisateurCourantRecupererDurantLaSupression;
+    public boolean sessionCree;
 
     @Override
     public List<Session> recupererLesSessions() {
@@ -22,6 +23,7 @@ public class FakeEntrepotSession implements EntrepotSession {
 
     @Override
     public void creer(Session session) {
+        sessionCree = true;
         this.session = session;
     }
 
