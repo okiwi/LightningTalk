@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import fr.atbdx.lightningtalk.domaine.ServiceDAuthentification;
 import fr.atbdx.lightningtalk.domaine.SystemeDAuthentificationExterne;
@@ -39,8 +40,7 @@ public class ControlleurAuthentification {
     }
 
     @RequestMapping(value = "/deconnexion", method = RequestMethod.GET)
-    public String deconnexion() {
+    public @ResponseBody void deconnexion() {
         serviceDAuthentification.deconnexion();
-        return REDIRECTION_VERS_PAGE_D_ACCUEIL;
     }
 }

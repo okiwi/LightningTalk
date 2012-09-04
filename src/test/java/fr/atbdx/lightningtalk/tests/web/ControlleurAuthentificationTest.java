@@ -45,10 +45,9 @@ public class ControlleurAuthentificationTest {
     public void deconnexion() throws IOException {
         aidePourLAuthentification.simulerAuthentification();
         
-        String redirection = controlleurAuthentification.deconnexion();
+        controlleurAuthentification.deconnexion();
 
         assertThat(aidePourLAuthentification.serviceDAuthentification.recupererUtilisateurCourant(), nullValue());
-        assertThat(redirection, is(ControlleurAuthentification.REDIRECTION_VERS_PAGE_D_ACCUEIL));
     }
 
 }
