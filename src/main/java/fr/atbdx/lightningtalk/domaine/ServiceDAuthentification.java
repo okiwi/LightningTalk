@@ -32,7 +32,7 @@ public class ServiceDAuthentification {
         try {
             utilisateurCourant = systemeDAuthentificationExterne.recupererUtilisateurDepuisUnCodeDAuthentification(codeDAuthentification);
         } catch (IOException e) {
-            throw new ImpossibleDeSAuthentifier();
+            throw new ImpossibleDeSAuthentifier(e);
         }
         if (entrepotUtilisateur.recuperer(utilisateurCourant.getId()) == null) {
             entrepotUtilisateur.creer(utilisateurCourant);

@@ -1,5 +1,7 @@
 package fr.atbdx.lightningtalk.web;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +17,8 @@ import fr.atbdx.lightningtalk.domaine.SystemeDAuthentificationExterne;
 @Controller
 @RequestMapping("/authentification")
 public class ControlleurAuthentification {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ControlleurAuthentification.class);
 
     public static final String REDIRECTION = "redirect:";
     public static final String REDIRECTION_VERS_PAGE_D_ACCUEIL = REDIRECTION + "/";
@@ -40,6 +44,7 @@ public class ControlleurAuthentification {
             serviceDAuthentification.authentifier(codeDAuthentification, codeErreur);
         } catch (ImpossibleDeSAuthentifier e) {
             redirectAttributes.addFlashAttribute("erreur", e.getMessage());
+            LOGGER.error(e.getMessage(), e);
         }
         return REDIRECTION_VERS_PAGE_D_ACCUEIL;
     }
