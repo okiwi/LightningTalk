@@ -1,61 +1,55 @@
 <#import "/spring.ftl" as spring />
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<title>Lightning talks Agile tour 2012</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Application permettant de proposer et de voter pour les lightnings talks de l'agile tour 2012">
-<meta name="author" content="Jérôme Roux">
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="description" content="Le site de l agile tour bordeaux propulsé par okiwi">
+		<meta name="author" content="okiwi">
+        <link rel="icon" type="image/png" href="http://agiletourbordeaux.okiwi.org/img/okiwi_thumb.png" />
+        <title>Application permettant de proposer et de voter pour les lightnings talks de l'agile tour 2012 - #atbdx</title>
 
-<link href="<@spring.url '/ressources/css/bootstrap.css'/>" rel="stylesheet" />
-<style type="text/css">
-body {
-	padding-top: 60px;
-	padding-bottom: 40px;
-}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="http://agiletourbordeaux.okiwi.org/css/style.css" rel="stylesheet" type="text/css">
+		<link href="<@spring.url '/ressources/css/bootstrap.css'/>" rel="stylesheet" type="text/css">
+		<link href="<@spring.url '/ressources/css/bootstrap-responsive.css'/>" rel="stylesheet">
+		<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+			  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+			<![endif]-->
 
-.sidebar-nav {
-	padding: 9px 0;
-}
-</style>
-<link type="text/css" rel="stylesheet" href="http://agiletourbordeaux.okiwi.org/css/style.css">
-<link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Ubuntu">
-<link href="<@spring.url '/ressources/css/bootstrap-responsive.css'/>" rel="stylesheet">
-
-<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-<!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-<!-- Le fav and touch icons 
-    TODO-->
-</head>
+	</head>
 
 <body>
 	<div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
 			<div class="container">
-				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
-				</a> <a class="brand" href="http://agiletourbordeaux.okiwi.org/index.html">Agile Tour Bordeaux</a> 
+				<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="brand" href="index.html">Agile Tour Bordeaux</a>
 				<div id="divPourAfficherUtilisateurSousMobile">
 					<!-- Div pour afficher l'utilisateur sous mobile -->
 				</div>
+				<div class="btn-group pull-right">
+					<a href="http://www.okiwi.org/"><img src="http://agiletourbordeaux.okiwi.org/img/okiwi_thumb.png" width="28px" height: 28px; alt="Logo Okiwi"></a>
+				</div>
 				<div class="nav-collapse">
 					<ul class="nav">
-						<li class="active"><a href="index.html">Accueil</a></li>
-						<li><a href="http://agiletourbordeaux.okiwi.org/inscription.html">Inscription</a></li>
-						<li><a href="http://agiletourbordeaux.okiwi.org/orateurs.html">Orateurs</a></li>
-						<li><a href="http://agiletourbordeaux.okiwi.org/programmation.html">Programmation</a></li>
-						<li><a href="http://agiletourbordeaux.okiwi.org/organisateurs.html">L'équipe</a></li>
-						<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Sponsors <b class="caret"></b></a>
+						<li><a href="inscription.html">Inscription</a></li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Jour J <b class="caret"></b></a>
 							<ul class="dropdown-menu">
-								<li><a href="http://agiletourbordeaux.okiwi.org/sponsors.html">Sponsors</a></li>
-								<li><a href="http://agiletourbordeaux.okiwi.org/offre_de_sponsoring.html">Devenez sponsor</a></li>
-							</ul></li>
+								<li><a href="http://agiletourbordeaux.okiwi.org/comment-convaincre.html">Pourquoi venir?</a></li>
+								<li><a href="http://agiletourbordeaux.okiwi.org/programmation.html">Programmation</a></li>
+								<li><a href="http://agiletourbordeaux.okiwi.org/accomodations.html">Accomodations</a></li>
+							</ul>
+						</li>   
+						<li><a href="http://agiletourbordeaux.okiwi.org/organisateurs.html">L'équipe</a></li>    
+						<li><a href="http://agiletourbordeaux.okiwi.org/sponsors.html">Sponsors</a></li>
 					</ul>
-				</div>
-				<!--/.nav-collapse -->
+				</div><!--/.nav-collapse -->
 			</div>
 		</div>
 	</div>
@@ -71,29 +65,15 @@ body {
 			</div>
 		</div>
 
-		<hr>
 
-		<footer>
-			<p>Agile tour bordeaux 2012</p>
-		</footer>
+        <div class="row footer" style="text-decoration: none;">
+              <small>
+              	L'Agile Tour Bordeaux est un évènement propulsé par <a href="http://okiwi.org">Okiwi</a>
+              	<br>
+              	<a href="mailto:contact@okiwi.org"><span class="label label-info">feedback</span></a>
+              </small>
+          </div>	
 
-	</div>
-	<div class="modal fade hide" id="modalDeCreationDUneSession">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal">×</button>
-			<h3>Création d'une session</h3>
-		</div>
-		<div class="modal-body">
-			<div id="conteneurDErreurPourLaCreationDUneSession"></div>
-			<form id="formulaireDeCreationDUneSession" class="well">
-				<label class="control-label" for="titre">Titre</label> <input type="text" class="span5" placeholder="Entrer le titre de votre session ..." name="titre" id="titreCreation" /> <label
-					class="control-label" for="description">description</label>
-				<textarea class="span5" placeholder="Entrer la description de votre session ..." name="description" id="descriptionCreation" rows="10"></textarea>
-			</form>
-		</div>
-		<div class="modal-footer">
-			<a href="#" class="btn" data-dismiss="modal">Fermer</a> <a href="#" class="btn btn-primary" id="creerUneSession">Créer</a>
-		</div>
 	</div>
 	<div id="conteneurModalDeCreationEtDeMiseAJourDUneSession"></div>
 
@@ -133,7 +113,8 @@ body {
 			</div>
 		</div>
 	</script>
-	<script id="templateUtilisateurAuthentifieSousMobile" type="text/html">
+	<script id="templateUtilisateurSousMobile" type="text/html">
+	{{#nomAffiche}}
 		<div class="btn-group pull-right visible-phone" id="divPourAfficherUtilisateurSousMobile">
 			<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> <i class="icon-user"></i> {{nomAffiche}}<span class="caret"></span>
 			</a>
@@ -145,14 +126,19 @@ body {
 			<a class="btn" rel="tooltip" title="Créer une session" data-toggle="modal" href="#" onClick="afficherModalDeCreationDUneSession();return false;"> <i class="icon-pencil"></i>
 			</a>
 		</div>
-	</script>
-	<script id="templateUtilisateurNonAuthentifieSousMobile" type="text/html">
+	{{/nomAffiche}}
+	{{^nomAffiche}}
 		<div class="pull-right visible-phone">
 			<a class="btn" rel="tooltip" title="Connexion avec votre compte google" href="authentification/externe"> <i class="icon-user"></i>
 			</a>
 		</div>
+	{{/nomAffiche}}
 	</script>
-	<script id="templateUtilisateurAuthentifie" type="text/html">
+	<script id="templateUtilisateurNonAuthentifieSousMobile" type="text/html">
+		
+	</script>
+	<script id="templateUtilisateur" type="text/html">
+	{{#nomAffiche}}
 		<h3>
 			<img alt="" src="{{urlImage}}"> <a href="{{urlProfil}}">{{nomAffiche}}}</a>
 		</h3>
@@ -163,10 +149,14 @@ body {
 			<a class="btn" rel="tooltip" title="Créer une session" data-toggle="modal" onClick="afficherModalDeCreationDUneSession();return false;"> <i class="icon-pencil"></i> Créer une session
 			</a>
 		</p>
-	</script>
-	<script id="templateUtilisateurNonAuthentifie" type="text/html">
+	{{/nomAffiche}}
+	{{^nomAffiche}}
 		<a rel="tooltip" title="Connexion avec votre compte google" href="authentification/externe"> <i class="icon-user"> </i>Connexion
 		</a>
+	{{/nomAffiche}}
+	</script>
+	<script id="templateUtilisateurNonAuthentifie" type="text/html">
+		
 	</script>
 	
 	<script id="templateErreur" type="text/html">
@@ -207,18 +197,18 @@ body {
 	
 	function recupererUtilisateurCourant(){
 		$.getJSON('<@spring.url 'utilisateurs/courant'/>', function (utilisateur) {
-			if(utilisateur == null){
-				afficherUtilisateurNonAuthentifie();
-			}else {
-			    $('#divPourAfficherUtilisateur').html(ich.templateUtilisateurAuthentifie(utilisateur));
-			    $('#divPourAfficherUtilisateurSousMobile').html(ich.templateUtilisateurAuthentifieSousMobile(utilisateur));
-			}
+			afficherUtilisateur(utilisateur);
 		});
+	}
+	
+	function afficherUtilisateur(utilisateur){
+		$('#divPourAfficherUtilisateur').html(ich.templateUtilisateur(utilisateur));
+	    $('#divPourAfficherUtilisateurSousMobile').html(ich.templateUtilisateurSousMobile(utilisateur));
 	}
 	
 	function deconnexion(){
 		$.getJSON('authentification/deconnexion', function () {
-			afficherUtilisateurNonAuthentifie()
+			afficherUtilisateur(null);
 		});
 		recupererLesSessions();
 	}
@@ -330,5 +320,22 @@ body {
         recupererUtilisateurCourant();
       });
    </script>
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push([ '_setAccount', 'UA-33933906-1' ]);
+		_gaq.push([ '_trackPageview' ]);
+	
+		(function() {
+			var ga = document.createElement('script');
+			ga.type = 'text/javascript';
+			ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl'
+					: 'http://www')
+					+ '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0];
+			s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
 </body>
 </html>
