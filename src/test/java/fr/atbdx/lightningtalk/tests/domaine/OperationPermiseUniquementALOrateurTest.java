@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import fr.atbdx.lightningtalk.domaine.OperationPermiseUniquementALOrateur;
 
-public class ExceptionCarLUtilisateurCourantNEstPasLOrateurTest {
+public class OperationPermiseUniquementALOrateurTest {
 
     @Test
     public void peutCreerLException() {

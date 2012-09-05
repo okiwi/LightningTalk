@@ -2,6 +2,7 @@ package fr.atbdx.lightningtalk.domaine;
 
 import java.io.IOException;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -24,8 +25,15 @@ public class ServiceDAuthentification {
     protected ServiceDAuthentification() {
     }
 
-    public void authentifier(String codeDAuthentification) throws IOException {
-        utilisateurCourant = systemeDAuthentificationExterne.recupererUtilisateurDepuisUnCodeDAuthentification(codeDAuthentification);
+    public void authentifier(String codeDAuthentification, String codeDerreur) throws ImpossibleDeSAuthentifier {
+        if (StringUtils.isNotBlank(codeDerreur)) {
+            throw new ImpossibleDeSAuthentifier();
+        }
+        try {
+            utilisateurCourant = systemeDAuthentificationExterne.recupererUtilisateurDepuisUnCodeDAuthentification(codeDAuthentification);
+        } catch (IOException e) {
+            throw new ImpossibleDeSAuthentifier();
+        }
         if (entrepotUtilisateur.recuperer(utilisateurCourant.getId()) == null) {
             entrepotUtilisateur.creer(utilisateurCourant);
         } else {

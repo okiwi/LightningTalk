@@ -49,6 +49,7 @@ public class ConfigurationWeb extends WebMvcConfigurerAdapter {
         freeMarkerViewResolver.setSuffix(".ftl");
         return freeMarkerViewResolver;
     }
+    
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {

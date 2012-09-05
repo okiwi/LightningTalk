@@ -2,9 +2,7 @@ package fr.atbdx.lightningtalk.doublures.domaine;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-
-import java.io.IOException;
-
+import fr.atbdx.lightningtalk.domaine.ImpossibleDeSAuthentifier;
 import fr.atbdx.lightningtalk.domaine.ServiceDAuthentification;
 
 public class AidePourLAuthentification {
@@ -20,8 +18,8 @@ public class AidePourLAuthentification {
         serviceDAuthentification = new ServiceDAuthentification(systemeDAuthentificationExterne, entrepotUtilisateur);
     }
 
-    public AidePourLAuthentification simulerAuthentification() throws IOException {
-        serviceDAuthentification.authentifier(CODE_AUTHENTIFICATION);
+    public AidePourLAuthentification simulerAuthentification() throws ImpossibleDeSAuthentifier {
+        serviceDAuthentification.authentifier(CODE_AUTHENTIFICATION, null);
         return this;
 
     }

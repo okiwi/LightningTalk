@@ -10,6 +10,7 @@ public class FakeSystemeDAuthentificationExterne implements SystemeDAuthentifica
     public static final String URL_DU_SYSTEME_D_AUTHENTIFICATION_EXTERNE = "urlDuSystemeDAuthentificationExterne";
     public String codeDAuthentificationUtilise;
     public Utilisateur utilisateurARetourner = AidePourLesUtilisateurs.UTILISATEUR;
+    public IOException exceptionARetourner;
 
     @Override
     public String recupererLURLDuServiceDAuthentificationExterne() {
@@ -18,6 +19,9 @@ public class FakeSystemeDAuthentificationExterne implements SystemeDAuthentifica
 
     @Override
     public Utilisateur recupererUtilisateurDepuisUnCodeDAuthentification(String codeDAuthentification) throws IOException {
+        if (exceptionARetourner != null) {
+            throw exceptionARetourner;
+        }
         this.codeDAuthentificationUtilise = codeDAuthentification;
         return utilisateurARetourner;
     }

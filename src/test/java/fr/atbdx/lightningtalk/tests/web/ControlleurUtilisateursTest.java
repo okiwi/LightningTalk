@@ -9,6 +9,7 @@ import java.io.IOException;
 import org.junit.Before;
 import org.junit.Test;
 
+import fr.atbdx.lightningtalk.domaine.ImpossibleDeSAuthentifier;
 import fr.atbdx.lightningtalk.domaine.Utilisateur;
 import fr.atbdx.lightningtalk.doublures.domaine.AidePourLAuthentification;
 import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesUtilisateurs;
@@ -26,7 +27,7 @@ public class ControlleurUtilisateursTest {
     }
 
     @Test
-    public void peutRecupererUtilisateurCourant() throws IOException {
+    public void peutRecupererUtilisateurCourant() throws ImpossibleDeSAuthentifier {
         aidePourLAuthentification.simulerAuthentification();
 
         Utilisateur utilisateur = controleurUtilisateur.recuperUtilisateurCourant();

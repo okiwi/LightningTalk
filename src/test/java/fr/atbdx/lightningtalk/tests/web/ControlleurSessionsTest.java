@@ -16,6 +16,7 @@ import org.junit.Test;
 
 import fr.atbdx.lightningtalk.domaine.EntrepotUtilisateur;
 import fr.atbdx.lightningtalk.domaine.ImpossibleDeCreerUneSession;
+import fr.atbdx.lightningtalk.domaine.ImpossibleDeSAuthentifier;
 import fr.atbdx.lightningtalk.domaine.OperationPermiseUniquementALOrateur;
 import fr.atbdx.lightningtalk.domaine.Session;
 import fr.atbdx.lightningtalk.doublures.domaine.AidePourLAuthentification;
@@ -35,7 +36,7 @@ public class ControlleurSessionsTest {
     private EntrepotUtilisateur fakeEntrepotUtilisateur;
 
     @Before
-    public void avantLesTests() throws IOException {
+    public void avantLesTests() throws ImpossibleDeSAuthentifier {
         fakeEntrepotUtilisateur = new FakeEntrepotUtilisateur();
         fakeEntrepotUtilisateur.creer(AidePourLesUtilisateurs.UN_AUTRE_UTILISATEUR);
         fakeEntrepotSession = new FakeEntrepotSession();

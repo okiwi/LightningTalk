@@ -54,6 +54,15 @@
 		</div>
 	</div>
 	<div class="container-fluid">
+		<#if erreur??>
+		<div class="row-fluid">
+			<div class="span12 alert alert-block alert-error fade in">
+				<button class="close" data-dismiss="alert" type="button">×</button>
+				<h4 class="alert-heading">Une erreur est survenue</h4>
+				<p>${erreur}</p>
+			</div>
+		</div>
+		</#if>
 		<div class="row-fluid">
 			<div class="span3 hidden-phone">
 				<div class="well" id="divPourAfficherUtilisateur">
