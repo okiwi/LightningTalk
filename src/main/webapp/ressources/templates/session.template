@@ -1,0 +1,49 @@
+<script id="templateSession">
+	<div class="row-fluid">
+		<div class="well">
+			<h2>
+				{{titre}} <small>proposé par <a>{{orateur}}</a></small>
+			</h2>
+			<p>{{description}}</p>
+				<span class="badge badge-inverse">{{nombreDeVotes}}</span>
+				{{#peutAjouterUnVote}}
+					<a href="#" onClick="voter('{{titreEncodePourJavascript}}');return false;" class="btn btn-info btn-mini">
+						<i class="icon-ok icon-white"></i>Voter
+					</a>
+				{{/peutAjouterUnVote}}
+				{{#peutSupprimerUnVote}}
+					<a href="#" onClick="enleverMonVote('{{titreEncodePourJavascript}}');return false;" class="btn btn-mini">
+						<i class="icon-remove"></i>Enlever mon vote
+					</a>
+				{{/peutSupprimerUnVote}}
+				{{#estOrateur}}
+					<a href="#" onClick="supprimerSession('{{titre}}','{{titreEncodePourJavascript}}');return false;">
+						<i class="icon-remove"></i><small>Supprimer</small>
+					</a>
+					<a href="#" onClick="afficherModalDeMiseAJourDUneSession('{{titreEncodePourJavascript}}','{{titre}}','{{description}}');return false;">
+						<i class="icon-edit"></i><small>Mettre à jour</small>
+					</a>
+				{{/estOrateur}}
+		</div>
+	</div>
+</script>
+
+<script id="templateModalDeCreationEtDeMiseAJourDUneSession">
+	<div class="modal fade hide" id="modalDeCreationEtDeMiseAJourDUneSession">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h3>{{modal.titre}} d'une session</h3>
+		</div>
+		<div class="modal-body">
+			<div id="conteneurDErreurPourLaCreationEtLaMiseAJourDUneSession"></div>
+			<form id="formulaireDeCreationEtDeMiseAJourDUneSession" class="well">
+				<label class="control-label" for="titre">Titre</label> <input type="text" class="span5" placeholder="Entrer le titre de votre session ..." name="titre" id="titre" value="{{session.titre}}"/> <label
+					class="control-label" for="description">description</label>
+				<textarea class="span5" placeholder="Entrer la description de votre session ..." name="description" id="description" rows="10">{{session.description}}</textarea>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="btn" data-dismiss="modal">Close</a> <a href="#" class="btn btn-primary" id="sauvegarderSession">{{modal.action}}</a>
+		</div>
+	</div>
+</script>

@@ -1,0 +1,40 @@
+<script id="templateUtilisateur">
+	{{#nomAffiche}}
+		<h3>
+			<img alt="" src="{{urlImage}}"> <a href="{{urlProfil}}">{{nomAffiche}}}</a>
+		</h3>
+		<p>
+			<a class="btn" href="#" onClick="deconnexion();return false;"> Déconnexion</a>
+		</p>
+		<p>
+			<a class="btn" rel="tooltip" title="Créer une session" data-toggle="modal" onClick="afficherModalDeCreationDUneSession();return false;"> <i class="icon-pencil"></i> Créer une session
+			</a>
+		</p>
+	{{/nomAffiche}}
+	{{^nomAffiche}}
+		<a rel="tooltip" title="Connexion avec votre compte google" href="authentification/externe"> <i class="icon-user"> </i>Connexion
+		</a>
+	{{/nomAffiche}}
+</script>
+
+<script id="templateUtilisateurSousMobile">
+	{{#nomAffiche}}
+		<div class="btn-group pull-right visible-phone" id="divPourAfficherUtilisateurSousMobile">
+			<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> <i class="icon-user"></i> {{nomAffiche}}<span class="caret"></span>
+			</a>
+			<ul class="dropdown-menu">
+				<li><a href="#" onClick="deconnexion();return false;"> Déconnexion</a></li>
+			</ul>
+		</div>
+		<div class="btn-group pull-right visible-phone">
+			<a class="btn" rel="tooltip" title="Créer une session" data-toggle="modal" href="#" onClick="afficherModalDeCreationDUneSession();return false;"> <i class="icon-pencil"></i>
+			</a>
+		</div>
+	{{/nomAffiche}}
+	{{^nomAffiche}}
+		<div class="pull-right visible-phone">
+			<a class="btn" rel="tooltip" title="Connexion avec votre compte google" href="authentification/externe"> <i class="icon-user"></i>
+			</a>
+		</div>
+	{{/nomAffiche}}
+</script>
