@@ -3,15 +3,15 @@
 		<div class="span12">
 			<div class="row">
 				<div class="span8 offset1">
-					<h2>
+					<h3>
 						{{titre}} <br/><small>proposé par </small><small class="text-info"> {{orateur}} </small>
-					</h2>
+					</h3>
 					<hr/>
 				</div>
 				<div class="span3">
-					<h2>
+					<h3>
 						<span class="badge badge-inverse">{{nombreDeVotes}} votes</span><br/>
-					</h2>
+					</h3>
 					{{#peutAjouterUnVote}}
 						<a href="#" onClick="voter('{{titreEncodePourJavascript}}');return false;" class="btn btn-info btn-mini">
 							<i class="icon-ok icon-white"></i>Voter

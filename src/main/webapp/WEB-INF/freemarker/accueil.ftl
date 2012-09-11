@@ -25,7 +25,7 @@
         <script src="http://okiwi.github.com/atbdx/static/lib/jquery/jquery.min.js"></script>
         <script src="http://okiwi.github.com/atbdx/static/lib/jquery/jquery.custom.min.js"></script>
 		
-		        <div class="navbar navbar-fixed-top">
+	        <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container">
                     <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
