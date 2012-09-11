@@ -2,16 +2,23 @@
 	<div id="{{titreEncodePourJavascript}}" class="row">
 		<div class="span12">
 			<div class="row">
-				<div class="span8 offset1">
-					<h3>
-						{{titre}} <br/><small>proposé par </small><small class="text-info"> {{orateur}} </small>
+				<div class="span9">
+					<h3 style="border-bottom: 1px solid black">
+						{{titre}}
+						<small>proposé par </small><small class="text-info"> {{orateur}} </small>
 					</h3>
-					<hr/>
 				</div>
 				<div class="span3">
 					<h3>
-						<span class="badge badge-inverse">{{nombreDeVotes}} votes</span><br/>
+						<span class="badge badge-inverse">{{nombreDeVotes}} votes</span>
 					</h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="span8 offset1">
+					{{description}}
+				</div>
+				<div class="span3">
 					{{#peutAjouterUnVote}}
 						<a href="#" onClick="voter('{{titreEncodePourJavascript}}');return false;" class="btn btn-info btn-mini">
 							<i class="icon-ok icon-white"></i>Voter
@@ -30,11 +37,6 @@
 							<i class="icon-edit"></i><small>Mettre à jour</small>
 						</a>
 					{{/estOrateur}}
-				</div>
-			</div>
-			<div class="row">
-				<div class="span10 offset2">
-					{{description}}
 				</div>
 			</div>
 		</div>
