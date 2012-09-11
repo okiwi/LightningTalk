@@ -84,10 +84,8 @@
 				</div>
 			</div>
 			</#if>
-			<div class="row-fluid">
-				<div class="span12" id="divPourAfficherLesSessions">
-					<!-- Div pour afficher les sessions -->
-				</div>
+			<div id="divPourAfficherLesSessions">
+				<!-- Div pour afficher les sessions -->
 			</div>
 
 			<div id="conteneurModalDeCreationEtDeMiseAJourDUneSession"></div>
