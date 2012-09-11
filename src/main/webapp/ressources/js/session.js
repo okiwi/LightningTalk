@@ -3,16 +3,22 @@
             $('#divPourAfficherLesSessions').html('');
             $.getJSON('sessions', function(sessions) {
                 $.each(sessions, function(index, session) {
-                    $('#divPourAfficherLesSessions').append(ich.templateSession(session));
-                    var divDeLaSession = $('#' + session.titreEncodePourJavascript);
+                	var divDeLaSession = $(ich.templateSession(session));
+                    $('#divPourAfficherLesSessions').append(divDeLaSession);
+                    var ouvriActions = divDeLaSession.find(".ouvrirActions");
+                    var actions = divDeLaSession.find(".actions");
                     divDeLaSession.hover(
                             function () {
-                                $(this).addClass("hover");
+                            	divDeLaSession.addClass("sessionAvecCadre");
+                            	ouvriActions.addClass("hide");
+                            	actions.removeClass("hide");
                               },
                               function () {
-                                $(this).removeClass("hover");
+                            	  divDeLaSession.removeClass("sessionAvecCadre");
+                            	  actions.addClass("hide");
+                            	  ouvriActions.removeClass("hide");
                               }
-                            );
+                     );
                 });
             });
         }

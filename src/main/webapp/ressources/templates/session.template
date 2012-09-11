@@ -1,9 +1,9 @@
 <script id="templateSession">
-	<div id="{{titreEncodePourJavascript}}" class="row">
+	<div class="row" class="session">
 		<div class="span12">
-			<div class="row"  style="padding-top: 30px;">
+			<div class="row">
 				<div class="span11">
-					<h3 style="border-bottom: 1px solid black;">
+					<h3 class="titreSession">
 						{{titre}}
 					</h3>
 					<i class="muted">proposé par </i><span class="text-info"> {{orateur}} </span>
@@ -17,7 +17,12 @@
 			<div class="row">
 				<div class="span10 offset1">
 					{{description}}
-					<div>
+					<div class="ouvrirActions">
+						{{#peutFaireUneAction}}
+							<small class="muted">Ouvrir les actions ...</small>
+						{{/peutFaireUneAction}}
+					</div>
+					<div class="actions hide">
 						{{#peutAjouterUnVote}}
 							<a href="#" onClick="voter('{{titreEncodePourJavascript}}');return false;">
 								<i class="icon-ok"></i>Voter

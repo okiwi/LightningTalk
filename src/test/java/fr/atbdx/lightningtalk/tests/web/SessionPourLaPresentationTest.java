@@ -116,6 +116,18 @@ public class SessionPourLaPresentationTest {
     }
     
     @Test
+    public void peutRecuperIsPeutFaireUneAction() {
+        when(session.estOrateur(AidePourLesUtilisateurs.UTILISATEUR)).thenReturn(true);
+        
+        boolean peutFaireUneAction = sessionPourLaPresentation.isPeutFaireUneAction();
+        
+        assertThat(peutFaireUneAction, is(true));
+        verify(session).peutAjouterUnVote(AidePourLesUtilisateurs.UTILISATEUR);
+        verify(session).peutSupprimerUnVote(AidePourLesUtilisateurs.UTILISATEUR);
+        verify(session).estOrateur(AidePourLesUtilisateurs.UTILISATEUR);
+    }
+    
+    @Test
     public void peutRecuperIsPeutAjouterUnVote() {
         when(session.peutAjouterUnVote(AidePourLesUtilisateurs.UTILISATEUR)).thenReturn(true);
         
