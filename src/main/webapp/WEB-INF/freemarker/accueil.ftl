@@ -1,117 +1,137 @@
 <#import "/spring.ftl" as spring />
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8" />
-<meta name="description" content="Le site de l agile tour bordeaux propulsé par okiwi">
-<meta name="author" content="okiwi">
-<link rel="icon" type="image/png" href="http://agiletourbordeaux.okiwi.org/img/okiwi_thumb.png" />
-<title>Application permettant de proposer et de voter pour les lightnings talks de l'agile tour 2012 - #atbdx</title>
+<html lang="fr">
+    <head>
+        <title>Application permettant de proposer et de voter pour les lightnings talks de l'agile tour 2012 - #atbdx</title>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="http://agiletourbordeaux.okiwi.org/css/style.css" rel="stylesheet" type="text/css">
-<link href="<@spring.url '/ressources/css/bootstrap.css'/>" rel="stylesheet" type="text/css">
-<link href="<@spring.url '/ressources/css/bootstrap-responsive.css'/>" rel="stylesheet">
-<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-<!--[if lt IE 9]>
-			  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-			<![endif]-->
+        <meta charset="utf-8" />
+        <meta name="description" content="Le site de l'agile tour bordeaux propulsé par okiwi">
+        <meta name="author" content="okiwi">
+        <link rel="icon" type="image/png" href="http://okiwi.github.com/atbdx/img/okiwi_thumb.png" />
 
-</head>
+        <link rel="stylesheet" href="http://okiwi.github.com/atbdx/static/lib/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="http://okiwi.github.com/atbdx/static/lib/bootstrap/css/bootstrap-responsive.min.css">
 
-<body>
-	<div class="navbar navbar-fixed-top">
-		<div class="navbar-inner">
-			<div class="container">
-				<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-					<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
-				</button>
-				<a class="brand" href="index.html">Agile Tour Bordeaux</a>
-				<div id="divPourAfficherUtilisateurSousMobile">
-					<!-- Div pour afficher l'utilisateur sous mobile -->
+        <link rel="stylesheet" href="http://okiwi.github.com/atbdx/static/css/style.css" />
+        <link rel="stylesheet" href="http://okiwi.github.com/atbdx/static/lib/countdown/jquery.countdown.css">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <script src="http://okiwi.github.com/atbdx/static/lib/jquery/jquery.min.js"></script>
+        <script src="http://okiwi.github.com/atbdx/static/lib/jquery/jquery.custom.min.js"></script>
+		
+		        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <i class="icon-bar"></i>
+                        <i class="icon-bar"></i>
+                        <i class="icon-bar"></i>
+                    </a>
+
+                    <div class="span4">
+                        <h1><a href="http://okiwi.github.com/atbdx/index.html" title="Agile Tour Bordeaux 2012"><span>Agile Tour Bordeaux 2012</span></a></h1>
+                    </div>
+
+                    <div class="nav-collapse span8 noLeftMargin">
+                        <ul class="nav">
+                            <li><a href="http://okiwi.github.com/atbdx/presentation.html" class="presentation-link">Présentation</a></li>
+                            <li><a href="http://okiwi.github.com/atbdx/pourquoivenir.html" class="viens-link">Viens !</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle programmation-link" data-toggle="dropdown">Programme<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="http://lightningtalk.herokuapp.com/">Lightning Talks</a></li>
+                                    <li><a href="http://okiwi.github.com/atbdx/programme.html">Programmation</a></li>
+                                    <li><a href="http://okiwi.github.com/atbdx/orateurs.html">Orateurs</a></li>
+                                </ul>
+                            </li>    
+                            <li>
+                                <a href="http://okiwi.github.com/atbdx/informations_pratiques.html" class="infospratiques-link">Info</a>
+                            </li>
+                            <li>
+                                <a href="http://okiwi.github.com/atbdx/equipe.html" class="equipe-link">Equipe</a>
+                            </li>
+                            <li>
+                                <a href="http://okiwi.github.com/atbdx/sponsors.html" class="sponsors-link">Sponsors</a>
+                            </li>
+                        </ul>
+                        <div id="divPourAfficherUtilisateurSousMobile">
+							<!-- Div pour afficher l'utilisateur sous mobile -->
+						</div>
+                        <div class="btn-group social">
+                            <a href="http://www.facebook.com/Agiletourbordeaux" class="facebook"><span>Facebook</span></a>
+                            <a href="http://twitter.com/okiwi_fr" class="twitter"><span>Twitter</span></a>
+                            <a href="https://plus.google.com/u/0/events/cqotp15cf2eso0rr8gc0uit8mak/101137288862468153673" class="googleplus"><span>Google +</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="content" class="container">
+			<#if erreur??>
+			<div class="row-fluid">
+				<div class="span12 alert alert-block alert-error fade in">
+					<button class="close" data-dismiss="alert" type="button">×</button>
+					<h4 class="alert-heading">Une erreur est survenue</h4>
+					<p>${erreur}</p>
 				</div>
-				<div class="btn-group pull-right">
-					<a href="http://www.okiwi.org/"><img src="http://agiletourbordeaux.okiwi.org/img/okiwi_thumb.png" width="28px" height: 28px; alt="Logo Okiwi"></a>
-				</div>
-				<div class="nav-collapse">
-					<ul class="nav">
-						<li><a href="inscription.html">Inscription</a></li>
-						<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Jour J <b class="caret"></b></a>
-							<ul class="dropdown-menu">
-								<li><a href="http://agiletourbordeaux.okiwi.org/comment-convaincre.html">Pourquoi venir?</a></li>
-								<li><a href="http://agiletourbordeaux.okiwi.org/programmation.html">Programmation</a></li>
-								<li><a href="http://agiletourbordeaux.okiwi.org/accomodations.html">Accomodations</a></li>
-							</ul></li>
-						<li><a href="http://agiletourbordeaux.okiwi.org/organisateurs.html">L'équipe</a></li>
-						<li><a href="http://agiletourbordeaux.okiwi.org/sponsors.html">Sponsors</a></li>
-					</ul>
-				</div>
-				<!--/.nav-collapse -->
 			</div>
-		</div>
-	</div>
-	<div class="container-fluid">
-		<#if erreur??>
-		<div class="row-fluid">
-			<div class="span12 alert alert-block alert-error fade in">
-				<button class="close" data-dismiss="alert" type="button">×</button>
-				<h4 class="alert-heading">Une erreur est survenue</h4>
-				<p>${erreur}</p>
-			</div>
-		</div>
-		</#if>
-		<div class="row-fluid">
-			<div class="span3 hidden-phone">
-				<div class="well" id="divPourAfficherUtilisateur">
-					<!-- Div pour afficher l'utilisateur -->
+			</#if>
+			<div class="row-fluid">
+				<div class="span3 hidden-phone">
+					<div class="well" id="divPourAfficherUtilisateur">
+						<!-- Div pour afficher l'utilisateur -->
+					</div>
+				</div>
+				<div class="span9" id="divPourAfficherLesSessions">
+					<!-- Div pour afficher les sessions -->
 				</div>
 			</div>
-			<div class="span9" id="divPourAfficherLesSessions">
-				<!-- Div pour afficher les sessions -->
-			</div>
-		</div>
 
+			<div id="conteneurModalDeCreationEtDeMiseAJourDUneSession"></div>
 
-		<div class="row footer" style="text-decoration: none;">
-			<small> L'Agile Tour Bordeaux est un évènement propulsé par <a href="http://okiwi.org">Okiwi</a> <br> <a href="mailto:contact@okiwi.org"><span
-					class="label label-info">feedback</span></a>
-			</small>
-		</div>
+	        </div>
+        
+        <div id="footer"class="container">
+            <div class="span4">
+                <a class="reservez" href="http://www.yuticket.com/association-okiwi/ca5f3eb4-6f52-4d8e-818b-ef8847dafb3a-agile-tour-bordeaux-2012.html"><b>Réservez votre place >></b></a>
+            </div>
+            <div class="span8 noLeftMargin">
+                <p>L'Agile Tour Bordeaux est un évènement propulsé par <a href="http://okiwi.org">Okiwi</a><img src="http://okiwi.github.com/atbdx/static/img/favicon.png" class="okiwi" /></p>
+            </div>
+        </div>
 
-	</div>
-	<div id="conteneurModalDeCreationEtDeMiseAJourDUneSession"></div>
+        <script src="http://okiwi.github.com/atbdx/static/lib/bootstrap/js/bootstrap.min.js"></script>
+       	<script src="<@spring.url '/ressources/js/ICanHaz.js'/>"></script>
+		<script src="<@spring.url '/ressources/js/ICanHaz-utils.js'/>"></script>
+		<script src="<@spring.url '/ressources/js/utilisateur.js'/>"></script>
+		<script src="<@spring.url '/ressources/js/session.js'/>"></script>
+		
+		<script type="text/javascript">
+	        $(document).ready(function() {
+	            chargerTemplatesExternes('<@spring.url '/ressources/templates/'/>',[ "utilisateur", "session", "erreur" ]);
+	            recupererUtilisateurCourant();
+	            recupererLesSessions();
+	        });
+    	</script>
 
-	<script src="<@spring.url '/ressources/js/jquery.js'/>"></script>
-	<script src="<@spring.url '/ressources/js/bootstrap.js'/>"></script>
-	<script src="<@spring.url '/ressources/js/ICanHaz.js'/>"></script>
-	<script src="<@spring.url '/ressources/js/ICanHaz-utils.js'/>"></script>
-	<script src="<@spring.url '/ressources/js/utilisateur.js'/>"></script>
-	<script src="<@spring.url '/ressources/js/session.js'/>"></script>
+        <!--google analytics-->
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-33933906-1']);
+            _gaq.push(['_trackPageview']);
 
-
-	<script type="text/javascript">
-        $(document).ready(function() {
-            chargerTemplatesExternes('<@spring.url '/ressources/templates/'/>',[ "utilisateur", "session", "erreur" ]);
-            recupererUtilisateurCourant();
-            recupererLesSessions();
-
-        });
-
-    </script>
-
-	<script type="text/javascript">
-        var _gaq = _gaq || [];
-        _gaq.push([ '_setAccount', 'UA-33933906-1' ]);
-        _gaq.push([ '_trackPageview' ]);
-
-        (function() {
-            var ga = document.createElement('script');
-            ga.type = 'text/javascript';
-            ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(ga, s);
-        })();
-    </script>
-</body>
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+    </body>
 </html>
