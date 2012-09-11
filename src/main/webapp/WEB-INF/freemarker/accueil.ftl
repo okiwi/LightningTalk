@@ -129,7 +129,7 @@
         </div>
 
         <script src="http://okiwi.github.com/atbdx/static/lib/bootstrap/js/bootstrap.min.js"></script>
-       	<script src="<@spring.url '/ressources/js/ICanHaz.js'/>"></script>
+       	<script src="<@spring.url '/ressources/js/ICanHaz.min.js'/>"></script>
 		<script src="<@spring.url '/ressources/js/ICanHaz-utils.js'/>"></script>
 		<script src="<@spring.url '/ressources/js/utilisateur.js'/>"></script>
 		<script src="<@spring.url '/ressources/js/session.js'/>"></script>

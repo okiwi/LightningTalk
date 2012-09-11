@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -27,17 +26,10 @@ import freemarker.template.utility.XmlEscape;
 public class ConfigurationWeb extends WebMvcConfigurerAdapter {
     private static final int UNE_JOURNEE_EN_SECONDE = (int) TimeUnit.DAYS.toSeconds(1);
 
-    @Value("${utiliserLesResourcesCompressees}")
-    public String utiliserLesResourcesCompressees;
-
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         ResourceHandlerRegistration resourcesHandler = registry.addResourceHandler("/ressources/**");
-        if (Boolean.parseBoolean(utiliserLesResourcesCompressees)) {
-            resourcesHandler.addResourceLocations("/ressources/", "/ressourcesCompressees/");
-        } else {
-            resourcesHandler.addResourceLocations("/ressources/", "/ressourcesNonCompressees/");
-        }
+        resourcesHandler.addResourceLocations("/ressources/");
         resourcesHandler.setCachePeriod(UNE_JOURNEE_EN_SECONDE);
     }
 
