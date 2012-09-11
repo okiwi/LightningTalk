@@ -8,58 +8,58 @@
             });
         }
 
-        function voter(titreEncodePourLURL) {
+        function voter(titreEncodePourJavascript) {
             $.ajax({
                 type : 'POST',
-                url : 'sessions/' + titreEncodePourLURL + '/votants',
+                url : 'sessions/' + titreEncodePourJavascript + '/votants',
                 success : function() {
                     recupererLesSessions();
                 }
             });
         }
-        function enleverMonVote(titreEncodePourLURL) {
+        function enleverMonVote(titreEncodePourJavascript) {
             $.ajax({
                 headers : {
                     'X-HTTP-Method-Override' : 'DELETE',
                 },
                 type : 'GET',
-                url : 'sessions/' + titreEncodePourLURL + '/votants',
+                url : 'sessions/' + titreEncodePourJavascript + '/votants',
                 success : function() {
                     recupererLesSessions();
                 }
             });
         }
 
-        function supprimerSession(titre, titreEncodePourLURL) {
-            if (confirm("Voulez vraiment supprimer la session " + titre))
+        function supprimerSession(titreEncodePourJavascript) {
+            if (confirm("Voulez vraiment supprimer la session " + titreEncodePourJavascript))
                 $.ajax({
                     headers : {
                         'X-HTTP-Method-Override' : 'DELETE',
                     },
                     type : 'GET',
-                    url : 'sessions/' + titreEncodePourLURL,
+                    url : 'sessions/' + titreEncodePourJavascript,
                     success : function() {
                         recupererLesSessions();
                     }
                 });
         }
 
-        function afficherModalDeMiseAJourDUneSession(titreEncodePourLURL, titre, description) {
+        function afficherModalDeMiseAJourDUneSession(titreEncodePourJavascript, descriptionEncodePourJavascript) {
             var vue = {
                 modal : {
                     titre : "Mise à jour",
                     action : "Mettre à jour"
                 },
                 session : {
-                    titre : titre,
-                    description : description
+                    titre : titreEncodePourJavascript,
+                    description : descriptionEncodePourJavascript
                 }
             }
             $('#conteneurModalDeCreationEtDeMiseAJourDUneSession').html(ich.templateModalDeCreationEtDeMiseAJourDUneSession(vue));
             $('#sauvegarderSession').bind('click', function() {
                 $.ajax({
                     type : 'POST',
-                    url : 'sessions/' + titreEncodePourLURL,
+                    url : 'sessions/' + titreEncodePourJavascript,
                     data : $('#formulaireDeCreationEtDeMiseAJourDUneSession').serializeArray(),
                     success : function() {
                         $('#modalDeCreationEtDeMiseAJourDUneSession').modal('hide');

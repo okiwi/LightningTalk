@@ -17,10 +17,10 @@
 					</a>
 				{{/peutSupprimerUnVote}}
 				{{#estOrateur}}
-					<a href="#" onClick="supprimerSession('{{titre}}','{{titreEncodePourJavascript}}');return false;">
+					<a href="#" onClick="supprimerSession('{{titreEncodePourJavascript}}');return false;">
 						<i class="icon-remove"></i><small>Supprimer</small>
 					</a>
-					<a href="#" onClick="afficherModalDeMiseAJourDUneSession('{{titreEncodePourJavascript}}','{{titre}}','{{description}}');return false;">
+					<a href="#" onClick="afficherModalDeMiseAJourDUneSession('{{titreEncodePourJavascript}}','{{descriptionEncodePourJavascript}}');return false;">
 						<i class="icon-edit"></i><small>Mettre à jour</small>
 					</a>
 				{{/estOrateur}}
