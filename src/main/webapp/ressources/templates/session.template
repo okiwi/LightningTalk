@@ -1,5 +1,5 @@
 <script id="templateSession">
-	<div class="row" class="session">
+	<div class="row session">
 		<div class="span12">
 			<div class="row">
 				<div class="span11">
@@ -24,20 +24,20 @@
 					</div>
 					<div class="actions hide">
 						{{#peutAjouterUnVote}}
-							<a href="#" onClick="voter('{{titreEncodePourJavascript}}');return false;">
+							<a href="" onClick="voter('{{titreEncodePourJavascript}}');return false;">
 								<i class="icon-ok"></i>Voter
 							</a>
 						{{/peutAjouterUnVote}}
 						{{#peutSupprimerUnVote}}
-							<a href="#" onClick="enleverMonVote('{{titreEncodePourJavascript}}');return false;" class="muted">
+							<a href="" onClick="enleverMonVote('{{titreEncodePourJavascript}}');return false;" class="muted">
 								<i class="icon-remove"></i>Enlever mon vote
 							</a>
 						{{/peutSupprimerUnVote}}
 						{{#estOrateur}}
-							<a href="#" onClick="supprimerSession('{{titreEncodePourJavascript}}');return false;">
+							<a href="" onClick="supprimerSession('{{titreEncodePourJavascript}}');return false;">
 								<i class="icon-remove"></i><small>Supprimer</small>
 							</a>
-							<a href="#" onClick="afficherModalDeMiseAJourDUneSession('{{titreEncodePourJavascript}}','{{descriptionEncodePourJavascript}}');return false;">
+							<a href="" onClick="afficherModalDeMiseAJourDUneSession('{{titreEncodePourJavascript}}','{{descriptionEncodePourJavascript}}');return false;">
 								<i class="icon-edit"></i><small>Mettre à jour</small>
 							</a>
 						{{/estOrateur}}
@@ -64,7 +64,7 @@
 			</form>
 		</div>
 		<div class="modal-footer">
-			<a href="#" class="btn" data-dismiss="modal">Fermer</a> <a href="#" class="btn btn-primary" id="sauvegarderSession">{{modal.action}}</a>
+			<a href="" class="btn" data-dismiss="modal">Fermer</a> <a href="" class="btn btn-primary" id="sauvegarderSession">{{modal.action}}</a>
 		</div>
 	</div>
 </script>
