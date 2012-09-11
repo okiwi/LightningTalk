@@ -1,43 +1,44 @@
 <script id="templateSession">
 	<div id="{{titreEncodePourJavascript}}" class="row">
 		<div class="span12">
-			<div class="row">
-				<div class="span9">
-					<h3 style="border-bottom: 1px solid black">
+			<div class="row"  style="padding-top: 30px;">
+				<div class="span11">
+					<h3 style="border-bottom: 1px solid black;">
 						{{titre}}
-						<small>proposé par </small><small class="text-info"> {{orateur}} </small>
 					</h3>
+					<i class="muted">proposé par </i><span class="text-info"> {{orateur}} </span>
 				</div>
-				<div class="span3">
+				<div class="span1">
 					<h3>
 						<span class="badge badge-inverse">{{nombreDeVotes}} votes</span>
 					</h3>
 				</div>
 			</div>
 			<div class="row">
-				<div class="span8 offset1">
+				<div class="span10 offset1">
 					{{description}}
+					<div>
+						{{#peutAjouterUnVote}}
+							<a href="#" onClick="voter('{{titreEncodePourJavascript}}');return false;">
+								<i class="icon-ok"></i>Voter
+							</a>
+						{{/peutAjouterUnVote}}
+						{{#peutSupprimerUnVote}}
+							<a href="#" onClick="enleverMonVote('{{titreEncodePourJavascript}}');return false;" class="muted">
+								<i class="icon-remove"></i>Enlever mon vote
+							</a>
+						{{/peutSupprimerUnVote}}
+						{{#estOrateur}}
+							<a href="#" onClick="supprimerSession('{{titreEncodePourJavascript}}');return false;">
+								<i class="icon-remove"></i><small>Supprimer</small>
+							</a>
+							<a href="#" onClick="afficherModalDeMiseAJourDUneSession('{{titreEncodePourJavascript}}','{{descriptionEncodePourJavascript}}');return false;">
+								<i class="icon-edit"></i><small>Mettre à jour</small>
+							</a>
+						{{/estOrateur}}
+					</div>
 				</div>
-				<div class="span3">
-					{{#peutAjouterUnVote}}
-						<a href="#" onClick="voter('{{titreEncodePourJavascript}}');return false;" class="btn btn-info btn-mini">
-							<i class="icon-ok icon-white"></i>Voter
-						</a>
-					{{/peutAjouterUnVote}}
-					{{#peutSupprimerUnVote}}
-						<a href="#" onClick="enleverMonVote('{{titreEncodePourJavascript}}');return false;" class="btn btn-mini">
-							<i class="icon-remove"></i>Enlever mon vote
-						</a>
-					{{/peutSupprimerUnVote}}
-					{{#estOrateur}}
-						<a href="#" onClick="supprimerSession('{{titreEncodePourJavascript}}');return false;">
-							<i class="icon-remove"></i><small>Supprimer</small>
-						</a>
-						<a href="#" onClick="afficherModalDeMiseAJourDUneSession('{{titreEncodePourJavascript}}','{{descriptionEncodePourJavascript}}');return false;">
-							<i class="icon-edit"></i><small>Mettre à jour</small>
-						</a>
-					{{/estOrateur}}
-				</div>
+				
 			</div>
 		</div>
 	</div>
