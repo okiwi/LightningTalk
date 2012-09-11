@@ -76,7 +76,7 @@
 
         <div id="content" class="container">
 			<#if erreur??>
-			<div class="row-fluid">
+			<div class="row">
 				<div class="span12 alert alert-block alert-error fade in">
 					<button class="close" data-dismiss="alert" type="button">×</button>
 					<h4 class="alert-heading">Une erreur est survenue</h4>
@@ -84,6 +84,33 @@
 				</div>
 			</div>
 			</#if>
+			<div class="row">
+				<div class="span12">
+					<div class="pull-right">
+						<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordeonParent" href="#information">
+							<small>Qu'est ce qu'un lightning talk ?</small>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="span12">
+					<div class="accordion" id="accordeonParent">
+						<div id="information" class="accordion-body collapse">
+							<div class="well text-info">
+						     	<p>Tout participant peut <strong>proposer</strong> un Lightning Talk et <strong>voter</strong> pour ceux qui l'intéressent si il est 
+						     		connecté ( menu en haut à droite : <i class="icon-user"></i>).
+						     	</p> 
+						     	<p>Il s'agit de sessions courtes de 5 minutes qui auront lieu entre 12h45 et 13H45 le jour de la conférence.
+							     	Pourquoi ne pas tenter votre chance? C'est l'occasion de synthétiser votre connaissance sur un sujet et de donner aux autres 
+							     	participants envie de le connaître plus! En fonction des votes des participants, votre sujet peut être choisi. 
+							     	Les sujets gagnants seront sélectionnés avant la conférence.
+						     	</p>
+						    </div>
+						</div>
+					</div>
+				</div>
+			</div>
 			<div id="divPourAfficherLesSessions">
 				<!-- Div pour afficher les sessions -->
 			</div>

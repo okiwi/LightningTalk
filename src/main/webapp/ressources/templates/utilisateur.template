@@ -2,9 +2,9 @@
 	{{#nomAffiche}}
 		<a href="#" class="dropdown-toggle" data-toggle="dropdown" > <i class="icon-user"></i> {{nomAffiche}}<b class="caret"></b></a>
 		<ul class="dropdown-menu">
-			<li><a rel="tooltip" title="Créer une session" data-toggle="modal" href="#" onClick="afficherModalDeCreationDUneSession();return false;"> <i class="icon-pencil"></i>Créer une session
+			<li><a rel="tooltip" title="Proposer une session" href="" onClick="afficherModalDeCreationDUneSession();return false;"> <i class="icon-pencil"></i>Proposer une session
 			</a></li>
-			<li><a href="#" onClick="deconnexion();return false;"><i class="icon-off"></i> Se déconnecter</a></li>
+			<li><a href="" onClick="deconnexion();return false;"><i class="icon-off"></i> Se déconnecter</a></li>
         </ul>
 	{{/nomAffiche}}
 	{{^nomAffiche}}

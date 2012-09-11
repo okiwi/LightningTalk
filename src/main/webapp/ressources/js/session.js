@@ -95,8 +95,8 @@
         function afficherModalDeCreationDUneSession() {
             var vue = {
                 modal : {
-                    titre : "Création",
-                    action : "Créer"
+                    titre : "Proposition d'une session",
+                    action : "Proposer"
                 },
                 session : {
                     titre : "",
