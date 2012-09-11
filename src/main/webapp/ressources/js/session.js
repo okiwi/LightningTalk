@@ -4,6 +4,15 @@
             $.getJSON('sessions', function(sessions) {
                 $.each(sessions, function(index, session) {
                     $('#divPourAfficherLesSessions').append(ich.templateSession(session));
+                    var divDeLaSession = $('#' + session.titreEncodePourJavascript);
+                    divDeLaSession.hover(
+                            function () {
+                                $(this).addClass("hover");
+                              },
+                              function () {
+                                $(this).removeClass("hover");
+                              }
+                            );
                 });
             });
         }

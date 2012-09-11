@@ -1,11 +1,16 @@
 <script id="templateSession">
-	<div class="row-fluid">
-		<div class="well">
-			<h2>
-				{{titre}} <small>proposé par <a>{{orateur}}</a></small>
-			</h2>
-			<p>{{description}}</p>
-				<span class="badge badge-inverse">{{nombreDeVotes}}</span>
+	<div id="{{titreEncodePourJavascript}}">
+		<div class="row">
+			<div class="span8 offset1">
+				<h2>
+					{{titre}} <br/><small>proposé par </small><small class="text-info"> {{orateur}} </small>
+				</h2>
+				<hr/>
+			</div>
+			<div class="span3">
+				<h2>
+					<span class="badge badge-inverse">{{nombreDeVotes}} votes</span><br/>
+				</h2>
 				{{#peutAjouterUnVote}}
 					<a href="#" onClick="voter('{{titreEncodePourJavascript}}');return false;" class="btn btn-info btn-mini">
 						<i class="icon-ok icon-white"></i>Voter
@@ -24,6 +29,13 @@
 						<i class="icon-edit"></i><small>Mettre à jour</small>
 					</a>
 				{{/estOrateur}}
+			</div>
+		</div>
+		<div class="row">
+			<div class="span10 offset2">
+				{{description}}
+			</div>
+			</div>
 		</div>
 	</div>
 </script>

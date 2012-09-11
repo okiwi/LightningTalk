@@ -59,9 +59,10 @@
                             <li>
                                 <a href="http://okiwi.github.com/atbdx/sponsors.html" class="sponsors-link">Sponsors</a>
                             </li>
+                            <li id="divPourAfficherUtilisateur" class="dropdown">
+                            </li>
                         </ul>
-                        <div id="divPourAfficherUtilisateurSousMobile">
-							<!-- Div pour afficher l'utilisateur sous mobile -->
+                        <div >
 						</div>
                         <div class="btn-group social">
                             <a href="http://www.facebook.com/Agiletourbordeaux" class="facebook"><span>Facebook</span></a>
@@ -84,12 +85,7 @@
 			</div>
 			</#if>
 			<div class="row-fluid">
-				<div class="span3 hidden-phone">
-					<div class="well" id="divPourAfficherUtilisateur">
-						<!-- Div pour afficher l'utilisateur -->
-					</div>
-				</div>
-				<div class="span9" id="divPourAfficherLesSessions">
+				<div class="span12" id="divPourAfficherLesSessions">
 					<!-- Div pour afficher les sessions -->
 				</div>
 			</div>
