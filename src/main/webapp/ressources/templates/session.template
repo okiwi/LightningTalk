@@ -10,12 +10,12 @@
 				</div>
 				<div class="span1">
 					<h3>
-						<span class="badge badge-inverse">{{nombreDeVotes}} votes</span>
+						<span rel="tooltip" title="Nombre de vote(s)" class="badge badge-inverse">{{nombreDeVotes}}</span>
 					</h3>
 				</div>
 			</div>
 			<div class="row">
-				<div class="span11">
+				<div class="span12">
 					{{description}}
 					<div class="ouvrirActions">
 						{{#peutFaireUneAction}}
