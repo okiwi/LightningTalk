@@ -103,7 +103,7 @@
 						     	</p> 
 						     	<p>Il s'agit de sessions courtes de 5 minutes qui auront lieu entre 12h45 et 13H45 le jour de la conférence.
 							     	Pourquoi ne pas tenter votre chance? C'est l'occasion de synthétiser votre connaissance sur un sujet et de donner aux autres 
-							     	participants envie de le connaître plus! En fonction des votes ( score en face du titre de la session : <span rel="tooltip" title="Nombre de vote(s)" class="badge badge-inverse">1</span>)des participants, votre sujet peut être choisi. 
+							     	participants envie de le connaître plus! En fonction des votes ( en face du titre de la session : <span rel="tooltip" title="Nombre de vote(s)" class="badge badge-inverse">1</span> )des participants, votre sujet peut être choisi. 
 							     	Les sujets gagnants seront sélectionnés avant la conférence.
 						     	</p>
 						    </div>
