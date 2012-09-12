@@ -7,13 +7,13 @@
         <meta charset="utf-8" />
         <meta name="description" content="Le site de l'agile tour bordeaux propulsé par okiwi">
         <meta name="author" content="okiwi">
-        <link rel="icon" type="image/png" href="http://okiwi.github.com/atbdx/img/okiwi_thumb.png" />
+        <link rel="icon" type="image/png" href="http://agiletourbordeaux.okiwi.org/img/okiwi_thumb.png" />
 
-        <link rel="stylesheet" href="http://okiwi.github.com/atbdx/static/lib/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="http://okiwi.github.com/atbdx/static/lib/bootstrap/css/bootstrap-responsive.min.css">
+        <link rel="stylesheet" href="http://agiletourbordeaux.okiwi.org/static/lib/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="http://agiletourbordeaux.okiwi.org/static/lib/bootstrap/css/bootstrap-responsive.min.css">
 
-        <link rel="stylesheet" href="http://okiwi.github.com/atbdx/static/css/style.css" />
-        <link rel="stylesheet" href="http://okiwi.github.com/atbdx/static/lib/countdown/jquery.countdown.css">
+        <link rel="stylesheet" href="http://agiletourbordeaux.okiwi.org/static/css/style.css" />
+        <link rel="stylesheet" href="http://agiletourbordeaux.okiwi.org/static/lib/countdown/jquery.countdown.css">
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -22,8 +22,8 @@
         <![endif]-->
     </head>
     <body>
-        <script src="http://okiwi.github.com/atbdx/static/lib/jquery/jquery.min.js"></script>
-        <script src="http://okiwi.github.com/atbdx/static/lib/jquery/jquery.custom.min.js"></script>
+        <script src="http://agiletourbordeaux.okiwi.org/static/lib/jquery/jquery.min.js"></script>
+        <script src="http://agiletourbordeaux.okiwi.org/static/lib/jquery/jquery.custom.min.js"></script>
 		
 	        <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
@@ -35,29 +35,29 @@
                     </a>
 
                     <div class="span4">
-                        <h1><a href="http://okiwi.github.com/atbdx/index.html" title="Agile Tour Bordeaux 2012"><span>Agile Tour Bordeaux 2012</span></a></h1>
+                        <h1><a href="http://agiletourbordeaux.okiwi.org/index.html" title="Agile Tour Bordeaux 2012"><span>Agile Tour Bordeaux 2012</span></a></h1>
                     </div>
 
                     <div class="nav-collapse span8 noLeftMargin">
                         <ul class="nav">
-                            <li><a href="http://okiwi.github.com/atbdx/presentation.html" class="presentation-link">Présentation</a></li>
-                            <li><a href="http://okiwi.github.com/atbdx/pourquoivenir.html" class="viens-link">Viens !</a></li>
+                            <li><a href="http://agiletourbordeaux.okiwi.org/presentation.html" class="presentation-link">Présentation</a></li>
+                            <li><a href="http://agiletourbordeaux.okiwi.org/pourquoivenir.html" class="viens-link">Viens !</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle programmation-link" data-toggle="dropdown">Programme<b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="http://lightningtalk.herokuapp.com/">Lightning Talks</a></li>
-                                    <li><a href="http://okiwi.github.com/atbdx/programme.html">Programmation</a></li>
-                                    <li><a href="http://okiwi.github.com/atbdx/orateurs.html">Orateurs</a></li>
+                                    <li><a href="http://agiletourbordeaux.okiwi.org/programme.html">Programmation</a></li>
+                                    <li><a href="http://agiletourbordeaux.okiwi.org/orateurs.html">Orateurs</a></li>
                                 </ul>
                             </li>    
                             <li>
-                                <a href="http://okiwi.github.com/atbdx/informations_pratiques.html" class="infospratiques-link">Info</a>
+                                <a href="http://agiletourbordeaux.okiwi.org/informations_pratiques.html" class="infospratiques-link">Info</a>
                             </li>
                             <li>
-                                <a href="http://okiwi.github.com/atbdx/equipe.html" class="equipe-link">Equipe</a>
+                                <a href="http://agiletourbordeaux.okiwi.org/equipe.html" class="equipe-link">Equipe</a>
                             </li>
                             <li>
-                                <a href="http://okiwi.github.com/atbdx/sponsors.html" class="sponsors-link">Sponsors</a>
+                                <a href="http://agiletourbordeaux.okiwi.org/sponsors.html" class="sponsors-link">Sponsors</a>
                             </li>
                             <li id="divPourAfficherUtilisateur" class="dropdown">
                             </li>
@@ -96,16 +96,12 @@
 			<div class="row">
 				<div class="span12">
 					<div class="accordion" id="accordeonParent">
-						<div id="information" class="accordion-body collapse">
+						<div id="information" class="accordion-body collapse in">
 							<div class="well text-info">
-						     	<p>Tout participant peut <strong>proposer</strong> un Lightning Talk et <strong>voter</strong> pour ceux qui l'intéressent si il est 
-						     		connecté ( menu en haut à droite : <i class="icon-user"></i>).
-						     	</p> 
-						     	<p>Il s'agit de sessions courtes de 5 minutes qui auront lieu entre 12h45 et 13H45 le jour de la conférence.
-							     	Pourquoi ne pas tenter votre chance? C'est l'occasion de synthétiser votre connaissance sur un sujet et de donner aux autres 
-							     	participants envie de le connaître plus! En fonction des votes ( en face du titre de la session : <span rel="tooltip" title="Nombre de vote(s)" class="badge badge-inverse">1</span> )des participants, votre sujet peut être choisi. 
-							     	Les sujets gagnants seront sélectionnés avant la conférence.
-						     	</p>
+								<p>Les Lightning Talks sont des sessions courtes de 5 minutes qui auront lieu entre 12h45 et 13H45 le jour de la conférence. 
+								Tous les participants peuvent proposer un Lightning Talk. </p>
+								<p>Connectez-vous ( menu en haut à droite : <i class="icon-user"></i>) afin de <strong>voter</strong> pour les sessions que vous 
+								voulez voir ou <strong>proposer</strong> une session. Nous garderons les Lightning Talks avec le plus de votes.</p>
 						    </div>
 						</div>
 					</div>
@@ -124,21 +120,26 @@
                 <a class="reservez" href="http://www.yuticket.com/association-okiwi/ca5f3eb4-6f52-4d8e-818b-ef8847dafb3a-agile-tour-bordeaux-2012.html"><b>Réservez votre place >></b></a>
             </div>
             <div class="span8 noLeftMargin">
-                <p>L'Agile Tour Bordeaux est un évènement propulsé par <a href="http://okiwi.org">Okiwi</a><img src="http://okiwi.github.com/atbdx/static/img/favicon.png" class="okiwi" /></p>
+                <p>L'Agile Tour Bordeaux est un évènement propulsé par <a href="http://okiwi.org">Okiwi</a><img src="http://agiletourbordeaux.okiwi.org/static/img/favicon.png" class="okiwi" /></p>
             </div>
         </div>
 
-        <script src="http://okiwi.github.com/atbdx/static/lib/bootstrap/js/bootstrap.min.js"></script>
+        <script src="http://agiletourbordeaux.okiwi.org/static/lib/bootstrap/js/bootstrap.min.js"></script>
        	<script src="<@spring.url '/ressources/js/ICanHaz.min.js'/>"></script>
 		<script src="<@spring.url '/ressources/js/ICanHaz-utils.js'/>"></script>
 		<script src="<@spring.url '/ressources/js/utilisateur.js'/>"></script>
 		<script src="<@spring.url '/ressources/js/session.js'/>"></script>
 		
-		<script type="text/javascript">
+			<script type="text/javascript">
+			function reduireAide(){
+				$(".collapse").collapse()
+			}
+		
 	        $(document).ready(function() {
 	            chargerTemplatesExternes('<@spring.url '/ressources/templates/'/>',[ "utilisateur", "session", "erreur" ]);
 	            recupererUtilisateurCourant();
 	            recupererLesSessions();
+	            setInterval(reduireAide, 5000);
 	        });
     	</script>
 
