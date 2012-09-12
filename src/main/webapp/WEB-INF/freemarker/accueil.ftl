@@ -125,10 +125,14 @@
         </div>
 
         <script src="http://agiletourbordeaux.okiwi.org/static/lib/bootstrap/js/bootstrap.min.js"></script>
+        
        	<script src="<@spring.url '/ressources/js/ICanHaz.min.js'/>"></script>
 		<script src="<@spring.url '/ressources/js/ICanHaz-utils.js'/>"></script>
 		<script src="<@spring.url '/ressources/js/utilisateur.js'/>"></script>
 		<script src="<@spring.url '/ressources/js/session.js'/>"></script>
+        <script type="text/javascript" src="<@spring.url '/ressources/js/Markdown.Converter.js'/>"></script>
+        <script type="text/javascript" src="<@spring.url '/ressources/js/Markdown.Sanitizer.js'/>"></script>
+		
 		
 			<script type="text/javascript">
 			function reduireAide(){

@@ -7,6 +7,9 @@
                     $('#divPourAfficherLesSessions').append(divDeLaSession);
                     var ouvriActions = divDeLaSession.find(".ouvrirActions");
                     var actions = divDeLaSession.find(".actions");
+                    var markdown = divDeLaSession.find(".markdown");
+                    markdown.html(new Markdown.getSanitizingConverter().makeHtml(markdown.html()));
+                        
                     divDeLaSession.hover(
                             function () {
                             	divDeLaSession.addClass("sessionAvecCadre");

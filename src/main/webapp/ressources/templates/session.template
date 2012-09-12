@@ -16,7 +16,7 @@
 			</div>
 			<div class="row">
 				<div class="span12">
-					{{description}}
+					<span class="markdown">{{description}}</span>
 					<div class="ouvrirActions">
 						{{#peutFaireUneAction}}
 							<small class="muted">Ouvrir les actions ...</small>
@@ -61,6 +61,7 @@
 				<label class="control-label" for="titre">Titre</label> <input type="text" class="span5" placeholder="Entrer le titre de votre session ..." name="titre" id="titre" value="{{session.titre}}"/> <label
 					class="control-label" for="description">description</label>
 				<textarea class="span5" placeholder="Entrer la description de votre session ..." name="description" id="description" rows="10">{{session.description}}</textarea>
+				<small class="muted"><a href="http://daringfireball.net/projects/markdown/" target="_blank">MarkDown </a> accepté.</small>
 			</form>
 		</div>
 		<div class="modal-footer">
