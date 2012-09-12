@@ -15,9 +15,7 @@ public class ImpossibleDeSAuthentifierTest {
     public void peutCreerLException() {
         ImpossibleDeSAuthentifier exception = new ImpossibleDeSAuthentifier();
 
-        assertThat(
-                exception.getMessage(),
-                is("Un problème est survenue durant l'authentification. Pour Utiliser cette application, vous devez avoir configurer un compte google + et authoriser l'application savoir qui vous êtes sur Google."));
+        assertThat(exception.getMessage(), is(ImpossibleDeSAuthentifier.MESSAGE_D_ERREUR));
     }
 
     @Test
@@ -25,9 +23,7 @@ public class ImpossibleDeSAuthentifierTest {
         Throwable cause = new IOException();
         ImpossibleDeSAuthentifier exception = new ImpossibleDeSAuthentifier(cause);
 
-        assertThat(
-                exception.getMessage(),
-                is("Un problème est survenue durant l'authentification. Pour Utiliser cette application, vous devez avoir configurer un compte google + et authoriser l'application savoir qui vous êtes sur Google."));
+        assertThat(exception.getMessage(), is(ImpossibleDeSAuthentifier.MESSAGE_D_ERREUR));
         assertThat(exception.getCause(), is(cause));
     }
 
