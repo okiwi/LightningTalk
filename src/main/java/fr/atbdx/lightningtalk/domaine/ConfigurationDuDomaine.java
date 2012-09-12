@@ -4,11 +4,7 @@ import java.net.UnknownHostException;
 
 import org.mongolink.MongoSessionManager;
 import org.mongolink.Settings;
-import org.mongolink.domain.criteria.Restrictions;
 import org.mongolink.domain.mapper.ContextBuilder;
-import org.mongolink.test.FakeCriteriaFactory;
-import org.mongolink.test.FakeDBFactory;
-import org.mongolink.test.criteria.FakeRestrictonFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
@@ -20,31 +16,19 @@ import com.mongodb.MongoException;
 
 @Configuration
 public class ConfigurationDuDomaine {
-    
+
     @Bean
     public static PropertyPlaceholderConfigurer valorisation(Environment environment) {
         PropertyPlaceholderConfigurer valorisation = new PropertyPlaceholderConfigurer();
-        valorisation.setLocations(new ClassPathResource[] {new ClassPathResource("valorisation-environnement-" + environment.getProperty("environnement") + ".properties")});
+        valorisation.setLocations(new ClassPathResource[] { new ClassPathResource("valorisation-environnement-" + environment.getProperty("environnement") + ".properties") });
         return valorisation;
     }
-    
-    // @Bean
-    // public static MongoSessionManager initialiserLaBaseLightningTalkMongoDB(@Value("${mongodb.adresseIp}") String adresseIp,
-    // @Value("${mongodb.port}") int port,
-    // @Value("${mongodb.utilisateur}") String utilisateur, @Value("${mongodb.motDePasse}") String motDePasse) throws UnknownHostException,
-    // MongoException {
-    // final Settings settings =
-    // Settings.defaultInstance().withHost(adresseIp).withPort(port).withDbName("lightningtalk").withAuthentication(utilisateur, motDePasse);
-    // return MongoSessionManager.create(new ContextBuilder("fr.atbdx.lightningtalk.domaine.mongodb.mapping"), settings);
-    // }
+
     @Bean
     public static MongoSessionManager initialiserLaBaseLightningTalkMongoDB(@Value("${mongodb.adresseIp}") String adresseIp, @Value("${mongodb.port}") int port,
-        @Value("${mongodb.utilisateur}") String utilisateur, @Value("${mongodb.motDePasse}") String motDePasse) throws UnknownHostException, MongoException {
-        ContextBuilder context = new ContextBuilder("fr.atbdx.lightningtalk.domaine.mongodb.mapping");
-        final MongoSessionManager manager = MongoSessionManager.create(context,
-                        Settings.defaultInstance().withDbFactory(FakeDBFactory.class).withCriteriaFactory(FakeCriteriaFactory.class));
-        Restrictions.setFactory(new FakeRestrictonFactory());
-        return manager;
+            @Value("${mongodb.utilisateur}") String utilisateur, @Value("${mongodb.motDePasse}") String motDePasse) throws UnknownHostException, MongoException {
+        final Settings settings = Settings.defaultInstance().withHost(adresseIp).withPort(port).withDbName("lightningtalk").withAuthentication(utilisateur, motDePasse);
+        return MongoSessionManager.create(new ContextBuilder("fr.atbdx.lightningtalk.domaine.mongodb.mapping"), settings);
     }
-    
+
 }
