@@ -17,36 +17,45 @@
 			<div class="row">
 				<div class="span12">
 					<span class="markdown">{{description}}</span>
-					<div class="ouvrirActions">
-						{{#peutFaireUneAction}}
-							<small class="muted">Ouvrir les actions ...</small>
-						{{/peutFaireUneAction}}
+					<div class="visible-desktop">
+						<div class="ouvrirActions">
+							{{#peutFaireUneAction}}
+								<small class="muted">Ouvrir les actions ...</small>
+							{{/peutFaireUneAction}}
+						</div>
+						<div class="actions hide">
+							{{> templateActionsSession}}
+						</div>
 					</div>
-					<div class="actions hide">
-						{{#peutAjouterUnVote}}
-							<a href="#" onClick="voter('{{titreEncodePourJavascript}}');return false;">
-								<i class="icon-ok"></i>Voter
-							</a>
-						{{/peutAjouterUnVote}}
-						{{#peutSupprimerUnVote}}
-							<a href="#" onClick="enleverMonVote('{{titreEncodePourJavascript}}');return false;" class="muted">
-								<i class="icon-remove"></i>Enlever mon vote
-							</a>
-						{{/peutSupprimerUnVote}}
-						{{#estOrateur}}
-							<a href="#" onClick="supprimerSession('{{titreEncodePourJavascript}}');return false;">
-								<i class="icon-remove"></i><small>Supprimer</small>
-							</a>
-							<a href="#" onClick="afficherModalDeMiseAJourDUneSession('{{titreEncodePourJavascript}}','{{descriptionEncodePourJavascript}}');return false;">
-								<i class="icon-edit"></i><small>Mettre à jour</small>
-							</a>
-						{{/estOrateur}}
+					<div class="hidden-desktop">
+						{{> templateActionsSession}}
 					</div>
 				</div>
 				
 			</div>
 		</div>
 	</div>
+</script>
+
+<script id="templateActionsSession">
+	{{#peutAjouterUnVote}}
+		<a href="#" onClick="voter('{{titreEncodePourJavascript}}');return false;">
+			<i class="icon-ok"></i>Voter
+		</a>
+	{{/peutAjouterUnVote}}
+	{{#peutSupprimerUnVote}}
+		<a href="#" onClick="enleverMonVote('{{titreEncodePourJavascript}}');return false;" class="muted">
+			<i class="icon-remove"></i>Enlever mon vote
+		</a>
+	{{/peutSupprimerUnVote}}
+	{{#estOrateur}}
+		<a href="#" onClick="supprimerSession('{{titreEncodePourJavascript}}');return false;">
+			<i class="icon-remove"></i><small>Supprimer</small>
+		</a>
+		<a href="#" onClick="afficherModalDeMiseAJourDUneSession('{{titreEncodePourJavascript}}','{{descriptionEncodePourJavascript}}');return false;">
+			<i class="icon-edit"></i><small>Mettre à jour</small>
+		</a>
+	{{/estOrateur}}
 </script>
 
 <script id="templateModalDeCreationEtDeMiseAJourDUneSession">
