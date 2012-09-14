@@ -24,21 +24,22 @@ import fr.atbdx.lightningtalk.doublures.domaine.AidePourLesUtilisateurs;
 import fr.atbdx.lightningtalk.doublures.mongodb.AidePourMongoDb;
 
 public class EntrepotSessionMongoTest extends BasePourLesTestsDesEntrepotsMongo {
-
+    
     private EntrepotSession entrepotSessionMongo;
-
+    
     @Before
     public void avantLesTests() {
-
+        
         entrepotSessionMongo = new EntrepotSessionMongo(session);
     }
-
+    
     @Test
     public void peutCreerUneSession() throws MongoException, IOException, ImpossibleDeCreerUneSession {
         Session session = AidePourLesSessions.creer();
-
+        session.ajouterUnVote(AidePourLesUtilisateurs.UTILISATEUR);
+        
         entrepotSessionMongo.creer(session);
-
+        
         DBCollection sessions = baseLightningTalk.getCollection("session");
         assertThat(sessions.count(), is(1l));
         DBObject sessionMango = sessions.findOne();
@@ -46,7 +47,7 @@ public class EntrepotSessionMongoTest extends BasePourLesTestsDesEntrepotsMongo 
         assertThat((String) sessionMango.get("description"), is(AidePourLesSessions.DESCRIPTION));
         assertThat((String) sessionMango.get("orateur"), is(AidePourLesUtilisateurs.ID));
     }
-
+    
     @Test
     public void creerUneSessionDejaExistanteEnvoitUneErreur() throws ImpossibleDeCreerUneSession {
         Session session = AidePourLesSessions.creer();
@@ -57,71 +58,76 @@ public class EntrepotSessionMongoTest extends BasePourLesTestsDesEntrepotsMongo 
         } catch (ImpossibleDeCreerUneSession impossibleDeCreerUneSession) {
             assertThat(impossibleDeCreerUneSession.getMessage(), is("Une session avec le même titre existe déjà."));
         }
-
+        
     }
-
+    
     @Test
     public void listerUneSession() throws ImpossibleDeCreerUneSession {
         entrepotSessionMongo.creer(AidePourLesSessions.creer());
-
+        
         List<Session> sessions = entrepotSessionMongo.recupererLesSessions();
-
+        
         assertThat(sessions.size(), is(1));
         AidePourLesSessions.verifier(sessions.get(0));
     }
-
+    
     @Test
     public void listerDeuxSessions() throws ImpossibleDeCreerUneSession {
         entrepotSessionMongo.creer(AidePourLesSessions.creer());
         entrepotSessionMongo.creer(AidePourLesSessions.creerAvecSuffixe("2"));
-
+        
         List<Session> sessions = entrepotSessionMongo.recupererLesSessions();
-
+        
         assertThat(sessions.size(), is(2));
         AidePourLesSessions.verifier(sessions.get(0));
         AidePourLesSessions.verifierAvecSuffixe(sessions.get(1), "2");
     }
-
+    
     @Test
     public void peutRecupererUneSessionParSonTitre() throws ImpossibleDeCreerUneSession {
         entrepotSessionMongo.creer(AidePourLesSessions.creer());
-
+        
         Session session = entrepotSessionMongo.recuperer(AidePourLesSessions.TITRE);
-
+        
         AidePourLesSessions.verifier(session);
     }
-
+    
+    @SuppressWarnings("unchecked")
     @Test
     public void peutSauvegarderUneSession() throws ImpossibleDeCreerUneSession {
         entrepotSessionMongo.creer(AidePourLesSessions.creer());
         Session sessionAMettreAJour = entrepotSessionMongo.recuperer(AidePourLesSessions.TITRE);
         sessionAMettreAJour.ajouterUnVote(AidePourLesUtilisateurs.UTILISATEUR);
-
+        
         entrepotSessionMongo.mettreAJour(sessionAMettreAJour);
-
-        Session sessionMiseAJour = entrepotSessionMongo.recuperer(AidePourLesSessions.TITRE);
-        AidePourLesSessions.verifier(sessionMiseAJour);
-        assertThat(sessionMiseAJour.getVotants().iterator().next(), is(AidePourLesUtilisateurs.ID));
+        
+        DBCollection sessions = baseLightningTalk.getCollection("session");
+        assertThat(sessions.count(), is(1l));
+        DBObject sessionMango = sessions.findOne();
+        assertThat((String) sessionMango.get(AidePourMongoDb.ID), is(AidePourLesSessions.TITRE));
+        assertThat((String) sessionMango.get("description"), is(AidePourLesSessions.DESCRIPTION));
+        assertThat((String) sessionMango.get("orateur"), is(AidePourLesUtilisateurs.ID));
+        assertThat(((List<String>) sessionMango.get("votants")).get(0), is(AidePourLesUtilisateurs.ID));
     }
-
+    
     @Test
     public void peutSupprimerUneSession() throws ImpossibleDeCreerUneSession, OperationPermiseUniquementALOrateur {
         Session session = AidePourLesSessions.creer();
         entrepotSessionMongo.creer(session);
-
+        
         entrepotSessionMongo.supprimer(session, AidePourLesUtilisateurs.UTILISATEUR);
-
+        
         assertThat(entrepotSessionMongo.recupererLesSessions().size(), is(0));
     }
-
+    
     @Test(expected = OperationPermiseUniquementALOrateur.class)
     public void nePeutPasSupprimerUneSessionSiNEstPasOrateur() throws ImpossibleDeCreerUneSession, OperationPermiseUniquementALOrateur {
         Session session = AidePourLesSessions.creer();
         entrepotSessionMongo.creer(session);
-
+        
         entrepotSessionMongo.supprimer(session, AidePourLesUtilisateurs.UN_AUTRE_UTILISATEUR);
     }
-
+    
     @Test
     public void supprimerUneSessionNullNeFaitRien() throws ImpossibleDeCreerUneSession, OperationPermiseUniquementALOrateur {
         entrepotSessionMongo.supprimer(null, AidePourLesUtilisateurs.UTILISATEUR);
