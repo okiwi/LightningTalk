@@ -48,6 +48,7 @@
                                     <li><a href="http://lightningtalk.herokuapp.com/">Lightning Talks</a></li>
                                     <li><a href="http://agiletourbordeaux.okiwi.org/programme.html">Programmation</a></li>
                                     <li><a href="http://agiletourbordeaux.okiwi.org/orateurs.html">Orateurs</a></li>
+                                    <li><a href="http://agiletourbordeaux.okiwi.org/training.html">Training</a></li>
                                 </ul>
                             </li>    
                             <li>
