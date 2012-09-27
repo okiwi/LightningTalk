@@ -1,11 +1,11 @@
 <script id="templateExplicationsConnectionEtProposer">
 	<span>
 		{{#nomAffiche}}
-			et <a rel="tooltip" title="Proposez une session" href="#" data-toggle="modal" onClick="afficherModalDeCreationDUneSession();return false;"> <i class="icon-pencil"></i>proposez une session.</a>
+			et <a rel="tooltip" title="Proposez une session" href="#" data-toggle="modal" onClick="afficherModalDeCreationDUneSession();return false;"> <i class="icon-pencil"></i>faites votre proposition.</a>
 		{{/nomAffiche}}
 		{{^nomAffiche}}
 			, <a rel="tooltip" title="Connexion avec votre compte google" href="authentification/externe"><i class="icon-user"></i>Connectez-vous</a> à l'application 
-			et <i class="icon-pencil"></i><strong>proposez une session</strong>. 
+			et <i class="icon-pencil"></i><strong>faites votre proposition</strong>. 
 		{{/nomAffiche}}
 	</span>
 </script>

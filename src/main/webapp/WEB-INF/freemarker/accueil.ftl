@@ -82,12 +82,13 @@
 						 Comment ça se passe ?
 					</h3>
 					<ol>
-						<li><strong>Choisissez un sujet qui vous passionne</strong>, même sans rapport direct avec l'agilité.</li>
+						<li>Vous <strong>choisissez un sujet qui vous passionne</strong>, même sans rapport direct avec l'agilité.</li>
 						<li>Choisissez un titre, une desciption<span id="explicationsConnectionEtProposer"></span></li>
-						<li>N'oubliez pas de <strong>voter</strong> pour les sessions qui vous intéressent. </li>
-						<li>12 sessions maximum <strong>entre 12h50 et 13h50</strong>. Seules les meilleures seront retenues !</li>
-						<li>Vous êtes retenu ? Préparez votre présentation pour le jour J. Ce seront 5 minutes de gloire ou 5 minutes difficiles, 
-						mais ce qui est sûr, c'est que vous ferez partie des rares élus à avoir parlé à l'Agile Tour Bordeaux 2012 !</li>
+						<li>Vous <strong>votez pour les sessions qui vous intéressent.</strong>  </li>
+						<li>Seules les meilleures seront retenues : 60 / 5 = 12 sessions maximum</li>
+						<li>Le 12 Octobre à l’heure du dèj’, nous annoncerons <strong>les meilleures propositions,</strong> la pression va monter ....</li>
+						<li>Vous êtes retenu ? Ce seront 5 minutes de gloire ou 5 minutes difficiles, mais ce qui est sûr, c’est que <strong>vous ferez partie 
+						des rares élus</strong> à avoir parlé à l’Agile Tour Bordeaux 2012 !</li>
 					</ol>
 				</div>
 			</div>
