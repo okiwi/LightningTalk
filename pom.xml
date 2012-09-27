@@ -6,7 +6,7 @@
 	<groupId>fr.jrx.lightningtalk</groupId>
 	<artifactId>LightningTalk</artifactId>
 	<packaging>war</packaging>
-	<version>1.0.4-SNAPSHOT</version>
+	<version>1.0.4</version>
 
 	<name>LightningTalk</name>
 
