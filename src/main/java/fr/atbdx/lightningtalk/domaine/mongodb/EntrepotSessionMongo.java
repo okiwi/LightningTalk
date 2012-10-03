@@ -7,6 +7,9 @@ import org.mongolink.MongoSessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.google.common.base.Function;
+import com.google.common.collect.Ordering;
+
 import fr.atbdx.lightningtalk.domaine.EntrepotSession;
 import fr.atbdx.lightningtalk.domaine.ImpossibleDeCreerUneSession;
 import fr.atbdx.lightningtalk.domaine.OperationPermiseUniquementALOrateur;
@@ -15,6 +18,12 @@ import fr.atbdx.lightningtalk.domaine.Utilisateur;
 
 @Repository
 public class EntrepotSessionMongo extends EntrepotMongo implements EntrepotSession {
+
+    private static final Function<Session, Integer> ORDONNER_PAR_NOMBRE_DE_VOTE = new Function<Session, Integer>() {
+        public Integer apply(Session session) {
+            return session.getNombreDeVotes();
+        }
+    };
 
     @Autowired
     public EntrepotSessionMongo(MongoSessionManager sessionManager) {
@@ -33,7 +42,7 @@ public class EntrepotSessionMongo extends EntrepotMongo implements EntrepotSessi
     }
 
     public List<Session> recupererLesSessions() {
-        return sessionMongo.getAll(Session.class);
+        return Ordering.natural().reverse().onResultOf(ORDONNER_PAR_NOMBRE_DE_VOTE).sortedCopy(sessionMongo.getAll(Session.class));
     }
 
     public Session recuperer(String titreDeLaSession) {

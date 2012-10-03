@@ -84,6 +84,20 @@ public class EntrepotSessionMongoTest extends BasePourLesTestsDesEntrepotsMongo 
     }
     
     @Test
+    public void listerDeuxSessionsRetourneCelleAvecPlusDeVoteEnPremier() throws ImpossibleDeCreerUneSession {
+        entrepotSessionMongo.creer(AidePourLesSessions.creer());
+        Session sessionAvecPlusDeVote = AidePourLesSessions.creerAvecSuffixe("2");
+        sessionAvecPlusDeVote.ajouterUnVote(AidePourLesUtilisateurs.UN_AUTRE_UTILISATEUR);
+        entrepotSessionMongo.creer(sessionAvecPlusDeVote);
+        
+        List<Session> sessions = entrepotSessionMongo.recupererLesSessions();
+        
+        assertThat(sessions.size(), is(2));
+        AidePourLesSessions.verifierAvecSuffixe(sessions.get(0), "2");
+        AidePourLesSessions.verifier(sessions.get(1));
+    }
+    
+    @Test
     public void peutRecupererUneSessionParSonTitre() throws ImpossibleDeCreerUneSession {
         entrepotSessionMongo.creer(AidePourLesSessions.creer());
         
