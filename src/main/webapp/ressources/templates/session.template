@@ -10,7 +10,12 @@
 				</div>
 				<div class="span1">
 					<h3>
-						<span rel="tooltip" title="Nombre de vote(s)" class="badge badge-inverse">{{nombreDeVotes}}</span>
+						{{#peutSupprimerUnVote}}
+							<span rel="tooltip" title="Nombre de vote(s)" class="badge badge-info">{{nombreDeVotes}}</span>
+						{{/peutSupprimerUnVote}}
+						{{^peutSupprimerUnVote}}
+							<span rel="tooltip" title="Nombre de vote(s)" class="badge badge-inverse">{{nombreDeVotes}}</span>
+						{{/peutSupprimerUnVote}}
 					</h3>
 				</div>
 			</div>
