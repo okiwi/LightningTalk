@@ -27,9 +27,10 @@
         }
 
         function voter(titreEncodePourJavascript) {
+            
             $.ajax({
                 type : 'POST',
-                url : 'sessions/' + titreEncodePourJavascript + '/votants',
+                url : 'sessions/' + encodeURIComponent(titreEncodePourJavascript) + '/votants',
                 success : function() {
                     recupererLesSessions();
                 }
@@ -41,7 +42,7 @@
                     'X-HTTP-Method-Override' : 'DELETE',
                 },
                 type : 'GET',
-                url : 'sessions/' + titreEncodePourJavascript + '/votants',
+                url : 'sessions/' + encodeURIComponent(titreEncodePourJavascript) + '/votants',
                 success : function() {
                     recupererLesSessions();
                 }
@@ -55,7 +56,7 @@
                         'X-HTTP-Method-Override' : 'DELETE',
                     },
                     type : 'GET',
-                    url : 'sessions/' + titreEncodePourJavascript,
+                    url : 'sessions/' + encodeURIComponent(titreEncodePourJavascript),
                     success : function() {
                         recupererLesSessions();
                     }
@@ -77,7 +78,7 @@
             $('#sauvegarderSession').bind('click', function() {
                 $.ajax({
                     type : 'POST',
-                    url : 'sessions/' + titreEncodePourJavascript,
+                    url : 'sessions/' + encodeURIComponent(titreEncodePourJavascript),
                     data : $('#formulaireDeCreationEtDeMiseAJourDUneSession').serializeArray(),
                     success : function() {
                         $('#modalDeCreationEtDeMiseAJourDUneSession').modal('hide');
