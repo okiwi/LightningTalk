@@ -85,7 +85,7 @@
 						<li>Vous <strong>choisissez un sujet qui vous passionne</strong>, même sans rapport direct avec l'agilité.</li>
 						<li>Choisissez un titre, une desciption<span id="explicationsConnectionEtProposer"></span></li>
 						<li>Vous <strong>votez pour les sessions qui vous intéressent.</strong>  </li>
-						<li>Seules les meilleures seront retenues : 60 / 5 = 12 sessions maximum</li>
+						<li>Seules les meilleures seront retenues : 7 sessions maximum</li>
 						<li>Le 12 Octobre à l'heure du dèj', nous annoncerons <strong>les meilleures propositions,</strong> la pression va monter ....</li>
 						<li>Vous êtes retenu ? Ce seront 5 minutes de gloire ou 5 minutes difficiles, mais ce qui est sûr, c'est que <strong>vous ferez partie 
 						des rares élus</strong> à avoir parlé à l'Agile Tour Bordeaux 2012 !</li>
