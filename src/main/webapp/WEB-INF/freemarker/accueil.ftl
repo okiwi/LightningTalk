@@ -103,12 +103,15 @@
 
 	<div id="footer" class="container">
 		<div class="span4">
-			<a class="reservez" href="http://www.yuticket.com/association-okiwi/ca5f3eb4-6f52-4d8e-818b-ef8847dafb3a-agile-tour-bordeaux-2012.html"><b>Réservez votre place >></b></a>
+			<a href="mailto:contact@okiwi.org"><b>Evènement complet</b></a>
 		</div>
-		<div class="span8 noLeftMargin">
+		<div class="span7 noLeftMargin">
 			<p>
 				L'Agile Tour Bordeaux est un évènement propulsé par <a href="http://okiwi.org">Okiwi</a><img src="http://agiletourbordeaux.okiwi.org/static/img/favicon.png" class="okiwi" />
 			</p>
+		</div>
+		<div class="span1">
+			<a href="https://twitter.com/i/#!/search/?q=%23atbdx">#atbdx</a>
 		</div>
 	</div>
 
